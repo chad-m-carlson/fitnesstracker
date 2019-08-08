@@ -10,10 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_30_213653) do
+ActiveRecord::Schema.define(version: 201907310003607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "exercises", force: :cascade do |t|
+    t.string "name"
+    t.boolean "core", default: false
+    t.boolean "legs", default: false
+    t.boolean "chest", default: false
+    t.boolean "back", default: false
+    t.boolean "arms", default: false
+    t.boolean "shoulders", default: false
+    t.boolean "cardio", default: false
+    t.boolean "superset", default: false
+    t.boolean "is_active", default: true
+    t.text "description"
+    t.string "video_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reps", force: :cascade do |t|
+    t.string "amount"
+    t.string "pace"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -34,10 +58,28 @@ ActiveRecord::Schema.define(version: 2019_07_30_213653) do
     t.json "tokens"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.integer "sign_in_count", default: 0, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "work_outs", force: :cascade do |t|
+    t.string "date"
+    t.integer "workout_id"
+    t.bigint "exercise_id"
+    t.bigint "rep_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_id"], name: "index_work_outs_on_exercise_id"
+    t.index ["rep_id"], name: "index_work_outs_on_rep_id"
+  end
+
+  add_foreign_key "work_outs", "exercises"
+  add_foreign_key "work_outs", "reps"
 end

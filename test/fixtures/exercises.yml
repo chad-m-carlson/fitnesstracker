@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  core: false
+  legs: false
+  chest: false
+  back: false
+  arms: false
+  shoulders: false
+  cardio: false
+  superset: false
+  description: MyText
+  video_url: MyString
+
+two:
+  name: MyString
+  core: false
+  legs: false
+  chest: false
+  back: false
+  arms: false
+  shoulders: false
+  cardio: false
+  superset: false
+  description: MyText
+  video_url: MyString
