@@ -4,7 +4,22 @@ import {Menu, Header} from 'semantic-ui-react';
 import {Link, withRouter, } from 'react-router-dom';
 
 const NavBar = (props) => {
-  const {handleLogout} = useContext(AuthContext);
+  const {handleLogout, admin} = useContext(AuthContext);
+
+  const adminControls = () => {
+    if (admin === true) {
+      return (
+        <Menu.Item>
+            <br />
+            <Link
+              to='/admin'
+              align='center'>
+              Admin
+            </Link>
+        </Menu.Item>
+      )
+    }
+  }
 
   return (  
     <Menu>
@@ -32,6 +47,7 @@ const NavBar = (props) => {
             Register
           </Link>
         </Menu.Item>
+        {adminControls()}
         <Menu.Item>
           <br />
           <Link

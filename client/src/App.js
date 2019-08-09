@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import Login from './components/Login';
 import Register from './components/Register';
 import FetchUser from './components/FetchUser';
+import AdminTools from './components/AdminTools';
 import ProtectedRoute from './components/ProtectedRoute';
 import {Switch, Route, } from 'react-router-dom';
 import {Container, } from 'semantic-ui-react';
@@ -16,6 +17,7 @@ const App = () => (
       <Container>
         <Switch>
           <ProtectedRoute exact path='/' component={Home} />
+          <ProtectedRoute exact path='/admin' component={AdminTools} />
           <Route exact path='/register' component={Register} />
           <Route exact path='/login' component={Login} />
           <Route component={NoMatch} />
