@@ -6,7 +6,7 @@ class Exercise < ApplicationRecord
   
   def self.exercise_by_category(category)
     Exercise.find_by_sql(["
-      SELECT id, name, description, video_url
+      SELECT id, name, description, video_url, is_active, core, legs, chest, back, arms, shoulders, cardio, superset
       FROM exercises
       WHERE #{category} = true
     "])

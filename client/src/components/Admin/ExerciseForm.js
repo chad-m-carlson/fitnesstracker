@@ -1,9 +1,9 @@
-import React, {useState, } from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button, Form, Segment, Header, } from 'semantic-ui-react';
 import {withRouter, } from 'react-router-dom';
 import axios from 'axios';
 
-const ExerciseForm = (props) => {
+const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm}) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [video_url, setVideo_url] = useState('');
@@ -15,22 +15,48 @@ const ExerciseForm = (props) => {
   const [shoulders, setShoulders] = useState(false);
   const [cardio, setCardio] = useState(false);
   const [superset, setSuperset] = useState(false);
+  const [editing, setEditing] = useState(false);
+
+
+  useEffect( () => {
+    if (exercise) {
+      setEditing(true)
+      setName(exercise.name)
+      setDescription(exercise.description)
+      setVideo_url(exercise.video_url)
+      setCore(exercise.core)
+      setLegs(exercise.legs)
+      setChest(exercise.chest)
+      setBack(exercise.back)
+      setArms(exercise.arms)
+      setShoulders(exercise.shoulders)
+      setCardio(exercise.cardio)
+      setSuperset(exercise.superset)
+    }
+  },[]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const exercise = {name, description, video_url, core, legs, chest, back, arms, shoulders,cardio, superset};
-    axios.post(`/exercises`, exercise)
+    const exerciseToSave = {name, description, video_url, core, legs, chest, back, arms, shoulders,cardio, superset};
+    if (!editing){
+    axios.post(`/exercises`, exerciseToSave)
       .then(res => {
-        props.setShowExerciseForm(!props.showExerciseForm)
+        setShowExerciseForm(!showExerciseForm)
         if (res.data === ''){
           alert('Something Went Wrong')
         }else alert('Exercise Successfully Saved')})
       .catch(res => console.log(res));
+    } else {
+
+      axios.put(`/exercises/${exercise.id}`, exerciseToSave)
+        .then(res => {
+          setShowExerciseForm(!showExerciseForm)})
+    }
   };
 
   return ( 
     <Segment basic>
-      <Header as='h1' textAlign='center'>Add Exercise</Header>
+      <Header as='h1' textAlign='center'>{editing ? `Edit ${exercise.name}` : 'Add Exercise' }</Header>
       <Form onSubmit={handleSubmit}>
           <Form.Input 
             fluid
@@ -61,18 +87,21 @@ const ExerciseForm = (props) => {
           />
         <Form.Group fluid>
           <Form.Checkbox
+            defaultChecked={exercise ? exercise.core : ''}
             style={{paddingRight: '2.1em'}} 
             label='Core'
             value={core}
             onChange={(e) => setCore(!core)}
           />
           <Form.Checkbox
+            defaultChecked={exercise ? exercise.legs : ''}
             style={{paddingRight: '2.1em'}} 
             label='Legs'
             value={legs}
             onChange={(e) => setLegs(!legs)}
           />
           <Form.Checkbox
+            defaultChecked={exercise ? exercise.chest : ''}
             style={{paddingRight: '2.1em'}} 
             label='Chest'
             value={chest}
@@ -81,18 +110,21 @@ const ExerciseForm = (props) => {
         </Form.Group>
         <Form.Group fluid>
           <Form.Checkbox
+            defaultChecked={exercise ? exercise.back : ''}
             style={{paddingRight: '2.1em'}}  
             label='Back'
             value={back}
             onChange={(e) => setBack(!back)}
           />
           <Form.Checkbox
+            defaultChecked={exercise ? exercise.arms : ''}
             style={{paddingRight: '2.1em'}}  
-            label='arms'
+            label='Arms'
             value={arms}
             onChange={(e) => setArms(!arms)}
           />
           <Form.Checkbox
+            defaultChecked={exercise ? exercise.shoulders : ''}
             style={{paddingRight: '2.1em'}}  
             label='Shoulders'
             value={shoulders}
@@ -101,12 +133,14 @@ const ExerciseForm = (props) => {
         </Form.Group>
         <Form.Group fluid>
           <Form.Checkbox
+            defaultChecked={exercise ? exercise.cardio : ''}
             style={{paddingRight: '2.1em'}}  
             label='Cardio'
             value={cardio}
             onChange={(e) => setCardio(!cardio)}
           />
           <Form.Checkbox
+            defaultChecked={exercise ? exercise.superset : ''}
             style={{paddingRight: '2.1em'}}  
             label='Superset'
             value={superset}
@@ -114,7 +148,7 @@ const ExerciseForm = (props) => {
           />
         </Form.Group>
         <br />
-        <Button>Submit</Button>
+        <Button>{editing ? 'Save Changes' : 'Submit'}</Button>
       </Form>
 
     </Segment>
