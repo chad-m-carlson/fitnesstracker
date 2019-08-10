@@ -20,7 +20,7 @@ const ExerciseForm = (props) => {
     const exercise = {name, description, video_url, core, legs, chest, back, arms, shoulders,cardio, superset};
     axios.post(`/exercises`, exercise)
       .then(res => {
-        debugger
+        props.setShowExerciseForm(!props.showExerciseForm)
         if (res.data === ''){
           alert('Something Went Wrong')
         }else alert('Exercise Successfully Saved')})

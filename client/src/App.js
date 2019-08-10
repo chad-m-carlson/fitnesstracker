@@ -5,7 +5,7 @@ import NavBar from './components/NavBar';
 import Login from './components/Login';
 import Register from './components/Register';
 import FetchUser from './components/FetchUser';
-import AdminTools from './components/AdminTools';
+import AdminTools from './components/Admin/AdminTools';
 import ProtectedRoute from './components/ProtectedRoute';
 import {Switch, Route, } from 'react-router-dom';
 import {Container, } from 'semantic-ui-react';
