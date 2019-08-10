@@ -6,6 +6,7 @@ class ExercisesController < ApplicationController
   end
 
   def show
+    render json: Exercise.exercise_by_category(params[:id])
   end
 
   def new

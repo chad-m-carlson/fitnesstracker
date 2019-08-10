@@ -1,10 +1,13 @@
 import React, {useState, } from 'react';
 import ExerciseForm from './ExerciseForm';
 import ExerciseIndex from './ExerciseIndex';
+import ExerciseByCategory from './ExerciseByCategory';
+import {withRouter} from 'react-router-dom';
 
 const AdminTools = (props) => {
-  const [showExerciseForm, setShowExerciseForm] = useState(false);
   const [showExerciseIndex, setShowExerciseIndex] = useState(false);
+  const [showExerciseCategories, setShowExerciseCategories] = useState(false);
+  const [showExerciseForm, setShowExerciseForm] = useState(false);
   
   return ( 
     <>
@@ -15,6 +18,13 @@ const AdminTools = (props) => {
         >Show All Exercises</h3>
       {showExerciseIndex &&
         <ExerciseIndex />
+      }
+      <h3
+        onClick={() => setShowExerciseCategories(!showExerciseCategories)}
+        style={{cursor: 'pointer'}}
+      >Exercises By Category</h3>
+      {showExerciseCategories &&
+        <ExerciseByCategory />  
       }
       <h3 
         onClick={() => setShowExerciseForm(!showExerciseForm)}
