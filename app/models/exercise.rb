@@ -9,6 +9,7 @@ class Exercise < ApplicationRecord
       SELECT id, name, description, video_url, is_active, core, legs, chest, back, arms, shoulders, cardio, superset
       FROM exercises
       WHERE #{category} = true
+      AND is_active = true
     "])
   end
 end

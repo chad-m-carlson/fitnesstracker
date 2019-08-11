@@ -1,5 +1,7 @@
 class RepsController < ApplicationController
+  
   def index
+    render json: Rep.all
   end
 
   def show
