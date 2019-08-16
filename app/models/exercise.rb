@@ -2,7 +2,6 @@ class Exercise < ApplicationRecord
   validates :name, presence: true
 
   has_many :work_outs
-  has_many :reps, through: :work_outs
   
   def self.exercise_by_category(category)
     Exercise.find_by_sql(["

@@ -32,8 +32,13 @@ ActiveRecord::Schema.define(version: 201907310003607) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "reps", force: :cascade do |t|
+  create_table "rep_amounts", force: :cascade do |t|
     t.string "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rep_paces", force: :cascade do |t|
     t.string "pace"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -74,13 +79,12 @@ ActiveRecord::Schema.define(version: 201907310003607) do
     t.string "date"
     t.integer "workout_id"
     t.bigint "exercise_id"
-    t.bigint "rep_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "rep_pace"
+    t.string "rep_amount"
     t.index ["exercise_id"], name: "index_work_outs_on_exercise_id"
-    t.index ["rep_id"], name: "index_work_outs_on_rep_id"
   end
 
   add_foreign_key "work_outs", "exercises"
-  add_foreign_key "work_outs", "reps"
 end

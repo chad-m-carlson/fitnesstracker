@@ -6,6 +6,7 @@ class NewWorkOutForm extends React.Component {
     repAmount: '',
     repPace: '',
     showReps: false,
+    defaultChecked: false,
    }
 
   handleRepAmountChange = (e, {value}) => {
@@ -18,17 +19,25 @@ class NewWorkOutForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const completeExercise = {exerciseName: this.props.exercise.name, repAmount: this.state.repAmount, repPace: this.state.repPace}
-    this.props.getRepsFromForm(completeExercise)
+    const completeExercise = {exerciseId: this.props.exercise.id, exerciseName: this.props.exercise.name, repAmount: this.state.repAmount, repPace: this.state.repPace}
+    this.props.getExerciseFromForm(completeExercise)
     this.setState({showReps: false});
   };
+
+  componentDidMount = () => {
+    this.props.workout.map( w => {
+      if (this.props.exercise.id === w.exerciseId) {
+        this.setState({showReps: true, defaultChecked: true, repAmount: w.repAmount, repPace: w.repPace})
+      }
+    })
+  }
 
 
   generateRepsDropdown = () => {
     const repAmount = [];
     const repPace = [];
-    this.props.reps.map( r => repAmount.push({text: r.amount, value: r.amount}));
-    this.props.reps.map( r => repPace.push({text: r.pace, value: r.pace}));
+    this.props.reps.amount.map( r => repAmount.push({text: r.amount, value: r.amount}));
+    this.props.reps.pace.map( r => repPace.push({text: r.pace, value: r.pace}));
 
     return(
       <>
@@ -37,7 +46,7 @@ class NewWorkOutForm extends React.Component {
           options={repAmount}
           label={{ children: 'Rep Amount'}}
           placeholder='Rep Amount'
-          value={repAmount.value}
+          value={this.props.workout ? this.state.repAmount : repAmount.value}
           onChange={this.handleRepAmountChange}
         />
         <Form.Field
@@ -45,7 +54,7 @@ class NewWorkOutForm extends React.Component {
           options={repPace}
           label={{ children: 'Rep Pace'}}
           placeholder='Rep Pace'
-          value={repPace.value}
+          value={this.props.workout ? this.state.repPace : repPace.value}
           onChange={this.handleRepPaceChange}
         />
     </>
@@ -56,27 +65,19 @@ class NewWorkOutForm extends React.Component {
     return ( 
       <>
         <Form onSubmit={this.handleSubmit}>
+          <li onClick={() => this.setState({showReps: !this.state.showReps,})}>
+            {this.props.exercise.name}
+              </li>
+                {this.state.showReps && 
                 <>
-                <li>{this.props.exercise.name}
-                    <span>
-                      <Form.Checkbox
-                        onChange={() => this.setState({showReps: !this.state.showReps})}
-                        value={this.state.showReps}
-                      />
-                      CHECKBOX DOESN'T DEFAULT CORRECTLY
-                    </span>
-                      {this.state.showReps && 
-                      <>
-                    <span>
-                        {this.generateRepsDropdown()}
-                    </span>
-                    <Button size='tiny'>Add To Workout</Button>
-                    </>
-                        }
-                </li>
-                <br />
-                </>
-          </Form>
+              <div>
+                  {this.generateRepsDropdown()}
+              </div>
+              <Button size='tiny'>Add To Workout</Button>
+              </>
+                  }
+          <br />
+        </Form>
         </>
      );
   }

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RepTest < ActiveSupport::TestCase
+class RepAmountTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

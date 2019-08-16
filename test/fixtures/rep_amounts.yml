@@ -2,8 +2,6 @@
 
 one:
   amount: MyString
-  pace: MyString
 
 two:
   amount: MyString
-  pace: MyString
