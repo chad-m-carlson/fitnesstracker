@@ -10,7 +10,7 @@ class WorkOutsController < ApplicationController
   end
 
   def create
-    
+    render json: WorkOut.create_work_out(params[:_json])
   end
 
   def edit
