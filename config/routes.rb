@@ -6,4 +6,6 @@ Rails.application.routes.draw do
     resources :rep_amounts, only: [:index, :create, :update]
     resources :rep_paces, only: [:index, :create, :update]
     resources :work_outs
+
+    get '*other', to: 'static#index'
 end

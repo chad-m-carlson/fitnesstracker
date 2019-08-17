@@ -9,8 +9,7 @@ const ExerciseIndex = (props) => {
   useEffect( () => {
     axios.get(`/exercises`)
       .then(res => {
-        setExercises(res.data)
-        console.log(res.data)})
+        setExercises(res.data)})
       .catch(res => console.log(res))
   }, [])
 
