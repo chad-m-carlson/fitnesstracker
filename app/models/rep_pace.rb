@@ -1,0 +1,2 @@
+class RepPace < ApplicationRecord
+end

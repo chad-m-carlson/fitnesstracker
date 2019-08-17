@@ -1,6 +1,6 @@
 import React, {useContext, } from 'react';
 import {AuthContext, } from '../providers/AuthProvider';
-import {Menu, Header} from 'semantic-ui-react';
+import {Menu,} from 'semantic-ui-react';
 import {Link, withRouter, } from 'react-router-dom';
 
 const NavBar = (props) => {

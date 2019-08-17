@@ -2,7 +2,7 @@ import React, {useState, } from 'react';
 import ExerciseForm from './ExerciseForm';
 import ExerciseIndex from './ExerciseIndex';
 import ExerciseByCategory from './ExerciseByCategory';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 
 const AdminTools = (props) => {
   const [showExerciseIndex, setShowExerciseIndex] = useState(false);
@@ -12,6 +12,9 @@ const AdminTools = (props) => {
   return ( 
     <>
       <h1>Admin Tools</h1>
+      <h3>
+        <Link to='newworkout'>Create New Workout</Link>
+      </h3>
       <h3 
         onClick={() => setShowExerciseIndex(!showExerciseIndex)}
         style={{cursor: 'pointer'}}

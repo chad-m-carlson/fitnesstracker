@@ -1,6 +1,6 @@
 import React, {useState, } from 'react';
 import axios from 'axios';
-import Exercises from './Exercises';
+import Exercise from './Exercise';
 
 
 const ExerciseByCategory = (props) => {
@@ -52,11 +52,17 @@ const ExerciseByCategory = (props) => {
           style={{cursor: 'pointer'}}  
         >Super Sets</li>
       </ul>
+      <ul>
       {showExercises &&
-        <Exercises
-          exercises={exercises}
-        />
+        exercises.map( e => 
+          <li key={e.id}>
+            <Exercise
+              exercise={e}
+            />
+          </li>
+        )
       }
+      </ul>
     </>
    );
 }
