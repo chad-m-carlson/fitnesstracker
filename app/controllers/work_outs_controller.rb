@@ -3,7 +3,7 @@ class WorkOutsController < ApplicationController
   end
 
   def show
-    render json: WorkOut.find_work_out
+    render json: WorkOut.find_work_out(params[:id])
   end
 
   def new

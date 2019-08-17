@@ -30,9 +30,9 @@ class NewWorkout extends React.Component {
 
 
   componentDidMount() {
-    axios.all([this.getRepAmounts(), this.getRepPaces()])
-    .then(axios.spread( (amounts, paces) => {
-      this.setState({reps: {amount: [...amounts.data], pace: [...paces.data]}})
+    axios.all([this.getRepAmounts(), this.getRepPaces(), this.getWorkout()])
+    .then(axios.spread( (amounts, paces, workout) => {
+      this.setState({reps: {amount: [...amounts.data], pace: [...paces.data]}, workout: [...workout.data]})
     }))
     .catch( res => console.log(res));
   };
@@ -45,6 +45,15 @@ class NewWorkout extends React.Component {
     return axios.get(`/rep_paces`)
   };
 
+  getWorkout = () => {
+    debugger
+    let month = this.state.date.getUTCMonth() + 1;
+    let day = this.state.date.getUTCDate();
+    let year = this.state.date.getUTCFullYear();
+    let simpleDate = `${month}${day}${year}`
+    return axios.get(`/work_outs/${simpleDate}`)
+  }
+
   handleCategoryChange = (e, {value}) => {
     axios.get(`/exercises/${value}`)
       .then( res => {
@@ -54,6 +63,8 @@ class NewWorkout extends React.Component {
 
   handleDateChange = (date) => {
     this.setState({date})
+    axios.all([this.getWorkout()])
+      .then(axios.spread( (workout) => this.setState({workout: [...workout.data]})))
   }
 
   getExerciseFromForm = (completeExercise) => {
@@ -64,6 +75,7 @@ class NewWorkout extends React.Component {
     const {workout} = this.state
     console.log(workout)
     axios.post(`/work_outs`, workout)
+      .then( res => this.setState({workout: []}))
   };
 
   render() { 
@@ -102,10 +114,10 @@ class NewWorkout extends React.Component {
           <ol>
             {this.state.workout.map( w =>
               <>
-              <li key={w.exerciseId}>{w.exerciseName}</li>
+              <li key={w.exerciseId}>{w.name}</li>
               <ul>
-                <li>Reps: {w.repAmount}</li>
-                <li>Pace: {w.repPace}</li>
+                <li>Reps: {w.rep_amount}</li>
+                <li>Pace: {w.rep_pace}</li>
               </ul>
               </>
             )}

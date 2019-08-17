@@ -22,8 +22,8 @@ class NewWorkOutForm extends React.Component {
     let month = this.props.date.getUTCMonth() + 1;
     let day = this.props.date.getUTCDate();
     let year = this.props.date.getUTCFullYear();
-    let simpleDate = `${month}/${day}/${year}`
-    const completeExercise = {exerciseId: this.props.exercise.id, date: simpleDate, exerciseName: this.props.exercise.name, repAmount: this.state.repAmount, repPace: this.state.repPace}
+    let simpleDate = `${month}${day}${year}`
+    const completeExercise = {exerciseId: this.props.exercise.id, date: simpleDate, name: this.props.exercise.name, rep_amount: this.state.repAmount, rep_pace: this.state.repPace}
     this.props.getExerciseFromForm(completeExercise)
     this.setState({showReps: false});
   };
