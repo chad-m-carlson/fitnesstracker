@@ -33,8 +33,8 @@ const Home  = () => {
             {workout.map( wo => 
               <Table.Row key={wo.id}>
                   <Table.Cell>{wo.name}</Table.Cell>
-                  <Table.Cell>{wo.pace}</Table.Cell>
-                  <Table.Cell>{wo.amount}</Table.Cell>
+                  <Table.Cell>{wo.rep_amount}</Table.Cell>
+                  <Table.Cell>{wo.rep_pace}</Table.Cell>
               </Table.Row>
             )}
         </Table.Body>

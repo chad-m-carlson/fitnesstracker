@@ -60,6 +60,12 @@ class NewWorkout extends React.Component {
     this.setState({workout: [...this.state.workout, completeExercise]});
   };
 
+  saveWorkout = () => {
+    const {workout} = this.state
+    console.log(workout)
+    axios.post(`/work_outs`, workout)
+  };
+
   render() { 
     return ( 
       <>
@@ -82,6 +88,7 @@ class NewWorkout extends React.Component {
         {this.state.exercises.map( e => 
           <ul key={e.id}>
             <NewWorkoutForm
+              date={this.state.date}
               workout={this.state.workout}
               reps={this.state.reps}
               exercise={e}
@@ -92,9 +99,22 @@ class NewWorkout extends React.Component {
         <br />
         <div>
           <h3>Pending Workout</h3>
-          {this.state.workout.map( w =>
-            <h6 key={w.exerciseId}>{w.exerciseName}</h6>
+          <ol>
+            {this.state.workout.map( w =>
+              <>
+              <li key={w.exerciseId}>{w.exerciseName}</li>
+              <ul>
+                <li>Reps: {w.repAmount}</li>
+                <li>Pace: {w.repPace}</li>
+              </ul>
+              </>
             )}
+          </ol>
+          {this.state.workout.length > 0 &&
+          <button onClick={this.saveWorkout}>
+            Save Workout
+          </button>
+          }
         </div>
       </>
      );

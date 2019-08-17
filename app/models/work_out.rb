@@ -7,8 +7,23 @@ class WorkOut < ApplicationRecord
       FROM work_outs AS wo
       LEFT JOIN exercises AS e
       ON e.id = wo.exercise_id
-      WHERE wo.workout_id = 100
+      WHERE wo.date = '8/17/2019'
     "])
+  end
+
+  def self.create_work_out(workout)
+    workout.each do |w|
+      WorkOut.find_by_sql(["
+      INSERT INTO work_outs (date, exercise_id, rep_pace, rep_amount, created_at, updated_at)
+      VALUES (:date, :exercise_id, :rep_pace, :rep_amount, :created_at, :updated_at)",
+        {date: w[:date],
+        exercise_id: w[:exerciseId],
+        rep_pace: w[:repPace],
+        rep_amount: w[:repAmount],
+        created_at: DateTime.now,
+        updated_at: DateTime.now
+      }])
+    end
   end
 
 end

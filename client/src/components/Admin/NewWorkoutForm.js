@@ -19,7 +19,11 @@ class NewWorkOutForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const completeExercise = {exerciseId: this.props.exercise.id, exerciseName: this.props.exercise.name, repAmount: this.state.repAmount, repPace: this.state.repPace}
+    let month = this.props.date.getUTCMonth() + 1;
+    let day = this.props.date.getUTCDate();
+    let year = this.props.date.getUTCFullYear();
+    let simpleDate = `${month}/${day}/${year}`
+    const completeExercise = {exerciseId: this.props.exercise.id, date: simpleDate, exerciseName: this.props.exercise.name, repAmount: this.state.repAmount, repPace: this.state.repPace}
     this.props.getExerciseFromForm(completeExercise)
     this.setState({showReps: false});
   };
