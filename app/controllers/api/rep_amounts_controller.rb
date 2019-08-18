@@ -1,4 +1,4 @@
-class RepAmountsController < ApplicationController
+class Api::RepAmountsController < ApplicationController
   def index
     render json: RepAmount.all
   end

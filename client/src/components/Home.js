@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect} from 'react';
 import axios from 'axios';
 import Datepicker from 'react-datepicker';
 import {AuthContext} from '../providers/AuthProvider';
-import {Table, } from 'semantic-ui-react';
+import PendingWorkout from './PendingWorkout';
 import "react-datepicker/dist/react-datepicker.css";
 
 const Home  = () => {
@@ -15,7 +15,7 @@ const Home  = () => {
     let day = date.getUTCDate();
     let year = date.getUTCFullYear();
     let simpleDate = `${month}${day}${year}`
-    axios.get(`/work_outs/${simpleDate}`)
+    axios.get(`/api/work_outs/${simpleDate}`)
       .then( res => {
         setWorkout([...res.data])
       })
@@ -38,26 +38,9 @@ const Home  = () => {
         selected={date}
         onChange={handleDateChange}
       />
-      MAKE THIS TABLE A NEW COMPONENT FOR HERE, AND FOR DISPLAYING ADMIN PENDING WORKOUT
-      <Table celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Exercise</Table.HeaderCell>
-            <Table.HeaderCell>Reps</Table.HeaderCell>
-            <Table.HeaderCell>Pace</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-            {workout.map( wo => 
-              <Table.Row key={wo.id}>
-                  <Table.Cell>{wo.name}</Table.Cell>
-                  <Table.Cell>{wo.rep_amount}</Table.Cell>
-                  <Table.Cell>{wo.rep_pace}</Table.Cell>
-              </Table.Row>
-            )}
-        </Table.Body>
-      </Table>
+      <PendingWorkout 
+        workout={workout}
+      />
     </>
    );
 }

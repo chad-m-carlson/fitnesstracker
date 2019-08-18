@@ -39,7 +39,7 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm}) => {
     e.preventDefault();
     const exerciseToSave = {name, description, video_url, core, legs, chest, back, arms, shoulders,cardio, superset};
     if (!editing){
-    axios.post(`/exercises`, exerciseToSave)
+    axios.post(`/api/exercises`, exerciseToSave)
       .then(res => {
         setShowExerciseForm(!showExerciseForm)
         if (res.data === ''){
@@ -48,7 +48,7 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm}) => {
       .catch(res => console.log(res));
     } else {
 
-      axios.put(`/exercises/${exercise.id}`, exerciseToSave)
+      axios.post(`/api/exercises/${exercise.id}`, exerciseToSave)
         .then(res => {
           setShowExerciseForm(!showExerciseForm)})
     }

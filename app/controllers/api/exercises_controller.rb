@@ -1,4 +1,4 @@
-class ExercisesController < ApplicationController
+class Api::ExercisesController < ApplicationController
   before_action :set_exercise, only:[:update]
 
   def index

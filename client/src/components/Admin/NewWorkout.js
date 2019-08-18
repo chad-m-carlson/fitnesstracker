@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import NewWorkoutForm from './NewWorkoutForm';
 import Datepicker from 'react-datepicker';
+import PendingWorkout from '../PendingWorkout';
 import {Form, Select, Button } from 'semantic-ui-react';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -38,24 +39,23 @@ class NewWorkout extends React.Component {
   };
 
   getRepAmounts = () => {
-    return axios.get(`/rep_amounts`)
+    return axios.get(`/api/rep_amounts`)
   };
 
   getRepPaces = () => {
-    return axios.get(`/rep_paces`)
+    return axios.get(`/api/rep_paces`)
   };
 
   getWorkout = () => {
-    debugger
     let month = this.state.date.getUTCMonth() + 1;
     let day = this.state.date.getUTCDate();
     let year = this.state.date.getUTCFullYear();
     let simpleDate = `${month}${day}${year}`
-    return axios.get(`/work_outs/${simpleDate}`)
+    return axios.get(`/api/work_outs/${simpleDate}`)
   }
 
   handleCategoryChange = (e, {value}) => {
-    axios.get(`/exercises/${value}`)
+    axios.get(`/api/exercises/${value}`)
       .then( res => {
         this.setState({exercises: [...res.data]})
     })
@@ -74,7 +74,7 @@ class NewWorkout extends React.Component {
   saveWorkout = () => {
     const {workout} = this.state
     console.log(workout)
-    axios.post(`/work_outs`, workout)
+    axios.post(`/api/work_outs`, workout)
       .then( res => this.setState({workout: []}))
   };
 
@@ -109,25 +109,15 @@ class NewWorkout extends React.Component {
           </ul>
           )}
         <br />
-        <div>
-          <h3>Pending Workout</h3>
-          <ol>
-            {this.state.workout.map( w =>
-              <>
-              <li key={w.exerciseId}>{w.name}</li>
-              <ul>
-                <li>Reps: {w.rep_amount}</li>
-                <li>Pace: {w.rep_pace}</li>
-              </ul>
-              </>
-            )}
-          </ol>
-          {this.state.workout.length > 0 &&
-          <button onClick={this.saveWorkout}>
-            Save Workout
-          </button>
-          }
-        </div>
+        <h3>Pending Workout</h3>
+        <PendingWorkout
+          workout={this.state.workout}
+        />
+        {this.state.workout.length > 0 &&
+        <Button onClick={this.saveWorkout}>
+          Save Workout
+        </Button>
+        }
       </>
      );
   }

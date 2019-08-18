@@ -1,4 +1,4 @@
-class RepPacesController < ApplicationController
+class Api::RepPacesController < ApplicationController
   def index
     render json: RepPace.all
   end
