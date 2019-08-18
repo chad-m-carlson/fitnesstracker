@@ -1,25 +1,12 @@
-import React, {useContext, useState, useEffect} from 'react';
-import axios from 'axios';
+import React, {useContext, useState, } from 'react';
 import Datepicker from 'react-datepicker';
 import {AuthContext} from '../providers/AuthProvider';
 import PendingWorkout from './PendingWorkout';
 import "react-datepicker/dist/react-datepicker.css";
 
 const Home  = () => {
-  const [workout, setWorkout] = useState([]);
   const [date, setDate] = useState(new Date());
   const {authenticated, user} = useContext(AuthContext);
-
-  useEffect( () => {
-    let month = date.getUTCMonth() + 1;
-    let day = date.getUTCDate();
-    let year = date.getUTCFullYear();
-    let simpleDate = `${month}${day}${year}`
-    axios.get(`/api/work_outs/${simpleDate}`)
-      .then( res => {
-        setWorkout([...res.data])
-      })
-  }, [date])
 
   const handleDateChange = (date) => {
     setDate(date);
@@ -39,7 +26,7 @@ const Home  = () => {
         onChange={handleDateChange}
       />
       <PendingWorkout 
-        workout={workout}
+        date={date}
       />
     </>
    );

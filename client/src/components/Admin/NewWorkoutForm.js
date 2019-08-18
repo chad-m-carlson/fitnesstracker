@@ -1,12 +1,12 @@
 import React from 'react';
 import {Form, Select, Button, } from 'semantic-ui-react';
+import {getSimpleDate, } from '../../helpers/HelperFunctions'
 
 class NewWorkOutForm extends React.Component {
   state = {
     repAmount: '',
     repPace: '',
     showReps: false,
-    defaultChecked: false,
    }
 
   handleRepAmountChange = (e, {value}) => {
@@ -19,11 +19,7 @@ class NewWorkOutForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let month = this.props.date.getUTCMonth() + 1;
-    let day = this.props.date.getUTCDate();
-    let year = this.props.date.getUTCFullYear();
-    let simpleDate = `${month}${day}${year}`
-    const completeExercise = {exerciseId: this.props.exercise.id, date: simpleDate, name: this.props.exercise.name, rep_amount: this.state.repAmount, rep_pace: this.state.repPace}
+    const completeExercise = {exerciseId: this.props.exercise.id, date: getSimpleDate(this.props.date), name: this.props.exercise.name, rep_amount: this.state.repAmount, rep_pace: this.state.repPace}
     this.props.getExerciseFromForm(completeExercise)
     this.setState({showReps: false});
   };
@@ -31,7 +27,7 @@ class NewWorkOutForm extends React.Component {
   componentDidMount = () => {
     this.props.workout.map( w => {
       if (this.props.exercise.id === w.exerciseId) {
-        this.setState({showReps: true, defaultChecked: true, repAmount: w.repAmount, repPace: w.repPace})
+        this.setState({showReps: true, repAmount: w.repAmount, repPace: w.repPace})
       }
     })
   }

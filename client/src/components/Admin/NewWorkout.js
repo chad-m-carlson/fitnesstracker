@@ -31,9 +31,9 @@ class NewWorkout extends React.Component {
 
 
   componentDidMount() {
-    axios.all([this.getRepAmounts(), this.getRepPaces(), this.getWorkout()])
+    axios.all([this.getRepAmounts(), this.getRepPaces(),])
     .then(axios.spread( (amounts, paces, workout) => {
-      this.setState({reps: {amount: [...amounts.data], pace: [...paces.data]}, workout: [...workout.data]})
+      this.setState({reps: {amount: [...amounts.data], pace: [...paces.data]}, })
     }))
     .catch( res => console.log(res));
   };
@@ -46,13 +46,14 @@ class NewWorkout extends React.Component {
     return axios.get(`/api/rep_paces`)
   };
 
-  getWorkout = () => {
-    let month = this.state.date.getUTCMonth() + 1;
-    let day = this.state.date.getUTCDate();
-    let year = this.state.date.getUTCFullYear();
-    let simpleDate = `${month}${day}${year}`
-    return axios.get(`/api/work_outs/${simpleDate}`)
-  }
+
+  // getWorkout = () => {
+  //   let month = this.state.date.getUTCMonth() + 1;
+  //   let day = this.state.date.getUTCDate();
+  //   let year = this.state.date.getUTCFullYear();
+  //   let simpleDate = `${month}${day}${year}`
+  //   return axios.get(`/api/work_outs/${simpleDate}`)
+  // };
 
   handleCategoryChange = (e, {value}) => {
     axios.get(`/api/exercises/${value}`)
@@ -63,9 +64,7 @@ class NewWorkout extends React.Component {
 
   handleDateChange = (date) => {
     this.setState({date})
-    axios.all([this.getWorkout()])
-      .then(axios.spread( (workout) => this.setState({workout: [...workout.data]})))
-  }
+  };
 
   getExerciseFromForm = (completeExercise) => {
     this.setState({workout: [...this.state.workout, completeExercise]});
@@ -81,6 +80,7 @@ class NewWorkout extends React.Component {
   render() { 
     return ( 
       <>
+      FIGURE OUT HOW TO DEAL WITH EDITING EXISTING WORK OUT WITH PENDING WORKOUT COMPONENT OR ADDING A NEW WORK OUT OR JUST HAVING TO HAVE A SEPERATE COMPONENT TO DEAL WITH EXISTING WORKOUTS. EVERYTHING IS KIND OF A MESS RIGHT NOW, BUT PENDING WORKOUT DOES DISPLAY THE WORKOUT FROM THE DB FOR THE DAY SELECTED
       <h1>Create a new workout</h1>
         <Form>
         <Datepicker 
@@ -105,19 +105,21 @@ class NewWorkout extends React.Component {
               reps={this.state.reps}
               exercise={e}
               getExerciseFromForm={this.getExerciseFromForm}
-              />
+            />
           </ul>
           )}
         <br />
         <h3>Pending Workout</h3>
         <PendingWorkout
-          workout={this.state.workout}
+          date={this.state.date}
+          saveWorkout={this.saveWorkout}
+          getWorkoutFromPending={this.getWorkoutFromPending}
         />
-        {this.state.workout.length > 0 &&
+        {/* {this.state.workout.length > 0 &&
         <Button onClick={this.saveWorkout}>
           Save Workout
         </Button>
-        }
+        } */}
       </>
      );
   }

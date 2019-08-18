@@ -3,7 +3,7 @@ class WorkOut < ApplicationRecord
 
   def self.find_work_out(date)
     WorkOut.find_by_sql(["
-      SELECT e.name, wo.rep_pace, wo.rep_amount, e.id
+      SELECT e.name, wo.rep_pace, wo.rep_amount, e.id, wo.date
       FROM work_outs AS wo
       LEFT JOIN exercises AS e
       ON e.id = wo.exercise_id
