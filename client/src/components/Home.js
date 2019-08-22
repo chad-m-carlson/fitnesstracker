@@ -1,7 +1,7 @@
 import React, {useContext, useState, } from 'react';
 import Datepicker from 'react-datepicker';
 import {AuthContext} from '../providers/AuthProvider';
-import PendingWorkout from './PendingWorkout';
+import TodaysWorkout from './TodaysWorkout';
 import "react-datepicker/dist/react-datepicker.css";
 
 const Home  = () => {
@@ -25,7 +25,7 @@ const Home  = () => {
         selected={date}
         onChange={handleDateChange}
       />
-      <PendingWorkout 
+      <TodaysWorkout 
         date={date}
       />
     </>

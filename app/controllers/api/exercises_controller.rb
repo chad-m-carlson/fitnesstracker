@@ -6,6 +6,12 @@ class Api::ExercisesController < ApplicationController
   end
 
   def show
+    # show by workout id
+    workout = WorkOut.where(date: params[:work_out_id])
+    render json: workout.where(exercise_id: params[:id])
+  end
+  
+  def exercises_by_category
     render json: Exercise.exercise_by_category(params[:id])
   end
 

@@ -2,8 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import NewWorkoutForm from './NewWorkoutForm';
 import Datepicker from 'react-datepicker';
-import PendingWorkout from '../PendingWorkout';
+import PendingWorkout from './PendingWorkout';
 import {Form, Select, Button } from 'semantic-ui-react';
+import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import "react-datepicker/dist/react-datepicker.css";
 
 const categoryOptions = [
@@ -37,7 +38,7 @@ class NewWorkout extends React.Component {
     }))
     .catch( res => console.log(res));
   };
-
+  
   getRepAmounts = () => {
     return axios.get(`/api/rep_amounts`)
   };
@@ -46,27 +47,26 @@ class NewWorkout extends React.Component {
     return axios.get(`/api/rep_paces`)
   };
 
-
+  
   // getWorkout = () => {
-  //   let month = this.state.date.getUTCMonth() + 1;
-  //   let day = this.state.date.getUTCDate();
-  //   let year = this.state.date.getUTCFullYear();
-  //   let simpleDate = `${month}${day}${year}`
-  //   return axios.get(`/api/work_outs/${simpleDate}`)
+  //   return axios.get(`/api/work_outs/${getSimpleDate(this.state.date)}`)
   // };
-
+  
   handleCategoryChange = (e, {value}) => {
-    axios.get(`/api/exercises/${value}`)
+    axios.get(`/api/exercises_by_category/${value}`)
       .then( res => {
         this.setState({exercises: [...res.data]})
     })
   };
-
+  
   handleDateChange = (date) => {
     this.setState({date})
   };
 
   getExerciseFromForm = (completeExercise) => {
+    // THIS DETERMINES IF THE EXERCISE EXISTS IN THE WORKOUT ALREADY
+    if(this.state.workout.map( w => w.id.includes(completeExercise.id))) console.log(true)
+    // NOW JUST NEED TO FIGURE OUT HOW TO DEAL WITH THAT
     this.setState({workout: [...this.state.workout, completeExercise]});
   };
 
@@ -80,7 +80,7 @@ class NewWorkout extends React.Component {
   render() { 
     return ( 
       <>
-      FIGURE OUT HOW TO DEAL WITH EDITING EXISTING WORK OUT WITH PENDING WORKOUT COMPONENT OR ADDING A NEW WORK OUT OR JUST HAVING TO HAVE A SEPERATE COMPONENT TO DEAL WITH EXISTING WORKOUTS. EVERYTHING IS KIND OF A MESS RIGHT NOW, BUT PENDING WORKOUT DOES DISPLAY THE WORKOUT FROM THE DB FOR THE DAY SELECTED
+      PENDING WORKOUT AND TODAYS WORKOUT ARE NOW SEPERATE COMPONENTS. THE NEWWORKOUTFORM AUTO POPULATES IF THE EXERCISE IS ALREADY IN THE PENDING WORKOUT. CAN ADD NEW EXERCISES TO PENDING WORKOUT, NOT SAVING TO START, AND WILL ALLOW DUPLICATES.
       <h1>Create a new workout</h1>
         <Form>
         <Datepicker 
@@ -97,29 +97,26 @@ class NewWorkout extends React.Component {
             onChange={this.handleCategoryChange}
           />
         </Form>
-        {this.state.exercises.map( e => 
-          <ul key={e.id}>
+        <ul>
+          {this.state.exercises.map( e => 
             <NewWorkoutForm
+              key={e.id}
               date={this.state.date}
-              workout={this.state.workout}
+              // workout={this.state.workout}
               reps={this.state.reps}
               exercise={e}
               getExerciseFromForm={this.getExerciseFromForm}
             />
-          </ul>
-          )}
+            )}
+        </ul>
         <br />
         <h3>Pending Workout</h3>
-        <PendingWorkout
+          <PendingWorkout
           date={this.state.date}
+          updatedWorkout={this.state.workout}
           saveWorkout={this.saveWorkout}
-          getWorkoutFromPending={this.getWorkoutFromPending}
-        />
-        {/* {this.state.workout.length > 0 &&
-        <Button onClick={this.saveWorkout}>
-          Save Workout
-        </Button>
-        } */}
+          // getWorkoutFromPending={this.getWorkoutFromPending}
+          />
       </>
      );
   }

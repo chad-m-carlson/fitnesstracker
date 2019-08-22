@@ -9,7 +9,7 @@ const ExerciseByCategory = (props) => {
 
   const setCategory = (category) => {
     setShowExercises(false)
-    axios.get(`/api/exercises/${category}`)
+    axios.get(`/api/exercises_by_category/${category}`)
       .then( res => {
         setExercises(res.data)
         setShowExercises(true)

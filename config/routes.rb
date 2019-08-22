@@ -5,7 +5,10 @@ Rails.application.routes.draw do
       resources :exercises, only: [:index, :create, :update, :show]
       resources :rep_amounts, only: [:index, :create, :update]
       resources :rep_paces, only: [:index, :create, :update]
-      resources :work_outs
+      resources :work_outs do
+        resources :exercises
+      end
+      get 'exercises_by_category/:id', to: 'exercises#exercises_by_category'
     end
 
     get '*other', to: 'static#index'

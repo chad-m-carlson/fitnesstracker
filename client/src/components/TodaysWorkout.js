@@ -3,18 +3,12 @@ import axios from 'axios';
 import {Table, Button} from 'semantic-ui-react';
 import {getSimpleDate, } from '../helpers/HelperFunctions'
 
-const PendingWorkout = ({date, saveWorkout,}) => {
+const TodaysWorkout = ({date,}) => {
   const [workout, setWorkout] = useState([]);
-  const [existingWorkout, setExistingWorkout] = useState(false)
 
   useEffect( () => {
     axios.get(`/api/work_outs/${getSimpleDate(date)}`)
-      .then(res => {
-        setWorkout([...res.data])
-        if (res.data.length > 0) {
-          setExistingWorkout(true)
-        }
-      })
+      .then(res => setWorkout([...res.data]))
     },[date]);
     
     
@@ -38,13 +32,8 @@ const PendingWorkout = ({date, saveWorkout,}) => {
         )}
       </Table.Body>
     </Table>
-  {workout.length > 0 &&
-   <Button onClick={saveWorkout}>
-     Save Workout
-   </Button>
-   }
    </>
   );
 }
 
-export default PendingWorkout;
+export default TodaysWorkout;
