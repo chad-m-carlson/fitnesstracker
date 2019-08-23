@@ -4,7 +4,7 @@ import NewWorkoutForm from './NewWorkoutForm';
 import Datepicker from 'react-datepicker';
 import PendingWorkout from './PendingWorkout';
 import {Form, Select, Button } from 'semantic-ui-react';
-import {getSimpleDate, } from '../../helpers/HelperFunctions';
+// import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import "react-datepicker/dist/react-datepicker.css";
 
 const categoryOptions = [
@@ -48,10 +48,6 @@ class NewWorkout extends React.Component {
   };
 
   
-  // getWorkout = () => {
-  //   return axios.get(`/api/work_outs/${getSimpleDate(this.state.date)}`)
-  // };
-  
   handleCategoryChange = (e, {value}) => {
     axios.get(`/api/exercises_by_category/${value}`)
       .then( res => {
@@ -64,10 +60,11 @@ class NewWorkout extends React.Component {
   };
 
   getExerciseFromForm = (completeExercise) => {
-    // THIS DETERMINES IF THE EXERCISE EXISTS IN THE WORKOUT ALREADY
-    if(this.state.workout.map( w => w.id.includes(completeExercise.id))) console.log(true)
-    // NOW JUST NEED TO FIGURE OUT HOW TO DEAL WITH THAT
-    this.setState({workout: [...this.state.workout, completeExercise]});
+    if(this.state.workout.map( w => w.id.includes(completeExercise.id))){
+      if(window.confirm("This workout already has this exercise added, are you sure you want to add again?")){
+        this.setState({workout: [...this.state.workout, completeExercise]});
+      };
+    };
   };
 
   saveWorkout = () => {
@@ -80,14 +77,16 @@ class NewWorkout extends React.Component {
   render() { 
     return ( 
       <>
-      PENDING WORKOUT AND TODAYS WORKOUT ARE NOW SEPERATE COMPONENTS. THE NEWWORKOUTFORM AUTO POPULATES IF THE EXERCISE IS ALREADY IN THE PENDING WORKOUT. CAN ADD NEW EXERCISES TO PENDING WORKOUT, NOT SAVING TO START, AND WILL ALLOW DUPLICATES.
       <h1>Create a new workout</h1>
         <Form>
-        <Datepicker 
-          placeholderText='Click to select a date'
-          selected={this.state.date}
-          onChange={this.handleDateChange}
-        />
+        <div style={{display: "flex", justifyContent: "space-around", padding: "1rem"}}>
+          <Datepicker 
+            inline
+            placeholderText='Click to select a date'
+            selected={this.state.date}
+            onChange={this.handleDateChange}
+          />
+        </div>
           <Form.Field
             control={Select}
             options={categoryOptions}
@@ -109,7 +108,6 @@ class NewWorkout extends React.Component {
             />
             )}
         </ul>
-        <br />
         <h3>Pending Workout</h3>
           <PendingWorkout
           date={this.state.date}

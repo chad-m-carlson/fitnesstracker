@@ -3,6 +3,7 @@ import Datepicker from 'react-datepicker';
 import {AuthContext} from '../providers/AuthProvider';
 import TodaysWorkout from './TodaysWorkout';
 import "react-datepicker/dist/react-datepicker.css";
+import {Form, } from 'semantic-ui-react';
 
 const Home  = () => {
   const [date, setDate] = useState(new Date());
@@ -21,10 +22,13 @@ const Home  = () => {
         <h3>Select a date to view a workout</h3>
         </>
         }
-      <Datepicker
-        selected={date}
-        onChange={handleDateChange}
-      />
+      <Form>
+        <Datepicker
+          inline
+          selected={date}
+          onChange={handleDateChange}
+        />
+      </Form>
       <TodaysWorkout 
         date={date}
       />

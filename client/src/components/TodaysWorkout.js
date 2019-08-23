@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {Table, Button} from 'semantic-ui-react';
+import {Card, } from 'semantic-ui-react';
 import {getSimpleDate, } from '../helpers/HelperFunctions'
 
 const TodaysWorkout = ({date,}) => {
@@ -13,25 +13,20 @@ const TodaysWorkout = ({date,}) => {
     
     
     return (
-      <>
-    <Table celled>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell>Exercise</Table.HeaderCell>
-          <Table.HeaderCell>Reps</Table.HeaderCell>
-          <Table.HeaderCell>Pace</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-      {workout.map( wo => 
-        <Table.Row key={wo.id}>
-          <Table.Cell>{wo.name}</Table.Cell>
-          <Table.Cell>{wo.rep_amount}</Table.Cell>
-          <Table.Cell>{wo.rep_pace}</Table.Cell>
-        </Table.Row>
-        )}
-      </Table.Body>
-    </Table>
+    <>
+     {workout.map( wo => 
+      <Card key={wo.id}>
+        <Card.Content>
+          <Card.Header style={{textAlign: "center", marginBottom: "1rem"}}>{wo.name}</Card.Header>
+          <div style={{display: "flex", justifyContent: "space-around"}}>
+            <Card.Meta>Amount</Card.Meta>
+            <Card.Description>{wo.rep_amount}</Card.Description>
+            <Card.Meta>Pace</Card.Meta>
+            <Card.Description>{wo.rep_pace}</Card.Description>
+          </div>
+        </Card.Content>
+      </Card>
+    )}
    </>
   );
 }

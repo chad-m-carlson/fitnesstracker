@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {Table, Button} from 'semantic-ui-react';
+import {Table, Button, Responsive} from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions'
 
 const PendingWorkout = ({ saveWorkout, updatedWorkout, date}) => {
@@ -22,7 +22,7 @@ const PendingWorkout = ({ saveWorkout, updatedWorkout, date}) => {
     
     return (
       <>
-    <Table celled>
+    {/* <Table singleLine>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Exercise</Table.HeaderCell>
@@ -39,7 +39,19 @@ const PendingWorkout = ({ saveWorkout, updatedWorkout, date}) => {
         </Table.Row>
         )}
       </Table.Body>
-    </Table>
+    </Table> */}
+    <dl>
+      {workout.map( wo=>
+      <>
+      <div style={{padding: ".5rem"}}>
+        <dt>{wo.name}</dt>
+        <dd>Reps: {wo.rep_amount}</dd>
+        <dd>Pace: {wo.rep_pace}</dd>
+      </div>
+      </>
+      )}
+    </dl>
+    
   {workout.length > 0 &&
    <Button onClick={saveWorkout}>
      Save Workout

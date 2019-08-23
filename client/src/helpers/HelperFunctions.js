@@ -1,7 +1,7 @@
 export const getSimpleDate = (date) => {
-  let month = date.getUTCMonth() + 1;
-  let day = date.getUTCDate();
-  let year = date.getUTCFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  let year = date.getFullYear();
   let simpleDate = `${month}${day}${year}`
   return simpleDate
 }
