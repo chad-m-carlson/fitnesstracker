@@ -1,49 +1,35 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {Table, Button, Responsive} from 'semantic-ui-react';
+import { Button,} from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions'
 
 const PendingWorkout = ({ saveWorkout, updatedWorkout, date}) => {
+  const [originalWorkout, setOriginalWorkout] = useState([]);
   const [workout, setWorkout] = useState([]);
   // const [existingWorkout, setExistingWorkout] = useState(false)
 
   useEffect( () => {
-    if(workout.length === 0){
-
+    if(workout.length === 0 && updatedWorkout.length === 0){
       axios.get(`/api/work_outs/${getSimpleDate(date)}`)
       .then(res => {
         // debugger
-        setWorkout([...res.data, ...updatedWorkout])
+        setWorkout([...res.data,])
+        setOriginalWorkout([...res.data,])
         })
-      }else setWorkout([...workout, ...updatedWorkout])
+      }else setWorkout([...updatedWorkout])
     },[date, updatedWorkout]);
     
-
+    saveWorkout = () => {
+      axios.post(`/api/work_outs`, workout)
+        .then( res => setWorkout([]))
+    };
     
     return (
       <>
-    {/* <Table singleLine>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell>Exercise</Table.HeaderCell>
-          <Table.HeaderCell>Reps</Table.HeaderCell>
-          <Table.HeaderCell>Pace</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-      {workout.map( wo => 
-        <Table.Row key={wo.id}>
-          <Table.Cell>{wo.name}</Table.Cell>
-          <Table.Cell>{wo.rep_amount}</Table.Cell>
-          <Table.Cell>{wo.rep_pace}</Table.Cell>
-        </Table.Row>
-        )}
-      </Table.Body>
-    </Table> */}
     <dl>
       {workout.map( wo=>
       <>
-      <div style={{padding: ".5rem"}}>
+      <div key={wo.id} style={{padding: ".5rem"}}>
         <dt>{wo.name}</dt>
         <dd>Reps: {wo.rep_amount}</dd>
         <dd>Pace: {wo.rep_pace}</dd>
