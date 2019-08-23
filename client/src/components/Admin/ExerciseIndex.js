@@ -7,7 +7,7 @@ const ExerciseIndex = (props) => {
   //ADD A FUNCTION TO UPDATE THIS EXERCISE ARRAY IF IT IS EDITED IN THE FORM????
 
   useEffect( () => {
-    axios.get(`/exercises`)
+    axios.get(`/api/exercises`)
       .then(res => {
         setExercises(res.data)})
       .catch(res => console.log(res))

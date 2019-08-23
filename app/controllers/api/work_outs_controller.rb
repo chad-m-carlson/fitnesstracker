@@ -1,4 +1,4 @@
-class WorkOutsController < ApplicationController
+class Api::WorkOutsController < ApplicationController
   def index
   end
 

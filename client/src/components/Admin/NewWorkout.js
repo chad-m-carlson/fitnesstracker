@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import NewWorkoutForm from './NewWorkoutForm';
 import Datepicker from 'react-datepicker';
+import PendingWorkout from './PendingWorkout';
 import {Form, Select, Button } from 'semantic-ui-react';
+// import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import "react-datepicker/dist/react-datepicker.css";
 
 const categoryOptions = [
@@ -30,51 +32,45 @@ class NewWorkout extends React.Component {
 
 
   componentDidMount() {
-    axios.all([this.getRepAmounts(), this.getRepPaces(), this.getWorkout()])
+    axios.all([this.getRepAmounts(), this.getRepPaces(),])
     .then(axios.spread( (amounts, paces, workout) => {
-      this.setState({reps: {amount: [...amounts.data], pace: [...paces.data]}, workout: [...workout.data]})
+      this.setState({reps: {amount: [...amounts.data], pace: [...paces.data]}, })
     }))
     .catch( res => console.log(res));
   };
-
+  
   getRepAmounts = () => {
-    return axios.get(`/rep_amounts`)
+    return axios.get(`/api/rep_amounts`)
   };
 
   getRepPaces = () => {
-    return axios.get(`/rep_paces`)
+    return axios.get(`/api/rep_paces`)
   };
 
-  getWorkout = () => {
-    debugger
-    let month = this.state.date.getUTCMonth() + 1;
-    let day = this.state.date.getUTCDate();
-    let year = this.state.date.getUTCFullYear();
-    let simpleDate = `${month}${day}${year}`
-    return axios.get(`/work_outs/${simpleDate}`)
-  }
-
+  
   handleCategoryChange = (e, {value}) => {
-    axios.get(`/exercises/${value}`)
+    axios.get(`/api/exercises_by_category/${value}`)
       .then( res => {
         this.setState({exercises: [...res.data]})
     })
   };
-
+  
   handleDateChange = (date) => {
     this.setState({date})
-    axios.all([this.getWorkout()])
-      .then(axios.spread( (workout) => this.setState({workout: [...workout.data]})))
-  }
+  };
 
   getExerciseFromForm = (completeExercise) => {
-    this.setState({workout: [...this.state.workout, completeExercise]});
+    if(this.state.workout.map( w => w.id.includes(completeExercise.id))){
+      if(window.confirm("This workout already has this exercise added, are you sure you want to add again?")){
+        this.setState({workout: [...this.state.workout, completeExercise]});
+      };
+    };
   };
 
   saveWorkout = () => {
     const {workout} = this.state
     console.log(workout)
-    axios.post(`/work_outs`, workout)
+    axios.post(`/api/work_outs`, workout)
       .then( res => this.setState({workout: []}))
   };
 
@@ -83,11 +79,14 @@ class NewWorkout extends React.Component {
       <>
       <h1>Create a new workout</h1>
         <Form>
-        <Datepicker 
-          placeholderText='Click to select a date'
-          selected={this.state.date}
-          onChange={this.handleDateChange}
-        />
+        <div style={{display: "flex", justifyContent: "space-around", padding: "1rem"}}>
+          <Datepicker 
+            inline
+            placeholderText='Click to select a date'
+            selected={this.state.date}
+            onChange={this.handleDateChange}
+          />
+        </div>
           <Form.Field
             control={Select}
             options={categoryOptions}
@@ -97,37 +96,25 @@ class NewWorkout extends React.Component {
             onChange={this.handleCategoryChange}
           />
         </Form>
-        {this.state.exercises.map( e => 
-          <ul key={e.id}>
+        <ul>
+          {this.state.exercises.map( e => 
             <NewWorkoutForm
+              key={e.id}
               date={this.state.date}
-              workout={this.state.workout}
+              // workout={this.state.workout}
               reps={this.state.reps}
               exercise={e}
               getExerciseFromForm={this.getExerciseFromForm}
-              />
-          </ul>
-          )}
-        <br />
-        <div>
-          <h3>Pending Workout</h3>
-          <ol>
-            {this.state.workout.map( w =>
-              <>
-              <li key={w.exerciseId}>{w.name}</li>
-              <ul>
-                <li>Reps: {w.rep_amount}</li>
-                <li>Pace: {w.rep_pace}</li>
-              </ul>
-              </>
+            />
             )}
-          </ol>
-          {this.state.workout.length > 0 &&
-          <button onClick={this.saveWorkout}>
-            Save Workout
-          </button>
-          }
-        </div>
+        </ul>
+        <h3>Pending Workout</h3>
+          <PendingWorkout
+          date={this.state.date}
+          updatedWorkout={this.state.workout}
+          saveWorkout={this.saveWorkout}
+          // getWorkoutFromPending={this.getWorkoutFromPending}
+          />
       </>
      );
   }

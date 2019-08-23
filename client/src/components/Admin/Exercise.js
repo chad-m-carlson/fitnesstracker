@@ -10,7 +10,7 @@ const Exercise = ({exercise}) => {
   const [activeUpdated, setActiveUpdated] = useState(false);
 
   const handleActive = (id) => {
-    axios.put(`/exercises/${id}`, {is_active: !exercise.is_active})
+    axios.put(`/api/exercises/${id}`, {is_active: !exercise.is_active})
       .then(res => {
         exercise.is_active = !exercise.is_active;
         setActiveUpdated(!activeUpdated)
