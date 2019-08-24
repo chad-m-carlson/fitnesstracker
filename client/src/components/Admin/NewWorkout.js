@@ -4,7 +4,7 @@ import NewWorkoutForm from './NewWorkoutForm';
 import Datepicker from 'react-datepicker';
 import PendingWorkout from './PendingWorkout';
 import {Form, Select, Button } from 'semantic-ui-react';
-// import {getSimpleDate, } from '../../helpers/HelperFunctions';
+import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import "react-datepicker/dist/react-datepicker.css";
 
 const categoryOptions = [
@@ -32,9 +32,9 @@ class NewWorkout extends React.Component {
 
 
   componentDidMount() {
-    axios.all([this.getRepAmounts(), this.getRepPaces(),])
+    axios.all([this.getRepAmounts(), this.getRepPaces(), this.getWorkout(this.state.date)])
     .then(axios.spread( (amounts, paces, workout) => {
-      this.setState({reps: {amount: [...amounts.data], pace: [...paces.data]}, })
+      this.setState({reps: {amount: [...amounts.data], pace: [...paces.data]}, workout: [...workout.data]})
     }))
     .catch( res => console.log(res));
   };
@@ -47,6 +47,10 @@ class NewWorkout extends React.Component {
     return axios.get(`/api/rep_paces`)
   };
 
+  getWorkout = (date) => {
+    return axios.get(`/api/work_outs/${getSimpleDate(date)}`)
+  }
+
   
   handleCategoryChange = (e, {value}) => {
     axios.get(`/api/exercises_by_category/${value}`)
@@ -57,26 +61,25 @@ class NewWorkout extends React.Component {
   
   handleDateChange = (date) => {
     this.setState({date})
+    axios.get(`/api/work_outs/${getSimpleDate(date)}`)
+      .then( res => this.setState({ workout: [...res.data]}))
   };
 
   getExerciseFromForm = (completeExercise) => {
-    if(this.state.workout.map( w => w.id.includes(completeExercise.id))){
-      if(window.confirm("This workout already has this exercise added, are you sure you want to add again?")){
-        this.setState({workout: [...this.state.workout, completeExercise]});
-      };
-    };
-  };
-
-  saveWorkout = () => {
-    const {workout} = this.state
-    console.log(workout)
-    axios.post(`/api/work_outs`, workout)
-      .then( res => this.setState({workout: []}))
+    const workoutIds = this.state.workout.map( w => w.id)
+      if(workoutIds.includes(completeExercise.id)){
+        if(window.confirm("This workout already has this exercise added, are you sure you want to add again?")){
+        this.setState({workout: [...this.state.workout, completeExercise]})
+        console.log('this got added to workout');
+      }
+    }else this.setState({workout: [...this.state.workout, completeExercise]});;
   };
 
   render() { 
     return ( 
       <>
+      CONTINUE TESTING HOW WORKOUTS SAVE IF THEY ARE ADDED TOO, 
+      ALL THE CODE TO SORT THROUGH THAT IS FOUND IN THE WORKOUT MODEL
       <h1>Create a new workout</h1>
         <Form>
         <div style={{display: "flex", justifyContent: "space-around", padding: "1rem"}}>
@@ -108,13 +111,10 @@ class NewWorkout extends React.Component {
             />
             )}
         </ul>
-        <h3>Pending Workout</h3>
-          <PendingWorkout
+        <PendingWorkout
           date={this.state.date}
           updatedWorkout={this.state.workout}
-          saveWorkout={this.saveWorkout}
-          // getWorkoutFromPending={this.getWorkoutFromPending}
-          />
+        />
       </>
      );
   }

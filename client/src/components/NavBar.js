@@ -54,7 +54,7 @@ const NavBar = (props) => {
             to='/'
             align='center'
             onClick={ () => handleLogout(props.history)}>
-            LogOut
+            Logut
           </Link>
         </Menu.Item>
     </Menu>
