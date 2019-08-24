@@ -28,6 +28,7 @@ class NewWorkout extends React.Component {
     },
     workout: [],
     date: new Date(),
+    hideDatePicker: false,
    }
 
 
@@ -82,14 +83,22 @@ class NewWorkout extends React.Component {
       ALL THE CODE TO SORT THROUGH THAT IS FOUND IN THE WORKOUT MODEL
       <h1>Create a new workout</h1>
         <Form>
-        <div style={{display: "flex", justifyContent: "space-around", padding: "1rem"}}>
-          <Datepicker 
-            inline
-            placeholderText='Click to select a date'
-            selected={this.state.date}
-            onChange={this.handleDateChange}
-          />
-        </div>
+          {!this.state.hideDatePicker &&
+          <div style={{display: "flex", justifyContent: "space-around", padding: "1rem"}}>
+            <Datepicker 
+              inline
+              placeholderText='Click to select a date'
+              selected={this.state.date}
+              onChange={this.handleDateChange}
+              />
+          </div>
+          }
+          <div style={{display: "flex", justifyContent: "space-around"}}>
+            <Button 
+              onClick={() => this.setState({hideDatePicker: !this.state.hideDatePicker})}>
+              {this.state.hideDatePicker ? "Show Calendar" : "Hide Calendar"}
+            </Button>
+          </div>
           <Form.Field
             control={Select}
             options={categoryOptions}
@@ -114,6 +123,7 @@ class NewWorkout extends React.Component {
         <PendingWorkout
           date={this.state.date}
           updatedWorkout={this.state.workout}
+          reps={this.state.reps}
         />
       </>
      );

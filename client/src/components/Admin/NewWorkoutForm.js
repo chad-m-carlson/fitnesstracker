@@ -1,82 +1,85 @@
-import React from 'react';
-import {Form, Select, Button, } from 'semantic-ui-react';
+import React, {useState, useEffect} from 'react';
+import {Form, Select,  Button,} from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import axios from 'axios';
 
-class NewWorkOutForm extends React.Component {
-  state = {
-    workout: [],
-    repAmount: '',
-    repPace: '',
-    showReps: false,
-   }
+const NewWorkOutForm = (props) => {
+  const [workout, setWorkout] = useState([]);
+  const [rep_amount, setRep_amount] = useState('');
+  const [rep_pace, setRep_pace] = useState('');
+  const [showReps, setShowReps] = useState(false);
 
-  componentDidMount = () => {
-    axios.get(`/api/work_outs/${getSimpleDate(this.props.date)}/exercises/${this.props.exercise.id}`)
-      .then(res => {
-        this.setState({workout: [...res.data]})
-        res.data.map( w => {
-          if (this.props.exercise.id === w.exercise_id) this.setState({showReps: true, repAmount: w.rep_amount, repPace: w.rep_pace})
-      })
-    })
-  };
+  useEffect( () => {
+    axios.get(`/api/work_outs/${getSimpleDate(props.date)}/exercises/${props.exercise.id}`)
+    .then(res => {
+      setWorkout([...res.data]);
+      res.data.map( w => {
+        if (props.exercise.id === w.exercise_id){
+          setShowReps(true)
+          setRep_amount(w.rep_amount)
+          setRep_pace(w.rep_pace);
+        }})})
+
+  },[])
   
-  handleRepAmountChange = (e, {value}) => {
-    this.setState({repAmount: value});
+  const handleRepAmountChange = (e, {value}) => {
+    setRep_amount(value);
   };
 
-  handleRepPaceChange = (e, {value}) => {
-    this.setState({repPace: value});
+  const handleRepPaceChange = (e, {value}) => {
+    setRep_pace(value);
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const completeExercise = {id: this.props.exercise.id, date: getSimpleDate(this.props.date), name: this.props.exercise.name, rep_amount: this.state.repAmount, rep_pace: this.state.repPace}
-    this.props.getExerciseFromForm(completeExercise)
-    this.setState({showReps: false});
+    const completeExercise = {id: props.exercise.id, date: getSimpleDate(props.date), name: props.exercise.name, rep_amount: rep_amount, rep_pace: rep_pace}
+    props.getExerciseFromForm(completeExercise)
+    // setState({showReps: false});
+    setShowReps(false);
   };
 
 
 
-  generateRepsDropdown = () => {
-    const repAmount = [];
-    const repPace = [];
-    this.props.reps.amount.map( r => repAmount.push({text: r.amount, value: r.amount}));
-    this.props.reps.pace.map( r => repPace.push({text: r.pace, value: r.pace}));
+  const generateRepsDropdown = () => {
+    const rep_amount = [];
+    const rep_pace = [];
+    props.reps.amount.map( r => rep_amount.push({text: r.amount, value: r.amount}));
+    props.reps.pace.map( r => rep_pace.push({text: r.pace, value: r.pace}));
 
     return(
       <>
         <Form.Field
+          multiple
           control={Select}
-          options={repAmount}
+          options={rep_amount}
           label={{ children: 'Rep Amount'}}
           placeholder='Rep Amount'
-          value={this.state.workout ? this.state.repAmount : repAmount.value}
-          onChange={this.handleRepAmountChange}
+          value={workout ? rep_amount : rep_amount.value}
+          onChange={handleRepAmountChange}
         />
         <Form.Field
+          multiple
           control={Select}
-          options={repPace}
+          options={rep_pace}
           label={{ children: 'Rep Pace'}}
           placeholder='Rep Pace'
-          value={this.state.workout ? this.state.repPace : repPace.value}
-          onChange={this.handleRepPaceChange}
+          value={workout ? rep_pace : rep_pace.value}
+          onChange={handleRepPaceChange}
         />
     </>
     )
   };
 
-  render() { 
     return ( 
       <>
-        <Form onSubmit={this.handleSubmit}>
-          <li onClick={() => this.setState({showReps: !this.state.showReps,})}>
-            {this.props.exercise.name}
+        <Form onSubmit={handleSubmit}>
+          <li onClick={() => setShowReps(!showReps)}>
+            {props.exercise.name}
               </li>
-                {this.state.showReps && 
+                {showReps && 
                 <>
               <div>
-                  {this.generateRepsDropdown()}
+                  {generateRepsDropdown()}
               </div>
               <Button size='tiny'>Add To Workout</Button>
               </>
@@ -85,7 +88,6 @@ class NewWorkOutForm extends React.Component {
         </Form>
         </>
      );
-  }
 }
  
 export default NewWorkOutForm;
