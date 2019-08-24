@@ -14,13 +14,12 @@ class WorkOut < ApplicationRecord
 
   def self.create_work_out(workout)
     existing_workout = WorkOut.find_work_out(workout[0][:date])
-    binding.pry
     if existing_workout.length < 1
       workout.each do |w|
-        binding.pry
         post_to_db(w)
       end
     end
+    # THERE HAS TO BE A BETTER WAY TO COMPARE THESE TWO ARRAYS
     if (existing_workout.length != workout.length) && existing_workout.length >= 1
       @interium = []
       @to_be_saved = []

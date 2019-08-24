@@ -19,7 +19,7 @@ const TodaysWorkout = ({date,}) => {
         <Card.Content>
           <Card.Header style={{textAlign: "center", marginBottom: "1rem"}}>{wo.name}</Card.Header>
           <div style={{display: "flex", justifyContent: "space-around"}}>
-            <Card.Meta>Amount</Card.Meta>
+            <Card.Meta>Reps</Card.Meta>
             <Card.Description>{wo.rep_amount}</Card.Description>
             <Card.Meta>Pace</Card.Meta>
             <Card.Description>{wo.rep_pace}</Card.Description>

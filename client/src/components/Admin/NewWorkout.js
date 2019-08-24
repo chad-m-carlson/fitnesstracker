@@ -111,11 +111,10 @@ class NewWorkout extends React.Component {
             />
             )}
         </ul>
-        <h3>Pending Workout</h3>
-          <PendingWorkout
+        <PendingWorkout
           date={this.state.date}
           updatedWorkout={this.state.workout}
-          />
+        />
       </>
      );
   }
