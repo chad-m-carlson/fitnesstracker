@@ -1,11 +1,13 @@
 import React, {useState, } from 'react';
+import NewWorkoutForm from './Admin/NewWorkoutForm';
 import axios from 'axios';
 import {Card, Button} from 'semantic-ui-react';
 
-const ExerciseDisplayCard = ({wo, admin, handleDelete}) => {
+const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFromForm}) => {
   const [editing, setEditing] = useState(false)
 
   return ( 
+    <>
       <Card > 
       <Card.Content>
         <Card.Header style={{textAlign: "center", marginBottom: "1rem"}}>{wo.name}</Card.Header>
@@ -23,6 +25,16 @@ const ExerciseDisplayCard = ({wo, admin, handleDelete}) => {
         }
       </Card.Content>
     </Card>
+    {editing &&
+      <NewWorkoutForm 
+        exercise={wo}
+        date={date}
+        reps={reps}
+        getExerciseFromForm={getExerciseFromForm}
+        editing
+      />
+    }
+    </>
    );
 }
  

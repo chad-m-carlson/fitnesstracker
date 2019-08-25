@@ -66,7 +66,13 @@ class NewWorkout extends React.Component {
       .then( res => this.setState({ workout: [...res.data]}))
   };
 
-  getExerciseFromForm = (completeExercise) => {
+  getExerciseFromForm = (completeExercise, isUpdate) => {
+    if(isUpdate){
+      axios.put(`/api/work_outs/${completeExercise.workoutid}`, completeExercise)
+        .then(res => {
+          this.setState({workout: [...this.state.workout, res.data]})})
+          return
+    }
     const workoutIds = this.state.workout.map( w => w.id)
       if(workoutIds.includes(completeExercise.id)){
         if(window.confirm("This workout already has this exercise added, are you sure you want to add again?")){
@@ -79,8 +85,11 @@ class NewWorkout extends React.Component {
   render() { 
     return ( 
       <>
-      CONTINUE TESTING HOW WORKOUTS SAVE IF THEY ARE ADDED TOO, 
-      ALL THE CODE TO SORT THROUGH THAT IS FOUND IN THE WORKOUT MODEL
+      NEED TO FIGURE OUT HOW TO DEAL WITH IDS WHEN EDITING THE EXERCISE IN THE workout
+      IT IS IN THE FIRST PART OF GETEXERCISEFROMFROM, WILL NEED TO SEND OVER A DIFFERENT
+      COMPLETE EXERCISE FROM THE FORM TO DEAL WITH UPDATING OR OR ADDING A NEW EXERCISE
+      TO WORKOUT
+
       <h1>Create a new workout</h1>
         <Form>
           {!this.state.hideDatePicker &&
@@ -124,6 +133,8 @@ class NewWorkout extends React.Component {
           date={this.state.date}
           updatedWorkout={this.state.workout}
           reps={this.state.reps}
+          date={this.state.date}
+          getExerciseFromForm={this.getExerciseFromForm}
         />
       </>
      );

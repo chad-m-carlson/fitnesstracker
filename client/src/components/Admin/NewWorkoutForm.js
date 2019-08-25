@@ -32,8 +32,8 @@ class NewWorkOutForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const completeExercise = {id: this.props.exercise.id, date: getSimpleDate(this.props.date), name: this.props.exercise.name, rep_amount: this.state.repAmount, rep_pace: this.state.repPace}
-    this.props.getExerciseFromForm(completeExercise)
+    const completeExercise = {id: this.props.exercise.id, date: getSimpleDate(this.props.date), name: this.props.exercise.name, rep_amount: this.state.repAmount, rep_pace: this.state.repPace,}
+    this.props.getExerciseFromForm(completeExercise, this.props.editing)
     this.setState({showReps: false});
   };
 
@@ -79,7 +79,7 @@ class NewWorkOutForm extends React.Component {
               <div>
                   {this.generateRepsDropdown()}
               </div>
-              <Button size='tiny'>Add To Workout</Button>
+              <Button size='tiny'>{this.props.editing ? 'Save Changes' : 'Add To Workout'}</Button>
               </>
                   }
           <br />
