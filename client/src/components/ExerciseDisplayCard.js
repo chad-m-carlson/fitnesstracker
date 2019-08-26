@@ -30,8 +30,11 @@ const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFr
         exercise={wo}
         date={date}
         reps={reps}
+        repAmount={wo.rep_amount}
+        repPace={wo.rep_pace}
         getExerciseFromForm={getExerciseFromForm}
         editing
+        setEditing={setEditing}
       />
     }
     </>

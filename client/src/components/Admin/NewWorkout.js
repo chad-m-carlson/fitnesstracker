@@ -67,28 +67,31 @@ class NewWorkout extends React.Component {
   };
 
   getExerciseFromForm = (completeExercise, isUpdate) => {
-    if(isUpdate){
-      axios.put(`/api/work_outs/${completeExercise.workoutid}`, completeExercise)
-        .then(res => {
-          this.setState({workout: [...this.state.workout, res.data]})})
-          return
-    }
     const workoutIds = this.state.workout.map( w => w.id)
+    if(isUpdate){
+      if(workoutIds.includes(completeExercise.id)){
+        debugger
+        const filteredState = this.state.workout.filter( wo => wo.id !== completeExercise.id)
+        this.setState({workout: [...filteredState, completeExercise]})
+      } if(completeExercise.workout_id !== undefined) {
+          axios.put(`/api/work_outs/${completeExercise.workout_id}`, completeExercise)
+            // .then(res => {
+            //   this.setState({workout: [...this.state.workout, res.data]})})
+            }
+      return
+    };
       if(workoutIds.includes(completeExercise.id)){
         if(window.confirm("This workout already has this exercise added, are you sure you want to add again?")){
         this.setState({workout: [...this.state.workout, completeExercise]})
         console.log('this got added to workout');
-      }
-    }else this.setState({workout: [...this.state.workout, completeExercise]});;
+      }}else this.setState({workout: [...this.state.workout, completeExercise]});;
   };
 
   render() { 
     return ( 
       <>
-      NEED TO FIGURE OUT HOW TO DEAL WITH IDS WHEN EDITING THE EXERCISE IN THE workout
-      IT IS IN THE FIRST PART OF GETEXERCISEFROMFROM, WILL NEED TO SEND OVER A DIFFERENT
-      COMPLETE EXERCISE FROM THE FORM TO DEAL WITH UPDATING OR OR ADDING A NEW EXERCISE
-      TO WORKOUT
+     CONTINUE TESTING EDITING EXERCISE BEFORE IT IS ADDED TO WORKOUT, AND AFTER ADDED TO WORKOUT
+     THIS SEEMS TO BE WORKING NOW.
 
       <h1>Create a new workout</h1>
         <Form>
