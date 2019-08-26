@@ -13,7 +13,7 @@ const AdminTools = (props) => {
     <>
       <h1>Admin Tools</h1>
       <h3>
-        <Link to='newworkout'>Create New Workout</Link>
+        <Link to='newworkout'>Add/Edit Workout</Link>
       </h3>
       <h3 
         onClick={() => setShowExerciseIndex(!showExerciseIndex)}

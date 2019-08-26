@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 201907310003607) do
 
   create_table "work_outs", force: :cascade do |t|
     t.string "date"
-    t.integer "workout_id"
+    t.string "notes"
     t.bigint "exercise_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
