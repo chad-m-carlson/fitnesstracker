@@ -3,7 +3,7 @@ class WorkOut < ApplicationRecord
 
   def self.find_work_out(date)
     WorkOut.find_by_sql(["
-      SELECT e.name, wo.rep_pace, wo.rep_amount, e.id, wo.date, wo.id as workoutID
+      SELECT e.name, wo.rep_pace, wo.rep_amount, e.id, wo.date, wo.id as workoutID, notes
       FROM work_outs AS wo
       LEFT JOIN exercises AS e
       ON e.id = wo.exercise_id
@@ -43,12 +43,13 @@ class WorkOut < ApplicationRecord
 
   def self.post_to_db(w)
     WorkOut.find_by_sql(["
-    INSERT INTO work_outs (date, exercise_id, rep_pace, rep_amount, created_at, updated_at)
-    VALUES (:date, :exercise_id, :rep_pace, :rep_amount, :created_at, :updated_at)",
+    INSERT INTO work_outs (date, exercise_id, rep_pace, rep_amount, notes, created_at, updated_at)
+    VALUES (:date, :exercise_id, :rep_pace, :rep_amount,:notes, :created_at, :updated_at)",
       {date: w[:date],
       exercise_id: w[:id],
       rep_pace: w[:rep_pace],
       rep_amount: w[:rep_amount],
+      notes: w[:notes],
       created_at: DateTime.now,
       updated_at: DateTime.now
     }])
