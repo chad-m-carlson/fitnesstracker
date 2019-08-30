@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ExerciseDisplayCard from './ExerciseDisplayCard';
 import axios from 'axios';
-import {Card, } from 'semantic-ui-react';
 import {getSimpleDate, } from '../helpers/HelperFunctions'
 
 const TodaysWorkout = ({date,}) => {

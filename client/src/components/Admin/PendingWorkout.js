@@ -14,7 +14,7 @@ const PendingWorkout = ({ saveWorkout, updatedWorkout, date,reps, getExerciseFro
         setWorkout([...res.data,])
         })
       }else setWorkout([...updatedWorkout])
-    },[date, updatedWorkout]);
+    },[date, updatedWorkout,]);
     
     saveWorkout = () => {
       axios.post(`/api/work_outs`, workout)

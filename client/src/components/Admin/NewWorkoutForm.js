@@ -1,6 +1,5 @@
 import React from 'react';
-import RepsDropDown from '../RepsDropDown';
-import {Form, Select, Button, Input } from 'semantic-ui-react';
+import {Form, Select, Button,} from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import axios from 'axios';
 

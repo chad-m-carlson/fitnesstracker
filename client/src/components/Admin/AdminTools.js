@@ -2,7 +2,7 @@ import React, {useState, } from 'react';
 import ExerciseForm from './ExerciseForm';
 import ExerciseIndex from './ExerciseIndex';
 import ExerciseByCategory from './ExerciseByCategory';
-import {withRouter, Link} from 'react-router-dom';
+import {Link, } from 'react-router-dom';
 
 const AdminTools = (props) => {
   const [showExerciseIndex, setShowExerciseIndex] = useState(false);
