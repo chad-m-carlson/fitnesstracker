@@ -135,7 +135,6 @@ class NewWorkout extends React.Component {
           date={this.state.date}
           updatedWorkout={this.state.workout}
           reps={this.state.reps}
-          date={this.state.date}
           getExerciseFromForm={this.getExerciseFromForm}
         />
       </>

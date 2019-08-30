@@ -1,6 +1,5 @@
 import React, {useState, } from 'react';
 import NewWorkoutForm from './Admin/NewWorkoutForm';
-import axios from 'axios';
 import {Card, Button} from 'semantic-ui-react';
 
 const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFromForm}) => {
