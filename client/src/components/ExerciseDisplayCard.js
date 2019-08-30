@@ -17,6 +17,10 @@ const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFr
           <Card.Meta>Pace</Card.Meta>
           <Card.Description>{wo.rep_pace}</Card.Description>
         </div>
+        <br />
+        <div style={{display: "flex", justifyContent: "center"}}>
+          <Card.Description style={{fontStyle: "italic"}}>{wo.notes}</Card.Description>
+        </div>
         {admin &&
         <>
         <Button onClick={() => setEditing(!editing)}>Edit</Button>

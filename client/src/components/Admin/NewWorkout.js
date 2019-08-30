@@ -70,7 +70,6 @@ class NewWorkout extends React.Component {
     const workoutIds = this.state.workout.map( w => w.id)
     if(isUpdate){
       if(workoutIds.includes(completeExercise.id)){
-        debugger
         const filteredState = this.state.workout.filter( wo => wo.id !== completeExercise.id)
         this.setState({workout: [...filteredState, completeExercise]})
       } if(completeExercise.workout_id !== undefined) {

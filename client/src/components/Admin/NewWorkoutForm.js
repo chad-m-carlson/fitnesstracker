@@ -1,6 +1,6 @@
 import React from 'react';
 import RepsDropDown from '../RepsDropDown';
-import {Form, Select, Button, } from 'semantic-ui-react';
+import {Form, Select, Button, Input } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import axios from 'axios';
 
@@ -10,11 +10,12 @@ class NewWorkOutForm extends React.Component {
     repAmount: '',
     repPace: '',
     showReps: false,
+    notes: '',
    }
 
   componentDidMount = () => {
     if(this.props.editing){
-    this.setState({showReps: true, repAmount: this.props.repAmount, repPace: this.props.repPace});
+    this.setState({showReps: true, repAmount: this.props.repAmount, repPace: this.props.repPace, notes: this.props.exercise.notes});
     }else{
     axios.get(`/api/work_outs/${getSimpleDate(this.props.date)}/exercises/${this.props.exercise.id}`)
       .then(res => {
@@ -35,7 +36,7 @@ class NewWorkOutForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const completeExercise = {id: this.props.exercise.id, date: getSimpleDate(this.props.date), name: this.props.exercise.name, rep_amount: this.state.repAmount, rep_pace: this.state.repPace, workout_id: this.props.exercise.workoutid}
+    const completeExercise = {id: this.props.exercise.id, date: getSimpleDate(this.props.date), name: this.props.exercise.name, rep_amount: this.state.repAmount, rep_pace: this.state.repPace, workout_id: this.props.exercise.workoutid, notes: this.state.notes}
     this.props.getExerciseFromForm(completeExercise, this.props.editing)
     this.setState({showReps: false});
     if(this.props.editing) this.props.setEditing(false);
@@ -83,6 +84,12 @@ class NewWorkOutForm extends React.Component {
               <div>
                   {this.generateRepsDropdown()}
               </div>
+              <br />
+              <Form.Input
+              label="Notes"
+              value={this.state.notes}
+              onChange={(e) => this.setState({notes: e.target.value})}
+              /> 
               <Button size='tiny'>{this.props.editing ? 'Save Changes' : 'Add To Workout'}</Button>
               </>
                   }
