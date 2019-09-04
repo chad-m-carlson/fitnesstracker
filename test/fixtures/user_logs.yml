@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  weight: 1
+  resp: 1
+  work_out: one
+  user: one
+
+two:
+  weight: 1
+  resp: 1
+  work_out: two
+  user: two

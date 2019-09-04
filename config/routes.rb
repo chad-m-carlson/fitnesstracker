@@ -8,6 +8,11 @@ Rails.application.routes.draw do
       resources :work_outs do
         resources :exercises
       end
+      resources :user_logs, only: [:index, :create, :update, :show] do
+        resources :work_outs, only: [:index, :create, :update, :show] do
+          resources :exercises, only: [:show]
+        end
+      end
       get 'exercises_by_category/:id', to: 'exercises#exercises_by_category'
     end
 

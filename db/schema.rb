@@ -44,6 +44,17 @@ ActiveRecord::Schema.define(version: 201907310003607) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_logs", force: :cascade do |t|
+    t.integer "weight"
+    t.integer "reps"
+    t.bigint "work_out_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_logs_on_user_id"
+    t.index ["work_out_id"], name: "index_user_logs_on_work_out_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -86,5 +97,7 @@ ActiveRecord::Schema.define(version: 201907310003607) do
     t.index ["exercise_id"], name: "index_work_outs_on_exercise_id"
   end
 
+  add_foreign_key "user_logs", "users"
+  add_foreign_key "user_logs", "work_outs"
   add_foreign_key "work_outs", "exercises"
 end

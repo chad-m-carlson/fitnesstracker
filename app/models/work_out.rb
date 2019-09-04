@@ -1,5 +1,6 @@
 class WorkOut < ApplicationRecord
-  has_and_belongs_to_many :exercises
+  belongs_to :exercise
+  has_many :user_logs
 
   def self.find_work_out(date)
     WorkOut.find_by_sql(["
