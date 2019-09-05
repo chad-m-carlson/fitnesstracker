@@ -22,13 +22,17 @@ const UserLogForm = ({workoutId, exerciseId}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const userLog = {weight: weight, reps: reps, work_out_id: workoutId, exercise_id: exerciseId}
+    if (logExists){
+      debugger
+    }
     axios.post(`/api/user_logs`, userLog)
       .then( res => {
         // setUserLog(...res.data)
         setWeight(res.data[0].weight)
         setReps(res.data[0].reps)
-        setLogExists(true)})
+      })
       .catch( res => console.log(res.errors))
+    setLogExists(true)
   };
 
   return ( 
