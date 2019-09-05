@@ -1,5 +1,6 @@
 import React, {useState, } from 'react';
 import NewWorkoutForm from './Admin/NewWorkoutForm';
+import UserLogForm from './UserLogForm';
 import {Card, Button} from 'semantic-ui-react';
 
 const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFromForm}) => {
@@ -16,10 +17,18 @@ const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFr
           <Card.Meta>Pace</Card.Meta>
           <Card.Description>{wo.rep_pace}</Card.Description>
         </div>
-        <br />
+        {/* <br /> */}
         <div style={{display: "flex", justifyContent: "center"}}>
           <Card.Description style={{fontStyle: "italic"}}>{wo.notes}</Card.Description>
         </div>
+        <br />
+        {!admin &&
+          <UserLogForm 
+          exerciseId={wo.id}
+          workoutDate={wo.date}
+          workoutId={wo.workoutid}
+          />
+        }
         {admin &&
         <>
         <Button onClick={() => setEditing(!editing)}>Edit</Button>
