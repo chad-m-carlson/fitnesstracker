@@ -16,7 +16,7 @@ const App = () => (
   <>
     <NavBar />
     <FetchUser>
-      <Container>
+      <Container  style={{marginTop: "4rem"}}>
         <Switch>
           <ProtectedRoute exact path='/' component={Home} />
           <AdminRoute exact path='/admin' component={AdminTools} />
