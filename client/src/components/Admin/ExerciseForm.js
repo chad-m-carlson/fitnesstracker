@@ -47,7 +47,7 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm}) => {
       .catch(res => console.log(res));
     } else {
 
-      axios.post(`/api/exercises/${exercise.id}`, exerciseToSave)
+      axios.put(`/api/exercises/${exercise.id}`, exerciseToSave)
         .then(res => {
           setShowExerciseForm(!showExerciseForm)})
     }
