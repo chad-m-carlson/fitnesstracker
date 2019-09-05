@@ -25,6 +25,7 @@ const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFr
         {!admin &&
           <UserLogForm 
           exerciseId={wo.id}
+          workoutDate={wo.date}
           workoutId={wo.workoutid}
           />
         }

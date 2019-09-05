@@ -59,7 +59,7 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm}) => {
       <Form onSubmit={handleSubmit}>
           <Form.Input 
             fluid
-            autofocus
+            autoFocus
             label='Name'
             placeholder='Exercise Name'
             name='name'
@@ -68,7 +68,6 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm}) => {
           />
           <Form.Input 
             fluid
-            autofocus
             label='Video Link'
             placeholder='Video Link'
             name='video_url'
@@ -76,15 +75,14 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm}) => {
             onChange={(e) => setVideo_url(e.target.value)}
           />
           <Form.TextArea
-            fluid
-            autofocus
+            // fluid
             label='Description'
             placeholder='Exercise Description'
             name='description'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-        <Form.Group fluid>
+        <Form.Group >
           <Form.Checkbox
             defaultChecked={exercise ? exercise.core : ''}
             style={{paddingRight: '2.1em'}} 
@@ -107,7 +105,7 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm}) => {
             onChange={(e) => setChest(!chest)}
           />
         </Form.Group>
-        <Form.Group fluid>
+        <Form.Group >
           <Form.Checkbox
             defaultChecked={exercise ? exercise.back : ''}
             style={{paddingRight: '2.1em'}}  
@@ -130,7 +128,7 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm}) => {
             onChange={(e) => setShoulders(!shoulders)}
           />
         </Form.Group>
-        <Form.Group fluid>
+        <Form.Group >
           <Form.Checkbox
             defaultChecked={exercise ? exercise.cardio : ''}
             style={{paddingRight: '2.1em'}}  

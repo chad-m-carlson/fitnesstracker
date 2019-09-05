@@ -2,34 +2,41 @@ import React, {useState, useEffect} from 'react';
 import {Form, Button, } from 'semantic-ui-react';
 import axios from 'axios';
 
-const UserLogForm = ({workoutId, exerciseId}) => {
-  const [weight, setWeight] = useState(null);
-  const [reps, setReps] = useState(null);
-  const [userLog, setUserLog] = useState({}); //TAKE THIS OUT???
+const UserLogForm = ({workoutDate, exerciseId, workoutId,}) => {
+  const [weight, setWeight] = useState('');
+  const [reps, setReps] = useState('');
+  const [userLog, setUserLog] = useState({});
   const [logExists, setLogExists] = useState(false);
 
   useEffect( () => {
-    axios.get(`/api/userlog_by_workout/${workoutId}`)
+    axios.get(`/api/userlog_by_workout/${workoutDate}`, {params: {work_out_id: workoutId}})
       .then( res => {
-        setUserLog({...res.data})//CAN PROBABLY TAKE THIS OUT
-        setWeight(res.data[0].weight)
-        setReps(res.data[0].reps)
-        setLogExists(true)
+          setUserLog(res.data)
+          if (res.data){
+            setWeight(res.data.weight)
+            setReps(res.data.reps)
+            setLogExists(true)
+          }else{
+            setWeight('')
+            setReps('')
+            setLogExists(false)
+          }
       })
       .catch( res => console.log(res.errors));
-  },[]);
+  },[workoutDate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const userLog = {weight: weight, reps: reps, work_out_id: workoutId, exercise_id: exerciseId}
+    const updatedUserLog = {work_out_date: workoutDate, weight: weight, reps: reps, work_out_id: workoutId, exercise_id: exerciseId}
     if (logExists){
-      debugger
+      axios.put(`/api/user_logs/${userLog.id}`, updatedUserLog)
+      return
     }
-    axios.post(`/api/user_logs`, userLog)
+    axios.post(`/api/user_logs`, updatedUserLog)
       .then( res => {
-        // setUserLog(...res.data)
-        setWeight(res.data[0].weight)
-        setReps(res.data[0].reps)
+        setUserLog(res.data)
+        setWeight(res.data.weight)
+        setReps(res.data.reps)
       })
       .catch( res => console.log(res.errors))
     setLogExists(true)
