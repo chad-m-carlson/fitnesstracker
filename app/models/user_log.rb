@@ -1,4 +1,4 @@
 class UserLog < ApplicationRecord
-  belongs_to :work_out
+  belongs_to :work_out, dependent: :destroy
   belongs_to :user
 end

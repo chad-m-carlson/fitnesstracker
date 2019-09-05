@@ -10,9 +10,9 @@ Rails.application.routes.draw do
       end
       resources :user_logs, only: [:index, :create, :update, :show] do
         resources :work_outs, only: [:index, :create, :update, :show] do
-          resources :exercises, only: [:show]
         end
       end
+      get 'userlog_by_workout/:id', to: 'user_logs#userlog_by_workout'
       get 'exercises_by_category/:id', to: 'exercises#exercises_by_category'
     end
 

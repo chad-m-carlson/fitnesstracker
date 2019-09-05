@@ -21,10 +21,13 @@ const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFr
         <div style={{display: "flex", justifyContent: "center"}}>
           <Card.Description style={{fontStyle: "italic"}}>{wo.notes}</Card.Description>
         </div>
-        <UserLogForm 
+        <br />
+        {!admin &&
+          <UserLogForm 
           exerciseId={wo.id}
           workoutId={wo.workoutid}
-        />
+          />
+        }
         {admin &&
         <>
         <Button onClick={() => setEditing(!editing)}>Edit</Button>
