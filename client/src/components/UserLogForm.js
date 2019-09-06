@@ -37,16 +37,15 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
     <Segment>
       <div style={{display: "flex", justifyContent: "space-between"}}>
       <Card.Meta>Round {round}</Card.Meta>
-      {(weight && !showLogForm) && 
+      {((weight || reps) && !showLogForm) && 
       <>
         <Card.Meta>{weight} lbs</Card.Meta>
         <Card.Meta>{reps} reps</Card.Meta>
       </>
       }
       <Icon
-        circular
         name={showLogForm ? "close" : "caret down"}
-        size="small"
+        size="large"
         onClick={() => setShowLogForm(!showLogForm)}
       />
       </div>
