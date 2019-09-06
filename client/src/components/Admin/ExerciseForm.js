@@ -49,7 +49,9 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm}) => {
 
       axios.post(`/api/exercises/${exercise.id}`, exerciseToSave)
         .then(res => {
-          setShowExerciseForm(!showExerciseForm)})
+          setShowExerciseForm(!showExerciseForm)
+          alert('Exercise Successfully Updated')
+        })
     }
   };
 
