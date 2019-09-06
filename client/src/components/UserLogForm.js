@@ -55,6 +55,9 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
           <Form.Group widths='equal'>
             <Form.Input
               fluid
+              autoFocus
+              type="number"
+              pattern="[0-9]*"
               label='Weight'
               placeholder='Weight'
               value={weight}
@@ -62,6 +65,8 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
               />
             <Form.Input
               fluid
+              type="number"
+              pattern="[0-9]*"
               label='Reps'
               placeholder='Reps'
               value={reps}
