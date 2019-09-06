@@ -42,16 +42,19 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
       <Card.Meta>Round {round}</Card.Meta>
       {((weight || reps) && !showLogForm) && 
       <>
-        <Card.Meta>{weight} lbs</Card.Meta>
-        <Card.Meta>{reps} reps</Card.Meta>
+        <Card.Description>{weight} lbs</Card.Description>
+        <Card.Description>{reps} reps</Card.Description>
       </>
       }
       <Icon
         name={showLogForm ? "close" : "caret down"}
         size="large"
         onClick={() => setShowLogForm(!showLogForm)}
-      />
+        />
       </div>
+      {!showLogForm &&
+        <Card.Meta>{notes}</Card.Meta>
+      }
       {/* <Card.Description></Card.Description> */}
       {showLogForm && 
         <Form onSubmit={handleSubmit}>
