@@ -7,7 +7,7 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
   // const [weight, setWeight] = useState('');
   // const [reps, setReps] = useState('');
   const [userLog, setUserLog] = useState([]);
-  // const [showLogForm, setShowLogForm] = useState(false);
+  const [showLogForm, setShowLogForm] = useState(false);
 
   useEffect( () => {
     axios.get(`/api/userlog_by_workout/${workoutDate}`, {params: {work_out_id: workoutId}})
@@ -18,7 +18,8 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
   },[workoutDate]);
 
   const generateBlankUserLog = (e) => {
-    setUserLog([...userLog, {reps: null, weight: null, work_out_id: workoutId, work_out_date: workoutDate}])
+    setUserLog([...userLog, {reps: null, weight: null, work_out_id: workoutId, work_out_date: workoutDate}]);
+    setShowLogForm(true);
   };
 
   return ( 
@@ -26,7 +27,6 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
       {userLog.length < 1 &&
         <div style={{display: "flex", justifyContent: "center"}}>
           <Button 
-            style={{margin: "0 aut0"}}
             size='mini'
             inverted 
             color='green'
@@ -41,6 +41,7 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
         round={index + 1}
         userLog={u}
         exerciseId={exerciseId}
+        openLogFormAutomatically={showLogForm}
         />
       )}
       {userLog.length >= 1 &&

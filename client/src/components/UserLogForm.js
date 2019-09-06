@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Form, Button, Card, Segment, Icon} from 'semantic-ui-react';
 import axios from 'axios';
 
-const UserLogForm = ({round, id, userLog, exerciseId}) => {
+const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
   const [logExists, setLogExists] = useState(false);
@@ -12,6 +12,7 @@ const UserLogForm = ({round, id, userLog, exerciseId}) => {
     setWeight(userLog.weight);
     setReps(userLog.reps);
     if(userLog.id)setLogExists(true);
+    if(openLogFormAutomatically)setShowLogForm(true);
   }, []);
 
   const handleSubmit = (e) => {
@@ -19,12 +20,14 @@ const UserLogForm = ({round, id, userLog, exerciseId}) => {
     const updatedUserLog = {work_out_date: userLog.work_out_date, weight: weight, reps: reps, work_out_id: userLog.work_out_id,};
     if (logExists){
       axios.put(`/api/user_logs/${userLog.id}`, updatedUserLog)
+        .then(res => setShowLogForm(false));
       return
     };
     axios.post(`/api/user_logs`, updatedUserLog)
       .then( res => {
-        setWeight(res.data.weight)
-        setReps(res.data.reps)
+        setWeight(res.data.weight);
+        setReps(res.data.reps);
+        setShowLogForm(false);
       })
       .catch( res => console.log(res.errors));
     setLogExists(true);
@@ -34,6 +37,12 @@ const UserLogForm = ({round, id, userLog, exerciseId}) => {
     <Segment>
       <div style={{display: "flex", justifyContent: "space-between"}}>
       <Card.Meta>Round {round}</Card.Meta>
+      {(weight && !showLogForm) && 
+      <>
+        <Card.Meta>{weight} lbs</Card.Meta>
+        <Card.Meta>{reps} reps</Card.Meta>
+      </>
+      }
       <Icon
         circular
         name={showLogForm ? "close" : "caret down"}
