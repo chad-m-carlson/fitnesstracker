@@ -5,19 +5,22 @@ import axios from 'axios';
 const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
+  const [notes, setNotes] = useState('');
   const [logExists, setLogExists] = useState(false);
   const [showLogForm, setShowLogForm] = useState(false);
 
   useEffect( () => {
     setWeight(userLog.weight);
     setReps(userLog.reps);
+    setNotes(userLog.notes);
     if(userLog.id)setLogExists(true);
     if(openLogFormAutomatically)setShowLogForm(true);
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedUserLog = {work_out_date: userLog.work_out_date, weight: weight, reps: reps, work_out_id: userLog.work_out_id,};
+    const updatedUserLog = {work_out_date: userLog.work_out_date, work_out_id: userLog.work_out_id, 
+      weight, reps, notes,};
     if (logExists){
       axios.put(`/api/user_logs/${userLog.id}`, updatedUserLog)
         .then(res => setShowLogForm(false));
@@ -39,16 +42,19 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
       <Card.Meta>Round {round}</Card.Meta>
       {((weight || reps) && !showLogForm) && 
       <>
-        <Card.Meta>{weight} lbs</Card.Meta>
-        <Card.Meta>{reps} reps</Card.Meta>
+        <Card.Description>{weight} lbs</Card.Description>
+        <Card.Description>{reps} reps</Card.Description>
       </>
       }
       <Icon
         name={showLogForm ? "close" : "caret down"}
         size="large"
         onClick={() => setShowLogForm(!showLogForm)}
-      />
+        />
       </div>
+      {!showLogForm &&
+        <Card.Meta>{notes}</Card.Meta>
+      }
       {/* <Card.Description></Card.Description> */}
       {showLogForm && 
         <Form onSubmit={handleSubmit}>
@@ -73,6 +79,13 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
               onChange={(e) => setReps(e.target.value)}
               />
           </Form.Group>
+          <Form.Input
+            fluid
+            label='Notes'
+            placeholder='Notes'
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          />
           <Button 
             style={{display: "flex", margin: "0 auto"}}
             size="mini"

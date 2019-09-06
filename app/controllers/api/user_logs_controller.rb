@@ -2,7 +2,7 @@ class Api::UserLogsController < ApplicationController
   before_action :set_user_log, only: [:update]
 
   def userlog_by_workout
-    render json: UserLog.where(work_out_date: params[:id], work_out_id: params[:work_out_id], user_id: current_user.id)
+    render json: UserLog.where(work_out_date: params[:id], work_out_id: params[:work_out_id], user_id: current_user.id).order(:id)
   end
 
   def update
@@ -26,7 +26,7 @@ end
   private
 
     def user_log_params
-      params.require(:user_log).permit(:weight, :reps, :user_id, :work_out_id, :work_out_date)
+      params.require(:user_log).permit(:weight, :reps, :user_id, :work_out_id, :work_out_date, :notes)
     end
 
     def set_user_log
