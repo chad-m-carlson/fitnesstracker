@@ -26,7 +26,7 @@ end
   private
 
     def user_log_params
-      params.require(:user_log).permit(:weight, :reps, :user_id, :work_out_id, :work_out_date)
+      params.require(:user_log).permit(:weight, :reps, :user_id, :work_out_id, :work_out_date, :notes)
     end
 
     def set_user_log
