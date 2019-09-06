@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 const Home  = () => {
   const [date, setDate] = useState(new Date());
-  const [hideDatePicker, setHideDatePicker] = useState(false);
+  const [hideDatePicker, setHideDatePicker] = useState(true);
   const {authenticated, user} = useContext(AuthContext);
 
   const handleDateChange = (date) => {

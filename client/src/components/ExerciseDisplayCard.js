@@ -1,6 +1,6 @@
 import React, {useState, } from 'react';
 import NewWorkoutForm from './Admin/NewWorkoutForm';
-import UserLogForm from './UserLogForm';
+import UserLog from './UserLog';
 import {Card, Button} from 'semantic-ui-react';
 
 const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFromForm}) => {
@@ -23,7 +23,7 @@ const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFr
         </div>
         <br />
         {!admin &&
-          <UserLogForm 
+          <UserLog
           exerciseId={wo.id}
           workoutDate={wo.date}
           workoutId={wo.workoutid}
