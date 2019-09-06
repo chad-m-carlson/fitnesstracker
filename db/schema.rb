@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 201907310003607) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "work_out_date"
+    t.string "notes"
     t.index ["user_id"], name: "index_user_logs_on_user_id"
     t.index ["work_out_id"], name: "index_user_logs_on_work_out_id"
   end

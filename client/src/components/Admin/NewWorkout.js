@@ -89,9 +89,6 @@ class NewWorkout extends React.Component {
   render() { 
     return ( 
       <>
-     CONTINUE TESTING EDITING EXERCISE BEFORE IT IS ADDED TO WORKOUT, AND AFTER ADDED TO WORKOUT
-     THIS SEEMS TO BE WORKING NOW.
-
       <h1>Create a new workout</h1>
         <Form>
           {!this.state.hideDatePicker &&

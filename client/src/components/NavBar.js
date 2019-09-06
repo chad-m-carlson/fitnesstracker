@@ -45,7 +45,7 @@ const NavBar = (props) => {
 
   return (  
     <>
-    <Menu fixed="top">
+    <Menu fixed="top" style={{madWidth: "{dimensions.width} - 5"}}>
       {dimensions.width > 600 ?
       <>
         <Menu.Item>
