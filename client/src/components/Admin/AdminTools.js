@@ -2,12 +2,14 @@ import React, {useState, } from 'react';
 import ExerciseForm from './ExerciseForm';
 import ExerciseIndex from './ExerciseIndex';
 import ExerciseByCategory from './ExerciseByCategory';
+import RepsForm from './RepsForm';
 import {Link, } from 'react-router-dom';
 
 const AdminTools = (props) => {
   const [showExerciseIndex, setShowExerciseIndex] = useState(false);
   const [showExerciseCategories, setShowExerciseCategories] = useState(false);
   const [showExerciseForm, setShowExerciseForm] = useState(false);
+  const [showRepsForm, setShowRepsForm] = useState(false);
   
   return ( 
     <>
@@ -37,6 +39,15 @@ const AdminTools = (props) => {
         <ExerciseForm 
           setShowExerciseForm={setShowExerciseForm}
           showExerciseForm={showExerciseForm}
+        />
+      }
+      <h3
+        onClick={() => setShowRepsForm(!showRepsForm)}
+        style={{cursor: 'pointer'}}
+      >Add Reps/Rep Pace</h3>
+      {showRepsForm &&
+        <RepsForm
+
         />
       }
     </>

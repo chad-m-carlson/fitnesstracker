@@ -66,6 +66,7 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
               pattern="[0-9]*"
               label='Weight'
               placeholder='Weight'
+              name='weight'
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
               />
@@ -75,6 +76,7 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
               pattern="[0-9]*"
               label='Reps'
               placeholder='Reps'
+              name='reps'
               value={reps}
               onChange={(e) => setReps(e.target.value)}
               />

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Select, Button,} from 'semantic-ui-react';
+import {Form, Select, Button, Input} from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import axios from 'axios';
 
@@ -10,6 +10,7 @@ class NewWorkOutForm extends React.Component {
     repPace: '',
     showReps: false,
     notes: '',
+    showRepAmountInput: false,
    }
 
   componentDidMount = () => {
@@ -51,14 +52,29 @@ class NewWorkOutForm extends React.Component {
 
     return(
       <>
-        <Form.Field
+        <Form.Group widths='equal'>
+          {!this.state.showRepAmountInput &&
+          <Form.Field
           control={Select}
           options={repAmount}
           label={{ children: 'Rep Amount'}}
           placeholder='Rep Amount'
           value={this.state.workout ? this.state.repAmount : repAmount.value}
           onChange={this.handleRepAmountChange}
-        />
+          />
+        }
+          <p
+            style={{cursor: "pointer"}} 
+            onClick={() => this.setState({showRepAmountInput: !this.state.showRepAmountInput})}>Other Amount?</p>
+        {this.state.showRepAmountInput &&
+          <Form.Field
+          control={Input}
+          label='Other'
+          value={this.state.repAmount}
+          onChange={this.handleRepAmountChange}
+          />
+        }
+        </Form.Group>
         <Form.Field
           control={Select}
           options={repPace}
