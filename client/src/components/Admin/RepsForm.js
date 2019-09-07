@@ -22,7 +22,8 @@ const RepsForm = () => {
         <Form onSubmit={handleAmountSubmit}>
           <Form.Input
             fluid
-            autoFocus
+            type="number"
+            pattern="[0-9]*"
             label='Rep Amount'
             placeholder='ie: 12-20'
             name='amount'
@@ -35,7 +36,8 @@ const RepsForm = () => {
         <Form onSubmit={handlePaceSubmit}>
           <Form.Input
             fluid
-            autoFocus
+            type="number"
+            pattern="[0-9]*"
             label='Rep Pace'
             placeholder='ie: 4-2-1'
             name='pace'
