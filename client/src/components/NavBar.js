@@ -4,7 +4,7 @@ import {Menu, Dropdown} from 'semantic-ui-react';
 import {NavLink, } from 'react-router-dom';
 
 const NavBar = (props) => {
-  const {handleLogout, admin} = useContext(AuthContext);
+  const {handleLogout, admin, authenticated} = useContext(AuthContext);
   const [dimensions, setDimensions] = useState({height: window.innerHeight, width: window.innerWidth})
 
   function debounce(fn, ms) {
@@ -59,26 +59,30 @@ const NavBar = (props) => {
             Home
           </NavLink>
         </Menu.Item>
-        <Menu.Item>
-          <br />
-          <NavLink
-            to='/login'
-            activeStyle={{textDecoration: "underline"}}
-            align='center'
-            style={{color: "black"}}>
-            Login
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item>
-          <br />
-          <NavLink
-            to='/register'
-            activeStyle={{textDecoration: "underline"}}
-            align='center'
-            style={{color: "black"}}>
-            Register
-          </NavLink>
-        </Menu.Item>
+        {!authenticated &&
+        <>
+          <Menu.Item>
+            <br />
+              <NavLink
+              to='/login'
+              activeStyle={{textDecoration: "underline"}}
+              align='center'
+              style={{color: "black"}}>
+                Login
+              </NavLink>
+          </Menu.Item>
+          <Menu.Item>
+            <br />
+            <NavLink
+              to='/register'
+              activeStyle={{textDecoration: "underline"}}
+              align='center'
+              style={{color: "black"}}>
+              Register
+            </NavLink>
+          </Menu.Item>
+        </>
+        }
         {admin &&
           <Menu.Item>
             <br />
@@ -111,24 +115,28 @@ const NavBar = (props) => {
                     Home
                   </NavLink>
               </Dropdown.Item>
-              <Dropdown.Item style={{textAlign: "center"}}>
-                <NavLink
+              {!authenticated &&
+              <>
+                <Dropdown.Item style={{textAlign: "center"}}>
+                  <NavLink
                   to='/login'
                   activeStyle={{textDecoration: "underline"}}
                   align='center'
                   style={{color: "black"}}>
-                  Login
-                </NavLink>
-              </Dropdown.Item>
-              <Dropdown.Item style={{textAlign: "center"}}>
-                <NavLink
-                  to='/register'
-                  activeStyle={{textDecoration: "underline"}}
-                  align='center'
-                  style={{color: "black"}}>
-                  Register
-                </NavLink>
-              </Dropdown.Item>
+                    Login
+                  </NavLink>
+                </Dropdown.Item>
+                <Dropdown.Item style={{textAlign: "center"}}>
+                  <NavLink
+                    to='/register'
+                    activeStyle={{textDecoration: "underline"}}
+                    align='center'
+                    style={{color: "black"}}>
+                    Register
+                  </NavLink>
+                </Dropdown.Item>
+              </>
+              }
               <Dropdown.Item style={{textAlign: "center"}}>
                 {adminControls()}
               </Dropdown.Item>

@@ -4,6 +4,12 @@ class Api::RepPacesController < ApplicationController
   end
 
   def create
+    pace = RepPace.create(params.require(:rep_pace).permit(:pace))
+    if pace.save
+      render json: pace
+    else
+      render json: pace.errors
+  end
   end
 
   def update

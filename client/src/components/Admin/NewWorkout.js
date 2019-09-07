@@ -116,7 +116,6 @@ class NewWorkout extends React.Component {
             onChange={this.handleCategoryChange}
           />
         </Form>
-        <ul>
           {this.state.exercises.map( e => 
             <NewWorkoutForm
               key={e.id}
@@ -127,7 +126,6 @@ class NewWorkout extends React.Component {
               getExerciseFromForm={this.getExerciseFromForm}
             />
             )}
-        </ul>
         <PendingWorkout
           date={this.state.date}
           updatedWorkout={this.state.workout}

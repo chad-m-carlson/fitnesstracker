@@ -17,7 +17,8 @@ const Register = (props) => {
   return ( 
     <>
     <Segment basic>
-      <Header as='h1' textAlign='center'>Register</Header>
+      <h1>Not accepting registrations at this time</h1>
+      {/* <Header as='h1' textAlign='center'>Register</Header>
       <Form onSubmit={handleSubmit}>
         <Form.Input
           label='Email'
@@ -47,7 +48,7 @@ const Register = (props) => {
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
         <Button>Sign Up</Button>
-      </Form>
+      </Form> */}
     </Segment>
     </>
    );
