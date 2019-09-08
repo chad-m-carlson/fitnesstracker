@@ -3,7 +3,8 @@ import ExerciseForm from './ExerciseForm';
 import ExerciseIndex from './ExerciseIndex';
 import ExerciseByCategory from './ExerciseByCategory';
 import RepsForm from './RepsForm';
-import {Link, } from 'react-router-dom';
+import {PageContainer, CardContainer } from '../styles/styles';
+import {Segment, } from 'semantic-ui-react';
 
 const AdminTools = (props) => {
   const [showExerciseIndex, setShowExerciseIndex] = useState(false);
@@ -12,45 +13,58 @@ const AdminTools = (props) => {
   const [showRepsForm, setShowRepsForm] = useState(false);
   
   return ( 
-    <>
-      <h1>Admin Tools</h1>
-      <h3>
-        <Link to='newworkout'>Add/Edit Workout</Link>
-      </h3>
-      <h3 
-        onClick={() => setShowExerciseIndex(!showExerciseIndex)}
-        style={{cursor: 'pointer'}}
-        >Show All Exercises</h3>
-      {showExerciseIndex &&
-        <ExerciseIndex />
-      }
-      <h3
-        onClick={() => setShowExerciseCategories(!showExerciseCategories)}
-        style={{cursor: 'pointer'}}
-      >Exercises By Category</h3>
-      {showExerciseCategories &&
-        <ExerciseByCategory />  
-      }
-      <h3 
-        onClick={() => setShowExerciseForm(!showExerciseForm)}
-        style={{cursor: 'pointer'}}
-        >Add an exercise</h3>
-      {showExerciseForm &&
-        <ExerciseForm 
-          setShowExerciseForm={setShowExerciseForm}
-          showExerciseForm={showExerciseForm}
-        />
-      }
-      <h3
-        onClick={() => setShowRepsForm(!showRepsForm)}
-        style={{cursor: 'pointer'}}
-      >Add Reps/Rep Pace</h3>
-      {showRepsForm &&
-        <RepsForm
-
-        />
-      }
-    </>
+    <PageContainer>
+      <CardContainer style={{width: "75%"}}>
+        <h1>Admin Tools</h1>
+        <Segment onClick={() => props.history.push(`/newworkout`)} style={{cursor: 'pointer'}}>
+          <h3>
+            Add/Edit Workout
+          </h3>
+        </Segment>
+        <Segment onClick={() => setShowExerciseIndex(!showExerciseIndex)} style={{cursor: 'pointer'}}>
+          <h3 
+            >Show All Exercises</h3>
+        </Segment>
+        {showExerciseIndex &&
+          <Segment>
+              <ExerciseIndex />
+          </Segment>
+        }
+        <Segment style={{cursor: 'pointer'}}>
+          <h3
+            onClick={() => setShowExerciseCategories(!showExerciseCategories)}
+            >Exercises By Category</h3>
+        </Segment>
+        {showExerciseCategories &&
+          <Segment>
+            <ExerciseByCategory />  
+          </Segment>
+        }
+        <Segment style={{cursor: 'pointer'}}>
+          <h3 
+            onClick={() => setShowExerciseForm(!showExerciseForm)}
+            >Add an exercise</h3>
+        </Segment>
+        {showExerciseForm &&
+          <Segment>
+            <ExerciseForm 
+              setShowExerciseForm={setShowExerciseForm}
+              showExerciseForm={showExerciseForm}
+              />
+          </Segment>
+        }
+        <Segment style={{cursor: 'pointer'}}>
+          <h3
+            onClick={() => setShowRepsForm(!showRepsForm)}
+            >Add Reps/Rep Pace</h3>
+        </Segment>
+        {showRepsForm &&
+          <Segment>
+            <RepsForm/>
+          </Segment>
+        }
+      </CardContainer>
+    </PageContainer>
    );
 }
  
