@@ -47,7 +47,7 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
       </>
       }
       <Icon
-        name={showLogForm ? "close" : "caret down"}
+        name={showLogForm ? "window close outline" : "caret down"}
         size="large"
         onClick={() => setShowLogForm(!showLogForm)}
         />

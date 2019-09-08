@@ -3,7 +3,7 @@ import axios from 'axios';
 import NewWorkoutForm from './NewWorkoutForm';
 import Datepicker from 'react-datepicker';
 import PendingWorkout from './PendingWorkout';
-import {Form, Select, Button } from 'semantic-ui-react';
+import {Form, Select, Button, Container } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -88,7 +88,7 @@ class NewWorkout extends React.Component {
 
   render() { 
     return ( 
-      <div style={{marginBottom: "1rem"}}>
+      <Container style={{marginBottom: "1rem"}}>
       <h1>Create a new workout</h1>
         <Form>
           {!this.state.hideDatePicker &&
@@ -116,6 +116,7 @@ class NewWorkout extends React.Component {
             onChange={this.handleCategoryChange}
           />
         </Form>
+        <div style={{display: "flex", flexDirection: "column", textAlign: '-webkit-center', margin: "0 auto'"}}>
           {this.state.exercises.map( e => 
             <NewWorkoutForm
               key={e.id}
@@ -132,7 +133,8 @@ class NewWorkout extends React.Component {
           reps={this.state.reps}
           getExerciseFromForm={this.getExerciseFromForm}
         />
-      </div>
+        </div>
+      </Container>
      );
   }
 }

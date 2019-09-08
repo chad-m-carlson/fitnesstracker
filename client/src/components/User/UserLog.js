@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import UserLogForm from './UserLogForm';
+import UserLogForm from '../Forms/UserLogForm';
 import axios from 'axios';
 import {Button, } from 'semantic-ui-react';
 

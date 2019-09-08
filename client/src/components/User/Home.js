@@ -1,10 +1,10 @@
 import React, {useContext, useState, } from 'react';
 import Datepicker from 'react-datepicker';
-import {AuthContext} from '../providers/AuthProvider';
+import {AuthContext} from '../../providers/AuthProvider';
 import TodaysWorkout from './TodaysWorkout';
 import "react-datepicker/dist/react-datepicker.css";
 import {Form, Button} from 'semantic-ui-react';
-import {PageContainer, CardContainer} from './styles/styles';
+import {PageContainer, CardContainer} from '../styles/styles';
 
 const Home  = () => {
   const [date, setDate] = useState(new Date());
@@ -19,7 +19,7 @@ const Home  = () => {
     <PageContainer>
       <div style={{textAlign: "center"}}>
         {authenticated &&
-          <h2>Welcome {user.name}!</h2>
+          <h2>Welcome {user.first_name}!</h2>
         }
         {!hideDatePicker &&
           <Form>

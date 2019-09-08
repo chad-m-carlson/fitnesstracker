@@ -1,5 +1,5 @@
 import React, {useState,} from 'react';
-import ExerciseForm from './ExerciseForm';
+import ExerciseForm from '../Forms/ExerciseForm';
 import {Icon, } from 'semantic-ui-react';
 import axios from 'axios';
 
