@@ -88,7 +88,7 @@ class NewWorkout extends React.Component {
 
   render() { 
     return ( 
-      <>
+      <div style={{marginBottom: "1rem"}}>
       <h1>Create a new workout</h1>
         <Form>
           {!this.state.hideDatePicker &&
@@ -132,7 +132,7 @@ class NewWorkout extends React.Component {
           reps={this.state.reps}
           getExerciseFromForm={this.getExerciseFromForm}
         />
-      </>
+      </div>
      );
   }
 }
