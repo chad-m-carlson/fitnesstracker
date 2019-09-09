@@ -26,7 +26,7 @@ const NavBar = (props) => {
     <>
     <Menu fixed="top" style={{madWidth: "{dimensions.width}"}}>
       <Link to="/">
-        <img src="https://static.wixstatic.com/media/b52571_71db7fe581844a49bed79066aabd7481~mv2.png/v1/fill/w_508,h_120,al_c,lg_1,q_80/b52571_71db7fe581844a49bed79066aabd7481~mv2.webp" alt="logo" style={{height: "3rem", padding: ".3rem"}}/>
+        <img src="https://static.wixstatic.com/media/b52571_71db7fe581844a49bed79066aabd7481~mv2.png" alt="logo" style={{height: "3rem", padding: ".3rem"}}/>
       </Link>
       {dimensions.width > 600 ?
       <>
