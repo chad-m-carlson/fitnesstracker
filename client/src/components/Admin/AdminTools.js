@@ -1,8 +1,8 @@
 import React, {useState, } from 'react';
-import ExerciseForm from './ExerciseForm';
+import ExerciseForm from '../Forms/ExerciseForm';
 import ExerciseIndex from './ExerciseIndex';
 import ExerciseByCategory from './ExerciseByCategory';
-import RepsForm from './RepsForm';
+import RepsForm from '../Forms/RepsForm';
 import {PageContainer, CardContainer } from '../styles/styles';
 import {Segment, } from 'semantic-ui-react';
 

@@ -1,6 +1,6 @@
 import React, {useState, } from 'react';
 import NewWorkoutForm from './Admin/NewWorkoutForm';
-import UserLog from './UserLog';
+import UserLog from './User/UserLog';
 import {Card, Button} from 'semantic-ui-react';
 
 const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFromForm, index}) => {

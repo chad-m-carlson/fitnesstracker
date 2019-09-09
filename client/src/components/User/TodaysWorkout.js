@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import ExerciseDisplayCard from './ExerciseDisplayCard';
+import ExerciseDisplayCard from '../ExerciseDisplayCard';
 import axios from 'axios';
-import {getSimpleDate, } from '../helpers/HelperFunctions'
+import {getSimpleDate, } from '../../helpers/HelperFunctions'
 
 const TodaysWorkout = ({date,}) => {
   const [workout, setWorkout] = useState([]);

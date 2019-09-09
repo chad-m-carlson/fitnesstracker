@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Button, Form, Segment, Header, } from 'semantic-ui-react';
-import {AuthContext} from '../providers/AuthProvider';
+import {AuthContext} from '../../providers/AuthProvider';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
