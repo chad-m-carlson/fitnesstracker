@@ -58,7 +58,7 @@ class NewWorkOutForm extends React.Component {
     return(
       <>
           <div style={{display: "flex", justifyContent: "space-around"}}>
-            <div style={{display: "flex", alignItems: "flex-end"}}>
+            <div style={{display: "flex"}}>
               {!this.state.showRepAmountInput &&
                 <Form.Field
                   control={Select}
@@ -81,7 +81,7 @@ class NewWorkOutForm extends React.Component {
                 />
               }
               <DivButton
-                style={{marginLeft: "1rem"}}
+                style={{marginLeft: "1rem", marginTop: "1.7rem"}}
                 onClick={() => this.setState({showRepAmountInput: !this.state.showRepAmountInput})}
                 size="tiny">
                 Other Amount?
@@ -89,7 +89,7 @@ class NewWorkOutForm extends React.Component {
             </div>
           </div>
           <div style={{display: "flex", justifyContent: "space-around"}}>
-            <div style={{display: "flex", alignItems: "flex-end"}}>
+            <div style={{display: "flex"}}>
               {!this.state.showRepPaceInput &&
                 <Form.Field
                   control={Select}
@@ -112,7 +112,7 @@ class NewWorkOutForm extends React.Component {
                 />
               }
               <DivButton
-                style={{marginLeft: "1rem"}}
+                style={{marginLeft: "1rem", marginTop: "1.7rem"}}
                 onClick={() => this.setState({showRepPaceInput: !this.state.showRepPaceInput})}
                 size="tiny">
                   Other Pace?
