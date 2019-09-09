@@ -141,7 +141,7 @@ class NewWorkOutForm extends React.Component {
                     onChange={(e) => this.setState({notes: e.target.value})}
                   /> 
                   <Form.Input
-                    style={{width: "3rem"}}
+                    style={{width: "4rem"}}
                     label="Order"
                     type="number"
                     value={this.state.exercise_order}
