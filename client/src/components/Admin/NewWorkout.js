@@ -95,7 +95,6 @@ class NewWorkout extends React.Component {
           <div style={{display: "flex", justifyContent: "space-around", padding: "1rem"}}>
             <Datepicker 
               inline
-              placeholderText='Click to select a date'
               selected={this.state.date}
               onChange={this.handleDateChange}
               />

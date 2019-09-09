@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 
-const Exercise = ({exercise}) => {
+const Exercise = ({exercise, exerciseChanged, setExerciseChanged}) => {
   const [showExerciseForm, setShowExerciseForm] = useState(false);
   const [activeUpdated, setActiveUpdated] = useState(false);
 
@@ -41,6 +41,8 @@ const Exercise = ({exercise}) => {
         exercise={exercise}
         setShowExerciseForm={setShowExerciseForm}
         showExerciseForm={showExerciseForm}
+        exerciseChanged={exerciseChanged}
+        setExerciseChanged={setExerciseChanged}
       />
     }
   </>
