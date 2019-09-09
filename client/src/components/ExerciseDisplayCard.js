@@ -3,7 +3,7 @@ import NewWorkoutForm from './Admin/NewWorkoutForm';
 import UserLog from './UserLog';
 import {Card, Button} from 'semantic-ui-react';
 
-const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFromForm}) => {
+const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFromForm, index}) => {
   const [editing, setEditing] = useState(false)
 
   return ( 
@@ -39,6 +39,7 @@ const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFr
     </Card>
     {editing &&
       <NewWorkoutForm 
+        index={index}
         exercise={wo}
         date={date}
         reps={reps}

@@ -64,7 +64,6 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
               autoFocus
               type="number"
               pattern="[0-9]*"
-              novalidation
               label='Weight'
               placeholder='Weight'
               name='weight'
