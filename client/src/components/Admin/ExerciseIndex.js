@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Exercise from './Exercise';
 
-const ExerciseIndex = (props) => {
+const ExerciseIndex = ({exerciseChanged, setExerciseChanged}) => {
   const [exercises, setExercises] = useState([]);
   //ADD A FUNCTION TO UPDATE THIS EXERCISE ARRAY IF IT IS EDITED IN THE FORM????
 
@@ -11,7 +11,7 @@ const ExerciseIndex = (props) => {
       .then(res => {
         setExercises(res.data)})
       .catch(res => console.log(res))
-  }, [])
+  }, [exerciseChanged])
 
 
   return (
@@ -22,6 +22,8 @@ const ExerciseIndex = (props) => {
           <li>
             <Exercise
               exercise={e}
+              exerciseChanged={exerciseChanged}
+              setExerciseChanged={setExerciseChanged}
             />
           </li>
         )}

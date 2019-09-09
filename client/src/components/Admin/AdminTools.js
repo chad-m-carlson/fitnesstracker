@@ -11,7 +11,8 @@ const AdminTools = (props) => {
   const [showExerciseCategories, setShowExerciseCategories] = useState(false);
   const [showExerciseForm, setShowExerciseForm] = useState(false);
   const [showRepsForm, setShowRepsForm] = useState(false);
-  
+  const [exerciseChanged, setExerciseChanged] = useState(false);
+
   return ( 
     <PageContainer>
       <CardContainer>
@@ -27,7 +28,10 @@ const AdminTools = (props) => {
         </Segment>
         {showExerciseIndex &&
           <Segment>
-              <ExerciseIndex />
+              <ExerciseIndex 
+                exerciseChanged={exerciseChanged}
+                setExerciseChanged={setExerciseChanged}
+              />
           </Segment>
         }
         <Segment style={{cursor: 'pointer'}}>
@@ -50,6 +54,8 @@ const AdminTools = (props) => {
             <ExerciseForm 
               setShowExerciseForm={setShowExerciseForm}
               showExerciseForm={showExerciseForm}
+              setExerciseChanged={setExerciseChanged}
+              exerciseChanged={exerciseChanged}
               />
           </Segment>
         }

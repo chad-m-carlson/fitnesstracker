@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Select, Button, Input, Segment} from 'semantic-ui-react';
+import {Form, Select, Button, Input, Segment, } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -57,68 +57,62 @@ class NewWorkOutForm extends React.Component {
 
     return(
       <>
-          <div style={{display: "flex", justifyContent: "space-around"}}>
-            <div style={{display: "flex"}}>
-              {!this.state.showRepAmountInput &&
-                <Form.Field
-                  control={Select}
-                  options={repAmount}
-                  label={{ children: 'Rep Amount'}}
-                  placeholder='Rep Amount'
-                  value={this.state.workout ? this.state.repAmount : repAmount.value}
-                  onChange={this.handleRepAmountChange}
-                />
-              }
-              {this.state.showRepAmountInput &&
-                <Form.Field
-                  autofocus
-                  control={Input}
-                  type="number"
-                  // pattern="[0-9]*"
-                  label='Other'
-                  value={this.state.repAmount}
-                  onChange={this.handleRepAmountChange}
-                />
-              }
-              <DivButton
-                style={{marginLeft: "1rem", marginTop: "1.7rem"}}
-                onClick={() => this.setState({showRepAmountInput: !this.state.showRepAmountInput})}
-                size="tiny">
-                Other Amount?
-              </DivButton>
-            </div>
+        <DropdownContainer>
+          <div style={{display: "flex"}}>
+            {!this.state.showRepAmountInput &&
+              <Form.Field
+                control={Select}
+                options={repAmount}
+                label={{ children: 'Rep Amount'}}
+                placeholder='Rep Amount'
+                value={this.state.workout ? this.state.repAmount : repAmount.value}
+                onChange={this.handleRepAmountChange}
+              />
+            }
+            {this.state.showRepAmountInput &&
+              <Form.Field
+                autofocus
+                control={Input}
+                type="number"
+                // pattern="[0-9]*"
+                label='Other'
+                value={this.state.repAmount}
+                onChange={this.handleRepAmountChange}
+              />
+            }
+            <DivButton onClick={() => this.setState({showRepAmountInput: !this.state.showRepAmountInput})}>
+              Other?
+            </DivButton>
           </div>
-          <div style={{display: "flex", justifyContent: "space-around"}}>
-            <div style={{display: "flex"}}>
-              {!this.state.showRepPaceInput &&
-                <Form.Field
-                  control={Select}
-                  options={repPace}
-                  label={{ children: 'Rep Pace'}}
-                  placeholder='Rep Pace'
-                  value={this.state.workout ? this.state.repPace : repPace.value}
-                  onChange={this.handleRepPaceChange}
-                />
-              }
-              {this.state.showRepPaceInput &&
-                <Form.Field
-                  autofocus
-                  control={Input}
-                  type="number"
-                  // pattern="[0-9]*"
-                  label='Other'
-                  value={this.state.repPace}
-                  onChange={this.handleRepPaceChange}
-                />
-              }
-              <DivButton
-                style={{marginLeft: "1rem", marginTop: "1.7rem"}}
-                onClick={() => this.setState({showRepPaceInput: !this.state.showRepPaceInput})}
-                size="tiny">
-                  Other Pace?
-              </DivButton>
-            </div>
+        </DropdownContainer>
+        <DropdownContainer>
+          <div style={{display: "flex"}}>
+            {!this.state.showRepPaceInput &&
+              <Form.Field
+                control={Select}
+                options={repPace}
+                label={{ children: 'Rep Pace'}}
+                placeholder='Rep Pace'
+                value={this.state.workout ? this.state.repPace : repPace.value}
+                onChange={this.handleRepPaceChange}
+              />
+            }
+            {this.state.showRepPaceInput &&
+              <Form.Field
+                autofocus
+                control={Input}
+                type="number"
+                // pattern="[0-9]*"
+                label='Other'
+                value={this.state.repPace}
+                onChange={this.handleRepPaceChange}
+              />
+            }
+            <DivButton onClick={() => this.setState({showRepPaceInput: !this.state.showRepPaceInput})}>
+                Other?
+            </DivButton>
           </div>
+        </DropdownContainer>
       </>
     )
   };
@@ -126,16 +120,20 @@ class NewWorkOutForm extends React.Component {
   render() { 
     return ( 
       <>
-          <p onClick={() => this.setState({showReps: !this.state.showReps,})} style={{textDecoration: "underline", color: "blue", cursor: "pointer"}}>
+        {!this.state.showReps &&
+          <ExerciseContainer onClick={() => this.setState({showReps: !this.state.showReps,})}>
             {this.props.exercise.name}
-          </p>
-            {this.state.showReps && 
-        <Segment>
-        <Form onSubmit={this.handleSubmit}>
+          </ExerciseContainer>
+        }
+        {this.state.showReps && 
+          <Segment style={{marginTop: "1rem"}}>
+            <Form onSubmit={this.handleSubmit}>
               <>
+              <h3>{this.props.exercise.name}</h3>
                 <Form.Group widths='equal'>
                   {this.generateRepsDropdown()}
                   <Form.Input
+                    style={{marginTop: "1rem !important"}}
                     label="Notes"
                     value={this.state.notes}
                     onChange={(e) => this.setState({notes: e.target.value})}
@@ -149,31 +147,49 @@ class NewWorkOutForm extends React.Component {
                   />
                 </Form.Group>
                 <div style={{display: "flex", justifyContent: "space-between"}}>
+                  <Button size='tiny' onClick={() => this.setState({showReps: !this.state.showReps})}>Nevermind</Button>
                   <Button size='tiny'>{this.props.editing ? 'Save Changes' : 'Add To Workout'}</Button>
-                  <Button onClick={() => this.setState({showReps: !this.state.showReps})}>Nevermind</Button>
                 </div>
               </>
-        </Form>
-        </Segment>
-            }
+            </Form>
+          </Segment>
+        }
       </>
-     );
+    );
   }
 }
 
 const DivButton = styled.div `
   height: 2.5rem;
-  width: 8.4rem;
+  width: 5.2rem;
   padding: 0.6rem;
   background-color: #cacbcd;
-  display: table;
   border-radius: 3px;
   font-weight: 700;
   font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
   color: rgba(0,0,0,.6);
   text-align: center;
-  /* margin-top: 1.7rem;
-  margin-left: 1rem; */
+  margin-top: 1.7rem;
+  margin-left: 2.4rem;
+`;
+
+const DropdownContainer = styled.div `
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+`;
+
+const ExerciseContainer = styled.div `
+  cursor: pointer;
+  border: 1px solid rgba(34,36,38,.15);
+  border-radius: 3px;
+  padding: .5rem;
+  width: 75%;
+  margin: 0 auto .2rem auto;
+
+  &:first-child{
+    margin-top: 1rem;
+  }
 `;
  
 export default NewWorkOutForm;

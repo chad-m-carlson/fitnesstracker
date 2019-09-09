@@ -9,6 +9,7 @@ class Exercise < ApplicationRecord
       FROM exercises
       WHERE #{category} = true
       AND is_active = true
+      ORDER BY name
     "])
   end
 end

@@ -2,7 +2,7 @@ class Api::ExercisesController < ApplicationController
   before_action :set_exercise, only:[:update]
 
   def index
-    render json: Exercise.all
+    render json: Exercise.all.order(:name)
   end
 
   def show

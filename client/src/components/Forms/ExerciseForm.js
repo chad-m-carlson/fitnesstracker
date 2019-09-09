@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Button, Form, Segment, Header, } from 'semantic-ui-react';
 import axios from 'axios';
 
-const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm}) => {
+const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm, setExerciseChanged, exerciseChanged, }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [video_url, setVideo_url] = useState('');
@@ -43,13 +43,17 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm}) => {
         setShowExerciseForm(!showExerciseForm)
         if (res.data === ''){
           alert('Something Went Wrong')
-        }else alert('Exercise Successfully Saved')})
+        }else {
+          // alert('Exercise Successfully Saved')
+          setExerciseChanged(!exerciseChanged)
+        }})
       .catch(res => console.log(res));
     } else {
 
       axios.put(`/api/exercises/${exercise.id}`, exerciseToSave)
         .then(res => {
           setShowExerciseForm(!showExerciseForm)
+          setExerciseChanged(!exerciseChanged)
           alert('Exercise Successfully Updated')
         })
     }

@@ -31,8 +31,8 @@ const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFr
         }
         {admin &&
         <>
-        <Button onClick={() => setEditing(!editing)}>Edit</Button>
-        <Button onClick={() => handleDelete(wo.workoutid)} color='red'>Delete</Button>
+        <Button color="blue" inverted onClick={() => setEditing(!editing)}>Edit</Button>
+        <Button onClick={() => handleDelete(wo.workoutid)} inverted color='red'>Delete</Button>
         </>
         }
       </Card.Content>
