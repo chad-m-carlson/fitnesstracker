@@ -71,7 +71,7 @@ class NewWorkOutForm extends React.Component {
                   autofocus
                   control={Input}
                   type="number"
-                  pattern="[0-9]*"
+                  // pattern="[0-9]*"
                   label='Other'
                   value={this.state.repAmount}
                   onChange={this.handleRepAmountChange}
@@ -102,7 +102,7 @@ class NewWorkOutForm extends React.Component {
                   autofocus
                   control={Input}
                   type="number"
-                  pattern="[0-9]*"
+                  // pattern="[0-9]*"
                   label='Other'
                   value={this.state.repPace}
                   onChange={this.handleRepPaceChange}
