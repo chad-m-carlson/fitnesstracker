@@ -14,7 +14,7 @@ const AdminTools = (props) => {
   
   return ( 
     <PageContainer>
-      <CardContainer style={{width: "75%"}}>
+      <CardContainer>
         <h1>Admin Tools</h1>
         <Segment onClick={() => props.history.push(`/newworkout`)} style={{cursor: 'pointer'}}>
           <h3>
