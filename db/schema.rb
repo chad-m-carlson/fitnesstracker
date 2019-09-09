@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 201907310003607) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.string "name"
+    t.string "first_name"
     t.string "nickname"
     t.string "image"
     t.string "email"
@@ -82,6 +82,13 @@ ActiveRecord::Schema.define(version: 201907310003607) do
     t.datetime "last_sign_in_at"
     t.integer "sign_in_count", default: 0, null: false
     t.boolean "is_admin", default: false
+    t.integer "weight"
+    t.integer "height_feet"
+    t.integer "height_inches"
+    t.string "birthdate"
+    t.boolean "is_male"
+    t.boolean "is_female"
+    t.string "last_name"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -96,6 +103,7 @@ ActiveRecord::Schema.define(version: 201907310003607) do
     t.datetime "updated_at", null: false
     t.string "rep_pace"
     t.string "rep_amount"
+    t.integer "exercise_order"
     t.index ["exercise_id"], name: "index_work_outs_on_exercise_id"
   end
 
