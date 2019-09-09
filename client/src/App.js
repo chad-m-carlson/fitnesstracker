@@ -11,7 +11,6 @@ import AdminRoute from './components/AdminRoute';
 import NewWorkout from './components/Admin/NewWorkout';
 import Profile from './components/User/Profile';
 import {Switch, Route, } from 'react-router-dom';
-import {Container, } from 'semantic-ui-react';
 
 const App = () => (
   <>

@@ -15,7 +15,7 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
           setUserLog([...res.data])
       })
       .catch( res => console.log(res.errors));
-  },[workoutDate]);
+  },[workoutDate, workoutId]);
 
   const generateBlankUserLog = (e) => {
     setUserLog([...userLog, {reps: null, weight: null, work_out_id: workoutId, work_out_date: workoutDate}]);

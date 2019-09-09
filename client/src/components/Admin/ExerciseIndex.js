@@ -21,6 +21,7 @@ const ExerciseIndex = ({exerciseChanged, setExerciseChanged}) => {
         {exercises.map( e => 
           <li>
             <Exercise
+              key={e.id}
               exercise={e}
               exerciseChanged={exerciseChanged}
               setExerciseChanged={setExerciseChanged}

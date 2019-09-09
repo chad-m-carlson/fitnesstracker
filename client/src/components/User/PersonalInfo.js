@@ -4,7 +4,7 @@ import {Segment, } from 'semantic-ui-react';
 
 const PersonalInfo = () => {
   const {user} = useContext(AuthContext)
-  const {first_name, last_name, height_feet, height_inches, birthdate, email, weight,  is_male, is_femle, is_admin} = user
+  const {first_name, last_name, height_feet, height_inches, birthdate, email, weight,  is_male, is_female, is_admin} = user
 
   return ( 
     <div style={{textAlign: "center"}}>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, } from 'react';
 import PersonalInfo from './PersonalInfo';
 import ProgressReport from './ProgressReport';
 import MaxWeightDisplay from './MaxWeightDisplay';
@@ -27,7 +27,10 @@ const Profile = () => {
         setShowProgressReport(false);
         setShowMaxWeight(true);
       break;
-      // default: {setShowPersonalInfo(true), setShowProgressReport(false)};
+      default: 
+        setShowPersonalInfo(true);
+        setShowProgressReport(false);
+        setShowMaxWeight(false);
     }
   };
 
