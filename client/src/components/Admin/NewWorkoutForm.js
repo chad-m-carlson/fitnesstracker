@@ -13,11 +13,14 @@ class NewWorkOutForm extends React.Component {
     notes: '',
     showRepAmountInput: false,
     showRepPaceInput: false,
+    exercise_order: null,
    }
 
   componentDidMount = () => {
     if(this.props.editing){
-    this.setState({showReps: true, repAmount: this.props.repAmount, repPace: this.props.repPace, notes: this.props.exercise.notes});
+    this.setState({showReps: true, repAmount: this.props.repAmount, repPace: this.props.repPace, notes: this.props.exercise.notes, exercise_order: this.props.exercise.exercise_order});
+    }else if(this.props.new_exercise){
+      this.setState({showReps: false, repAmount: this.props.repAmount, repPace: this.props.repPace, notes: this.props.exercise.notes, exercise_order: this.props.index});
     }else{
     axios.get(`/api/work_outs/${getSimpleDate(this.props.date)}/exercises/${this.props.exercise.id}`)
       .then(res => {
@@ -38,7 +41,7 @@ class NewWorkOutForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const completeExercise = {id: this.props.exercise.id, date: getSimpleDate(this.props.date), name: this.props.exercise.name, rep_amount: this.state.repAmount, rep_pace: this.state.repPace, workout_id: this.props.exercise.workoutid, notes: this.state.notes}
+    const completeExercise = {id: this.props.exercise.id, date: getSimpleDate(this.props.date), name: this.props.exercise.name, rep_amount: this.state.repAmount, rep_pace: this.state.repPace, workout_id: this.props.exercise.workoutid, notes: this.state.notes, exercise_order: this.state.exercise_order}
     this.props.getExerciseFromForm(completeExercise, this.props.editing)
     this.setState({showReps: false});
     if(this.props.editing) this.props.setEditing(false);
@@ -71,7 +74,7 @@ class NewWorkOutForm extends React.Component {
                   autofocus
                   control={Input}
                   type="number"
-                  pattern="[0-9]*"
+                  // pattern="[0-9]*"
                   label='Other'
                   value={this.state.repAmount}
                   onChange={this.handleRepAmountChange}
@@ -102,7 +105,7 @@ class NewWorkOutForm extends React.Component {
                   autofocus
                   control={Input}
                   type="number"
-                  pattern="[0-9]*"
+                  // pattern="[0-9]*"
                   label='Other'
                   value={this.state.repPace}
                   onChange={this.handleRepPaceChange}
@@ -137,6 +140,13 @@ class NewWorkOutForm extends React.Component {
                     value={this.state.notes}
                     onChange={(e) => this.setState({notes: e.target.value})}
                   /> 
+                  <Form.Input
+                    style={{width: "3rem"}}
+                    label="Order"
+                    type="number"
+                    value={this.state.exercise_order}
+                    onChange={(e) => this.setState({exercise_order: e.target.value})}
+                  />
                 </Form.Group>
                 <div style={{display: "flex", justifyContent: "space-between"}}>
                   <Button size='tiny'>{this.props.editing ? 'Save Changes' : 'Add To Workout'}</Button>

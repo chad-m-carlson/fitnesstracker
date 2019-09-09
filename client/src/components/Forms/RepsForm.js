@@ -23,7 +23,7 @@ const RepsForm = () => {
           <Form.Input
             fluid
             type="number"
-            pattern="[0-9]*"
+            // pattern="[0-9]*"
             label='Rep Amount'
             placeholder='ie: 12-20'
             name='amount'
@@ -37,7 +37,7 @@ const RepsForm = () => {
           <Form.Input
             fluid
             type="number"
-            pattern="[0-9]*"
+            // pattern="[0-9]*"
             label='Rep Pace'
             placeholder='ie: 4-2-1'
             name='pace'

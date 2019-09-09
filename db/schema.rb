@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 201907310003607) do
     t.datetime "updated_at", null: false
     t.string "rep_pace"
     t.string "rep_amount"
+    t.integer "exercise_order"
     t.index ["exercise_id"], name: "index_work_outs_on_exercise_id"
   end
 

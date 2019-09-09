@@ -50,40 +50,40 @@ class NewWorkout extends React.Component {
 
   getWorkout = (date) => {
     return axios.get(`/api/work_outs/${getSimpleDate(date)}`)
-  }
+  };
 
   
   handleCategoryChange = (e, {value}) => {
     axios.get(`/api/exercises_by_category/${value}`)
       .then( res => {
-        this.setState({exercises: [...res.data]})
-    })
+        this.setState({exercises: [...res.data]});
+    });
   };
   
   handleDateChange = (date) => {
     this.setState({date})
     axios.get(`/api/work_outs/${getSimpleDate(date)}`)
-      .then( res => this.setState({ workout: [...res.data]}))
+      .then( res => this.setState({ workout: [...res.data]}));
   };
 
   getExerciseFromForm = (completeExercise, isUpdate) => {
-    const workoutIds = this.state.workout.map( w => w.id)
+    const workoutIds = this.state.workout.map( w => w.id);
     if(isUpdate){
       if(workoutIds.includes(completeExercise.id)){
-        const filteredState = this.state.workout.filter( wo => wo.id !== completeExercise.id)
+        const filteredState = this.state.workout.filter( wo => wo.id !== completeExercise.id);
         this.setState({workout: [...filteredState, completeExercise]})
       } if(completeExercise.workout_id !== undefined) {
-          axios.put(`/api/work_outs/${completeExercise.workout_id}`, completeExercise)
+          axios.put(`/api/work_outs/${completeExercise.workout_id}`, completeExercise);
             // .then(res => {
             //   this.setState({workout: [...this.state.workout, res.data]})})
-            }
+            };
       return
     };
-      if(workoutIds.includes(completeExercise.id)){
-        if(window.confirm("This workout already has this exercise added, are you sure you want to add again?")){
-        this.setState({workout: [...this.state.workout, completeExercise]})
-        console.log('this got added to workout');
-      }}else this.setState({workout: [...this.state.workout, completeExercise]});;
+    if(workoutIds.includes(completeExercise.id)){
+      if(window.confirm("This workout already has this exercise added, are you sure you want to add again?")){
+      this.setState({workout: [...this.state.workout, completeExercise]})
+      console.log('this got added to workout');
+    }}else this.setState({workout: [...this.state.workout, completeExercise]});
   };
 
   render() { 
@@ -120,8 +120,9 @@ class NewWorkout extends React.Component {
           {this.state.exercises.map( e => 
             <NewWorkoutForm
               key={e.id}
+              index={this.state.workout.length}
               date={this.state.date}
-              // workout={this.state.workout}
+              new_exercise={true}
               reps={this.state.reps}
               exercise={e}
               getExerciseFromForm={this.getExerciseFromForm}
