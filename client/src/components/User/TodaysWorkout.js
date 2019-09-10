@@ -13,14 +13,14 @@ const TodaysWorkout = ({date,}) => {
     
     
     return (
-    <>
+    <div style={{marginBottom: "2rem"}}>
      {workout.map( wo => 
       <ExerciseDisplayCard 
         key={wo.id} 
         wo={wo} 
       />
     )}
-   </>
+   </div>
   );
 }
 
