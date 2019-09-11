@@ -1,5 +1,5 @@
 import React, {useState, } from 'react';
-import NewWorkoutForm from './Admin/NewWorkoutForm';
+import NewWorkoutForm from './Forms/NewWorkoutForm';
 import UserLog from './User/UserLog';
 import {Card, Button} from 'semantic-ui-react';
 

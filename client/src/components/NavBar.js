@@ -8,9 +8,7 @@ const NavBar = (props) => {
   const {handleLogout, admin, authenticated} = useContext(AuthContext);
   const dimensions = useWindowWidth();
 
-  const adminControls = () => {
-    if (admin === true) {
-      return (
+  const adminControls = () => (
         <NavLink
           to='/admin'
           activeStyle={{textDecoration: "underline"}}
@@ -18,9 +16,7 @@ const NavBar = (props) => {
           style={{color: "black"}}>
           Admin
         </NavLink>
-      )
-    }
-  }
+  )
 
   return (  
     <>
@@ -142,9 +138,11 @@ const NavBar = (props) => {
                 </Dropdown.Item>
               </>
               }
+              {admin &&
               <Dropdown.Item style={{textAlign: "center"}}>
                 {adminControls()}
               </Dropdown.Item>
+              }
               <Dropdown.Item style={{textAlign: "center"}}>
                 <NavLink
                   to='/'

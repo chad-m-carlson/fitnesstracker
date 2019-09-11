@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import NewWorkoutForm from './NewWorkoutForm';
+import NewWorkoutForm from '../Forms/NewWorkoutForm';
 import Datepicker from 'react-datepicker';
 import PendingWorkout from './PendingWorkout';
 import {Form, Select, Button, Container } from 'semantic-ui-react';
