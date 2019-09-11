@@ -73,7 +73,7 @@ class NewWorkOutForm extends React.Component {
               <Form.Field
                 autofocus
                 control={Input}
-                type="number"
+                // type="number"
                 // pattern="[0-9]*"
                 label='Other'
                 value={this.state.repAmount}
@@ -101,7 +101,7 @@ class NewWorkOutForm extends React.Component {
               <Form.Field
                 autofocus
                 control={Input}
-                type="number"
+                // type="number"
                 // pattern="[0-9]*"
                 label='Other'
                 value={this.state.repPace}
@@ -127,7 +127,7 @@ class NewWorkOutForm extends React.Component {
         }
         {this.state.showReps && 
           <Segment style={{marginTop: "1rem"}}>
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit} noValidatation>
               <>
               <h3>{this.props.exercise.name}</h3>
                 <Form.Group widths='equal'>

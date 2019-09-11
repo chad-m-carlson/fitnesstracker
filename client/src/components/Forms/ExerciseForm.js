@@ -32,7 +32,7 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm, setExerc
       setCardio(exercise.cardio)
       setSuperset(exercise.superset)
     }
-  },[]);
+  },[exercise]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

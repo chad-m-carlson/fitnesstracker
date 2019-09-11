@@ -4,7 +4,7 @@ export const PageContainer = styled.div `
   display: flex;
   justify-content: space-evenly;
   position: relative;
-  margin-bottom: 1.5rem;
+  padding-bottom: 3rem;
 
   @media only screen and (max-width: 600px){
     display: block;

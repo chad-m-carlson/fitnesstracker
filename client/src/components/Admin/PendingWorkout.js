@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Button, } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions'
 
-const PendingWorkout = ({ saveWorkout, updatedWorkout, date,reps, getExerciseFromForm, sendIndexToNewWorkout}) => {
+const PendingWorkout = ({ saveWorkout, updatedWorkout, date,reps, getExerciseFromForm, }) => {
   const [workout, setWorkout] = useState([]);
 
   useEffect( () => {
@@ -14,7 +14,7 @@ const PendingWorkout = ({ saveWorkout, updatedWorkout, date,reps, getExerciseFro
         setWorkout([...res.data,])
         })
       }else setWorkout([...updatedWorkout])
-    },[date, updatedWorkout,]);
+    },[date, updatedWorkout, workout.length]);
     
     saveWorkout = () => {
       axios.post(`/api/work_outs`, workout)
@@ -28,7 +28,7 @@ const PendingWorkout = ({ saveWorkout, updatedWorkout, date,reps, getExerciseFro
     };
 
     return (
-      <>
+      <div style={{marginBottom: "2rem"}}> 
         <h3>{date.getMonth() + 1}/{date.getDate()}/{date.getFullYear()} Workout</h3>
         {workout.map( (wo, index) =>
             <ExerciseDisplayCard
@@ -48,7 +48,7 @@ const PendingWorkout = ({ saveWorkout, updatedWorkout, date,reps, getExerciseFro
             Save Workout
           </Button>
         }
-      </>
+      </div>
   );
 }
 
