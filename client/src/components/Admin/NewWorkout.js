@@ -3,7 +3,7 @@ import axios from 'axios';
 import NewWorkoutForm from '../Forms/NewWorkoutForm';
 import Datepicker from 'react-datepicker';
 import PendingWorkout from './PendingWorkout';
-import {Form, Select, Button, Container } from 'semantic-ui-react';
+import {Form, Button, Container, Dropdown } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -54,9 +54,9 @@ class NewWorkout extends React.Component {
 
   
   handleCategoryChange = (e, {value}) => {
-    axios.get(`/api/exercises_by_category/${value}`)
+    axios.get(`/api/exercises_by_category/${value[value.length - 1]}`)
       .then( res => {
-        this.setState({exercises: [...res.data]});
+        this.setState({exercises: [...this.state.exercises, ...res.data]});
     });
   };
   
@@ -100,22 +100,23 @@ class NewWorkout extends React.Component {
               />
           </div>
           }
-          <div style={{display: "flex", justifyContent: "space-around"}}>
+          <div style={{display: "flex", justifyContent: "space-around", paddingBottom: "1rem"}}>
             <Button 
               onClick={() => this.setState({hideDatePicker: !this.state.hideDatePicker})}>
               {this.state.hideDatePicker ? "Show Calendar" : "Hide Calendar"}
             </Button>
           </div>
-          <Form.Field
-            control={Select}
+          <Dropdown
+            multiple
+            fluid
+            selection
             options={categoryOptions}
             label={{ children: 'Exercise Type'}}
             placeholder='Exercise Type'
-            value={categoryOptions.value}
             onChange={this.handleCategoryChange}
           />
         </Form>
-        <div style={{display: "flex", flexDirection: "column", textAlign: '-webkit-center', margin: "0 auto'"}}>
+        <div style={{display: "flex", flexDirection: "column", textAlign: '-webkit-center', margin: "0 auto'", paddingTop: "1rem"}}>
           {this.state.exercises.map( e => 
             <NewWorkoutForm
               key={e.id}

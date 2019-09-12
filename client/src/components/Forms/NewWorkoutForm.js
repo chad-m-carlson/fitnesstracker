@@ -127,7 +127,7 @@ class NewWorkOutForm extends React.Component {
         }
         {this.state.showReps && 
           <Segment style={{marginTop: "1rem"}}>
-            <Form onSubmit={this.handleSubmit} noValidatation>
+            <Form onSubmit={this.handleSubmit}>
               <>
               <h3>{this.props.exercise.name}</h3>
                 <Form.Group widths='equal'>
