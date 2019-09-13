@@ -41,7 +41,10 @@ const AdminTools = (props) => {
         </Segment>
         {showExerciseCategories &&
           <Segment>
-            <ExerciseByCategory />  
+            <ExerciseByCategory 
+              exerciseChanged={exerciseChanged}
+              setExerciseChanged={setExerciseChanged}
+            />  
           </Segment>
         }
         <Segment style={{cursor: 'pointer'}}>

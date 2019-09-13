@@ -3,9 +3,10 @@ import axios from 'axios';
 import NewWorkoutForm from '../Forms/NewWorkoutForm';
 import Datepicker from 'react-datepicker';
 import PendingWorkout from './PendingWorkout';
-import {Form, Button, Container, Dropdown, Checkbox } from 'semantic-ui-react';
+import {Form, Button, Container, Checkbox } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import "react-datepicker/dist/react-datepicker.css";
+import styled from 'styled-components';
 
 class NewWorkout extends React.Component {
   state = { 
@@ -47,35 +48,6 @@ class NewWorkout extends React.Component {
     return axios.get(`/api/exercise_categories`)
   }
 
-  // handleCategoryChange = (e, {value}) => {
-  //   if(value.length === 0){this.setState({exercises: []})
-  //   }else if(this.state.exercises.map( e => e.exercise_category).includes(value[value.length - 1]) === false){
-  //     axios.get(`/api/exercise_categories/${value[value.length - 1]}`)
-  //       .then( res => {
-  //         // *this gets rid of duplicates
-  //         const arr = [...this.state.exercises, ...res.data]
-  //         const result = [];
-  //         const map = new Map();
-  //         for (const item of arr) {
-  //           if(!map.has(item.id)){
-  //             map.set(item.id, true);
-  //             result.push({
-  //               id: item.id,
-  //               name: item.name,
-  //               exercise_category: item.exercise_category
-  //             });
-  //           }
-  //         }
-  //         this.setState({exercises: [...result]})});
-  //   }else {
-  //     let newState = []
-  //     newState = this.state.exercises.map( e => e.id === value.map( v => v))
-  //     debugger
-  //     // value.map( v => newState = [...this.state.exercises.filter( e => e.exercise_category === v)])
-  //     this.setState({exercises: [...newState]})
-  //   }
-  // };
-
   sortExercisesByName = (exerciseArray) => {
     let x = exerciseArray.sort(function(a, b) {
       var nameA = a.name.toUpperCase(); // ignore upper and lowercase
@@ -86,14 +58,12 @@ class NewWorkout extends React.Component {
       if (nameA > nameB) {
         return 1;
       }
-    
-      // names must be equal
       return 0;
     });
-    debugger
     return x
   }
 
+  // todo THIS HAS A BUG IN IT WHERE IF THE EXERCISE HAS MORE THAN ONE CATEGORY IT DISAPPEARS WHEN ONE OF THE CATEGORIES IS DESELECTED
   handleCategoryChange = (value) => {
     if(this.state.categoriesSelected.includes(value)){
       let newState = this.state.categoriesSelected.filter( c => c !== value)
@@ -103,22 +73,23 @@ class NewWorkout extends React.Component {
     }
     this.setState({categoriesSelected: [...this.state.categoriesSelected, value]})
     axios.get(`/api/exercise_categories/${value}`)
-          .then( res => {
-            // *this gets rid of duplicates
-            const arr = [...this.state.exercises, ...res.data]
-            const result = [];
-            const map = new Map();
-            for (const item of arr) {
-              if(!map.has(item.id)){
-                map.set(item.id, true);
-                result.push({
-                  id: item.id,
-                  name: item.name,
-                  exercise_category: item.exercise_category
-                });
-              }
-            }
-            this.setState({exercises: this.sortExercisesByName(result)})});
+      .then( res => {
+        // *this gets rid of duplicates
+        const arr = [...this.state.exercises, ...res.data]
+        const result = [];
+        const map = new Map();
+        for (const item of arr) {
+          if(!map.has(item.id)){
+            map.set(item.id, true);
+            result.push({
+              id: item.id,
+              name: item.name,
+              exercise_category: item.exercise_category
+            });
+          }
+        }
+      this.setState({exercises: this.sortExercisesByName(result)})
+    });
   }
   
   handleDateChange = (date) => {
@@ -167,22 +138,16 @@ class NewWorkout extends React.Component {
               {this.state.hideDatePicker ? "Show Calendar" : "Hide Calendar"}
             </Button>
           </div>
-          {this.state.exerciseCategories.map( c => 
-            <Checkbox
-              style={{padding: ".5rem"}}
-              label={c.text}
-              onChange={() => this.handleCategoryChange(c.value)}
-            />
+          <CheckboxHolder>
+            {this.state.exerciseCategories.map( c => 
+              <Checkbox
+                toggle
+                style={{margin: "1rem"}}
+                label={c.text}
+                onChange={() => this.handleCategoryChange(c.value)}
+              />
             )}
-          {/* <Dropdown
-            multiple
-            fluid
-            selection
-            options={this.state.exerciseCategories}
-            label={{ children: 'Exercise Type'}}
-            placeholder='Exercise Type'
-            onChange={this.handleCategoryChange}
-          /> */}
+          </CheckboxHolder>
         </Form>
         <div style={{display: "flex", flexDirection: "column", textAlign: '-webkit-center', margin: "0 auto'", paddingTop: "1rem"}}>
           {this.state.exercises.map( e => 
@@ -207,5 +172,11 @@ class NewWorkout extends React.Component {
      );
   }
 }
+
+const CheckboxHolder = styled.div `
+  display: flex;
+  flex-flow: wrap;
+  margin-left: 3rem;
+`;
  
 export default NewWorkout;

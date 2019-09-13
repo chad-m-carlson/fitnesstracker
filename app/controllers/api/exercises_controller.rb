@@ -11,15 +11,16 @@ class Api::ExercisesController < ApplicationController
     render json: workout.where(exercise_id: params[:id])
   end
   
-  def exercises_by_category
-    render json: Exercise.exercise_by_category(params[:id])
-  end
+  # def exercises_by_category
+  #   render json: Exercise.exercise_by_category(params[:id]).order(:name)
+  # end
 
   def new
   end
 
   def create
     exercise = Exercise.create(exercise_params)
+    Exercise.add_categories_to_exercise(params[:selectedExerciseCategories], exercise)
     if exercise.save
       render json: exercise
     else
@@ -28,6 +29,7 @@ class Api::ExercisesController < ApplicationController
   end
 
   def update
+    Exercise.edit_exercise_categories(params)
     if @exercise.update(exercise_params)
       render json: @exercise
     else
@@ -37,7 +39,19 @@ class Api::ExercisesController < ApplicationController
 
   private
     def exercise_params
-      params.require(:exercise).permit(:name, :description, :core, :legs, :chest, :back, :arms, :shoulders, :cardio, :superset, :is_active, :video_url)
+      params.require(:exercise).permit(:id, 
+                                       :name, 
+                                       :description, 
+                                      #  :core, 
+                                      #  :legs, 
+                                      #  :chest, 
+                                      #  :back, 
+                                      #  :arms, 
+                                      #  :shoulders, 
+                                      #  :cardio, 
+                                      #  :superset, 
+                                       :is_active, 
+                                       :video_url)
     end
 
     def set_exercise
