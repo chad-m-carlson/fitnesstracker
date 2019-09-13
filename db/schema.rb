@@ -15,6 +15,17 @@ ActiveRecord::Schema.define(version: 201907310003607) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "exercise_categories", force: :cascade do |t|
+    t.string "category_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "exercise_categories_exercises", id: false, force: :cascade do |t|
+    t.bigint "exercise_id", null: false
+    t.bigint "exercise_category_id", null: false
+  end
+
   create_table "exercises", force: :cascade do |t|
     t.string "name"
     t.boolean "core", default: false
@@ -104,6 +115,7 @@ ActiveRecord::Schema.define(version: 201907310003607) do
     t.string "rep_pace"
     t.string "rep_amount"
     t.integer "exercise_order"
+    t.boolean "has_superset"
     t.index ["exercise_id"], name: "index_work_outs_on_exercise_id"
   end
 

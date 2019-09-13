@@ -1,7 +1,7 @@
 class Api::UserLogsController < ApplicationController
   before_action :set_user_log, only: [:update]
 
-  def userlog_by_workout
+  def show
     render json: UserLog.where(work_out_date: params[:id], work_out_id: params[:work_out_id], user_id: current_user.id).order(:id)
   end
 

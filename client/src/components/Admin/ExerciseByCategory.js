@@ -1,15 +1,21 @@
-import React, {useState, } from 'react';
+import React, {useState, useEffect } from 'react';
 import axios from 'axios';
 import Exercise from './Exercise';
 
 
 const ExerciseByCategory = (props) => {
   const [exercises, setExercises] = useState([]);
-  const [showExercises, setShowExercises] = useState(false)
+  const [exerciseCategories, setExerciseCategories] = useState([]);
+  const [showExercises, setShowExercises] = useState(false);
+
+  useEffect( () => {
+    axios.get(`/api/exercise_categories`)
+      .then(res => setExerciseCategories(res.data))
+  },[]);
 
   const setCategory = (category) => {
     setShowExercises(false)
-    axios.get(`/api/exercises_by_category/${category}`)
+    axios.get(`/api/exercise_categories/${category}`)
       .then( res => {
         setExercises(res.data)
         setShowExercises(true)
@@ -19,7 +25,14 @@ const ExerciseByCategory = (props) => {
   return ( 
     <>
       <ul>
-        <li 
+        {exerciseCategories.map( c => 
+          <li 
+            key={c.id}
+            onClick={ () => setCategory(c.id)} 
+            style={{cursor: 'pointer'}}  
+          >{c.category_name}</li>  
+          )}
+        {/* <li 
           onClick={ () => setCategory('arms')} 
           style={{cursor: 'pointer'}}  
         >Arms</li>
@@ -50,7 +63,7 @@ const ExerciseByCategory = (props) => {
         <li 
           onClick={ () => setCategory('superset')} 
           style={{cursor: 'pointer'}}  
-        >Super Sets</li>
+        >Super Sets</li> */}
       </ul>
       <ul>
       {showExercises &&

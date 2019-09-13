@@ -10,7 +10,7 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
   const [showLogForm, setShowLogForm] = useState(false);
 
   useEffect( () => {
-    axios.get(`/api/userlog_by_workout/${workoutDate}`, {params: {work_out_id: workoutId}})
+    axios.get(`/api/user_logs/${workoutDate}`, {params: {work_out_id: workoutId}})
       .then( res => {
           setUserLog([...res.data])
       })
