@@ -1,7 +1,9 @@
 class Exercise < ApplicationRecord
   validates :name, presence: true
+  validates :name, uniqueness: true
 
   has_many :work_outs
+  has_and_belongs_to_many :exercise_category
   
   def self.exercise_by_category(category)
     Exercise.find_by_sql(["
