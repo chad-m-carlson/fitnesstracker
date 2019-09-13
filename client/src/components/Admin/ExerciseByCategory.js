@@ -3,7 +3,7 @@ import axios from 'axios';
 import Exercise from './Exercise';
 
 
-const ExerciseByCategory = (props) => {
+const ExerciseByCategory = ({exerciseChanged, setExerciseChanged}) => {
   const [exercises, setExercises] = useState([]);
   const [exerciseCategories, setExerciseCategories] = useState([]);
   const [showExercises, setShowExercises] = useState(false);
@@ -71,6 +71,8 @@ const ExerciseByCategory = (props) => {
           <li key={e.id}>
             <Exercise
               exercise={e}
+              exerciseChanged={exerciseChanged}
+              setExerciseChanged={setExerciseChanged}
             />
           </li>
         )

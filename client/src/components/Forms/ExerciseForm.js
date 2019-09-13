@@ -6,50 +6,42 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm, setExerc
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [video_url, setVideo_url] = useState('');
-  const [core, setCore] = useState(false);
-  const [legs, setLegs] = useState(false);
-  const [chest, setChest] = useState(false);
-  const [back, setBack] = useState(false);
-  const [arms, setArms] = useState(false);
-  const [shoulders, setShoulders] = useState(false);
-  const [cardio, setCardio] = useState(false);
-  const [superset, setSuperset] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [exerciseCategories, setExerciseCategories] = useState([]);
+  const [selectedExerciseCategories, setSelectedExerciseCategories] = useState([])
 
 
   useEffect( () => {
+    axios.get(`/api/exercise_categories`)
+      .then(res => setExerciseCategories(res.data))
+      .catch(res => console.log(res.errors));
     if (exercise) {
       setEditing(true)
+      axios.get(`/api/exercise_categories_exercises/${exercise.id}`)
+        .then(res => setSelectedExerciseCategories([...res.data.map( d => d.id)]))
+
       setName(exercise.name)
       setDescription(exercise.description)
       setVideo_url(exercise.video_url)
-      setCore(exercise.core)
-      setLegs(exercise.legs)
-      setChest(exercise.chest)
-      setBack(exercise.back)
-      setArms(exercise.arms)
-      setShoulders(exercise.shoulders)
-      setCardio(exercise.cardio)
-      setSuperset(exercise.superset)
     }
   },[exercise]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const exerciseToSave = {name, description, video_url, core, legs, chest, back, arms, shoulders,cardio, superset};
     if (!editing){
-    axios.post(`/api/exercises`, exerciseToSave)
+      const exerciseToSave = {name, description, video_url, selectedExerciseCategories}
+      axios.post(`/api/exercises`, exerciseToSave)
       .then(res => {
         setShowExerciseForm(!showExerciseForm)
-        if (res.data === ''){
-          alert('Something Went Wrong')
-        }else {
-          // alert('Exercise Successfully Saved')
-          setExerciseChanged(!exerciseChanged)
-        }})
+      if (res.data === ''){
+        alert('Something Went Wrong')
+      }else {
+        // alert('Exercise Successfully Saved')
+        setExerciseChanged(!exerciseChanged)
+      }})
       .catch(res => console.log(res));
     } else {
-
+      const exerciseToSave = {id: exercise.id, name, description, video_url, selectedExerciseCategories}
       axios.put(`/api/exercises/${exercise.id}`, exerciseToSave)
         .then(res => {
           setShowExerciseForm(!showExerciseForm)
@@ -57,6 +49,13 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm, setExerc
           alert('Exercise Successfully Updated')
         })
     }
+  };
+
+  const handleCheckbox = (id) => {
+    if(selectedExerciseCategories.includes(id)){
+      const filteredExerciseCategories = selectedExerciseCategories.filter( e => e !== id)
+      setSelectedExerciseCategories(filteredExerciseCategories)
+    }else setSelectedExerciseCategories([...selectedExerciseCategories, id]);
   };
 
   return ( 
@@ -81,75 +80,22 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm, setExerc
             onChange={(e) => setVideo_url(e.target.value)}
           />
           <Form.TextArea
-            // fluid
             label='Description'
             placeholder='Exercise Description'
             name='description'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-        <Form.Group >
+        {exerciseCategories.map( c => 
           <Form.Checkbox
-            defaultChecked={exercise ? exercise.core : ''}
+            key={c.id}
+            checked={selectedExerciseCategories.includes(c.id)}
             style={{paddingRight: '2.1em'}} 
-            label='Core'
-            value={core}
-            onChange={(e) => setCore(!core)}
+            label={c.category_name}
+            value={c.id}
+            onChange={(e) => handleCheckbox(c.id)}
           />
-          <Form.Checkbox
-            defaultChecked={exercise ? exercise.legs : ''}
-            style={{paddingRight: '2.1em'}} 
-            label='Legs'
-            value={legs}
-            onChange={(e) => setLegs(!legs)}
-          />
-          <Form.Checkbox
-            defaultChecked={exercise ? exercise.chest : ''}
-            style={{paddingRight: '2.1em'}} 
-            label='Chest'
-            value={chest}
-            onChange={(e) => setChest(!chest)}
-          />
-        </Form.Group>
-        <Form.Group >
-          <Form.Checkbox
-            defaultChecked={exercise ? exercise.back : ''}
-            style={{paddingRight: '2.1em'}}  
-            label='Back'
-            value={back}
-            onChange={(e) => setBack(!back)}
-          />
-          <Form.Checkbox
-            defaultChecked={exercise ? exercise.arms : ''}
-            style={{paddingRight: '2.1em'}}  
-            label='Arms'
-            value={arms}
-            onChange={(e) => setArms(!arms)}
-          />
-          <Form.Checkbox
-            defaultChecked={exercise ? exercise.shoulders : ''}
-            style={{paddingRight: '2.1em'}}  
-            label='Shoulders'
-            value={shoulders}
-            onChange={(e) => setShoulders(!shoulders)}
-          />
-        </Form.Group>
-        <Form.Group >
-          <Form.Checkbox
-            defaultChecked={exercise ? exercise.cardio : ''}
-            style={{paddingRight: '2.1em'}}  
-            label='Cardio'
-            value={cardio}
-            onChange={(e) => setCardio(!cardio)}
-          />
-          <Form.Checkbox
-            defaultChecked={exercise ? exercise.superset : ''}
-            style={{paddingRight: '2.1em'}}  
-            label='Superset'
-            value={superset}
-            onChange={(e) => setSuperset(!superset)}
-          />
-        </Form.Group>
+          )}
         <br />
         <Button>{editing ? 'Save Changes' : 'Submit'}</Button>
       </Form>
