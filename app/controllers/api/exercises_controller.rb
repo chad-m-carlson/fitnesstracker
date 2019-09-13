@@ -19,7 +19,7 @@ class Api::ExercisesController < ApplicationController
   end
 
   def create
-    exercise = Exercise.create(exercise_params)
+    exercise = Exercise.new(exercise_params)
     Exercise.add_categories_to_exercise(params[:selectedExerciseCategories], exercise)
     if exercise.save
       render json: exercise

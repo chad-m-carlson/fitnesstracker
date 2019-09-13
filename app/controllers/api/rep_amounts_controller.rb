@@ -4,12 +4,12 @@ class Api::RepAmountsController < ApplicationController
   end
 
   def create
-    amount = RepAmount.create(params.require(:rep_amount).permit(:amount))
+    amount = RepAmount.new(params.require(:rep_amount).permit(:amount))
     if amount.save
       render json: amount
     else
-      render json: amount.errors
-  end
+      render json: { :errors => amount.errors.full_messages }
+    end
   end
 
   def update

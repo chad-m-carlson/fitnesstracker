@@ -141,6 +141,7 @@ class NewWorkout extends React.Component {
           <CheckboxHolder>
             {this.state.exerciseCategories.map( c => 
               <Checkbox
+                key={c.id}
                 toggle
                 style={{margin: "1rem"}}
                 label={c.text}

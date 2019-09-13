@@ -1,14 +1,16 @@
 class Api::RepPacesController < ApplicationController
+  
+
   def index
     render json: RepPace.all
   end
 
   def create
-    pace = RepPace.create(params.require(:rep_pace).permit(:pace))
+    pace = RepPace.new(params.require(:rep_pace).permit(:pace))
     if pace.save
       render json: pace
     else
-      render json: pace.errors
+      ender json: { :errors => pace.errors.full_messages }
   end
   end
 
