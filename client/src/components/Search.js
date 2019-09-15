@@ -10,11 +10,11 @@ const Search = ({data, name, returnResults, searchActive, width}) => {
   },[searchActive])
   
   const handleChange = (e) => {
-    setQuery(e.target.value)
+    setQuery(e.target.value.toLowerCase())
     const filteredData = data.filter( d => {
-      return d.name.toLowerCase().indexOf(e.target.value) !== -1;
+      return d.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1;
     });
-    if(e.target.value.length !== 0)returnResults(filteredData, true)
+    if(e.target.value.length > 0)returnResults(filteredData, true)
     else returnResults(filteredData, false);
   };
 
