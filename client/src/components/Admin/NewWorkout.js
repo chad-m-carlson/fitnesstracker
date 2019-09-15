@@ -3,6 +3,7 @@ import axios from 'axios';
 import NewWorkoutForm from '../Forms/NewWorkoutForm';
 import Datepicker from 'react-datepicker';
 import PendingWorkout from './PendingWorkout';
+import Search from '../Search';
 import {Form, Button, Container, Checkbox } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,6 +12,7 @@ import styled from 'styled-components';
 class NewWorkout extends React.Component {
   state = { 
     exercises: [],
+    filteredExercises: [],
     exerciseCategories: [],
     categoriesSelected: [],
     reps: {
@@ -20,6 +22,7 @@ class NewWorkout extends React.Component {
     workout: [],
     date: new Date(),
     hideDatePicker: false,
+    searchActive: false,
    }
 
 
@@ -63,6 +66,44 @@ class NewWorkout extends React.Component {
     return x
   }
 
+  returnResults = (results, active) => {
+    if(active){
+      this.setState({filteredExercises: results, searchActive: true})
+    }else this.setState({searchActive: false})
+    // this.setState({filteredExercises: results})
+  };
+
+  renderNewWorkoutForms = () => {
+    if(this.state.searchActive === false){ 
+    return(
+      (this.state.exercises.map( e => 
+        <NewWorkoutForm
+          key={e.id}
+          index={this.state.workout.length}
+          date={this.state.date}
+          new_exercise={true}
+          reps={this.state.reps}
+          exercise={e}
+          getExerciseFromForm={this.getExerciseFromForm}
+        />
+      ))
+    )}else{
+      return(
+        (this.state.filteredExercises.map( e =>
+          <NewWorkoutForm
+            key={e.id}
+            index={this.state.workout.length}
+            date={this.state.date}
+            new_exercise={true}
+            reps={this.state.reps}
+            exercise={e}
+            getExerciseFromForm={this.getExerciseFromForm}
+          />
+        ))
+      )
+    }
+  };
+
   // todo THIS HAS A BUG IN IT WHERE IF THE EXERCISE HAS MORE THAN ONE CATEGORY IT DISAPPEARS WHEN ONE OF THE CATEGORIES IS DESELECTED
   handleCategoryChange = (value) => {
     if(this.state.categoriesSelected.includes(value)){
@@ -90,7 +131,9 @@ class NewWorkout extends React.Component {
         }
       this.setState({exercises: this.sortExercisesByName(result)})
     });
-  }
+    this.setState({searchActive: false})
+    this.setState({filteredExercises: []})
+  };
   
   handleDateChange = (date) => {
     this.setState({date})
@@ -151,23 +194,20 @@ class NewWorkout extends React.Component {
           </CheckboxHolder>
         </Form>
         <div style={{display: "flex", flexDirection: "column", textAlign: '-webkit-center', margin: "0 auto'", paddingTop: "1rem"}}>
-          {this.state.exercises.map( e => 
-            <NewWorkoutForm
-              key={e.id}
-              index={this.state.workout.length}
-              date={this.state.date}
-              new_exercise={true}
-              reps={this.state.reps}
-              exercise={e}
-              getExerciseFromForm={this.getExerciseFromForm}
-            />
-            )}
-        <PendingWorkout
-          date={this.state.date}
-          updatedWorkout={this.state.workout}
-          reps={this.state.reps}
-          getExerciseFromForm={this.getExerciseFromForm}
-        />
+          <Search 
+            data={this.state.exercises}
+            name="Search Exercises"
+            returnResults={this.returnResults}
+            searchActive={this.state.searchActive}
+            width="75%"
+          />
+          {this.renderNewWorkoutForms()}
+          <PendingWorkout
+            date={this.state.date}
+            updatedWorkout={this.state.workout}
+            reps={this.state.reps}
+            getExerciseFromForm={this.getExerciseFromForm}
+          />
         </div>
       </Container>
      );
