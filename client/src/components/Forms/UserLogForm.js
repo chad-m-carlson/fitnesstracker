@@ -14,7 +14,7 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
     setReps(userLog.reps);
     setNotes(userLog.notes);
     if(userLog.id)setLogExists(true);
-    if((openLogFormAutomatically && (!weight || !reps)))setShowLogForm(true);
+    if((openLogFormAutomatically && (!weight && !reps)))setShowLogForm(true);
   }, [openLogFormAutomatically, userLog.id, userLog.notes, userLog.reps, userLog.weight]);
 
   const handleSubmit = (e) => {
