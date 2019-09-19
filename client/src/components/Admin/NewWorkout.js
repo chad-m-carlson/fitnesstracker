@@ -4,6 +4,7 @@ import NewWorkoutForm from '../Forms/NewWorkoutForm';
 import Datepicker from 'react-datepicker';
 import PendingWorkout from './PendingWorkout';
 import Search from '../Search';
+import {sortExercises} from '../../helpers/HelperFunctions';
 import {Form, Button, Container, Checkbox } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import "react-datepicker/dist/react-datepicker.css";
@@ -51,21 +52,6 @@ class NewWorkout extends React.Component {
     return axios.get(`/api/exercise_categories`)
   }
 
-  sortExercisesByName = (exerciseArray) => {
-    let x = exerciseArray.sort(function(a, b) {
-      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      return 0;
-    });
-    return x
-  }
-
   returnResults = (results, active) => {
     if(active){
       this.setState({filteredExercises: results, searchActive: true})
@@ -85,6 +71,7 @@ class NewWorkout extends React.Component {
           reps={this.state.reps}
           exercise={e}
           getExerciseFromForm={this.getExerciseFromForm}
+          saveWorkout={this.saveWorkout}
         />
       ))
     )}else{
@@ -98,6 +85,7 @@ class NewWorkout extends React.Component {
             reps={this.state.reps}
             exercise={e}
             getExerciseFromForm={this.getExerciseFromForm}
+            saveWorkout={this.saveWorkout}
           />
         ))
       )
@@ -109,7 +97,7 @@ class NewWorkout extends React.Component {
     if(this.state.categoriesSelected.includes(value)){
       let newState = this.state.categoriesSelected.filter( c => c !== value)
       this.setState({categoriesSelected: [...newState]})
-      this.setState({exercises: this.sortExercisesByName(this.state.exercises.filter( e => e.exercise_category !== value))})
+      this.setState({exercises: sortExercises(this.state.exercises.filter( e => e.exercise_category !== value), "name")})
       return
     }
     this.setState({categoriesSelected: [...this.state.categoriesSelected, value]})
@@ -129,7 +117,7 @@ class NewWorkout extends React.Component {
             });
           }
         }
-      this.setState({exercises: this.sortExercisesByName(result)})
+      this.setState({exercises: sortExercises(result, "name")})
     });
     this.setState({searchActive: false})
     this.setState({filteredExercises: []})
@@ -142,24 +130,32 @@ class NewWorkout extends React.Component {
   };
 
   getExerciseFromForm = (completeExercise, isUpdate) => {
+    // todo get initial order of the workout and make it so it goes back to that order after updating
     const workoutIds = this.state.workout.map( w => w.id);
     if(isUpdate){
-      if(workoutIds.includes(completeExercise.id)){
-        const filteredState = this.state.workout.filter( wo => wo.id !== completeExercise.id);
+      if(workoutIds.includes(completeExercise.exercise_id)){
+        const filteredState = this.state.workout.filter( wo => wo.id !== completeExercise.exercise_id);
         this.setState({workout: [...filteredState, completeExercise]})
-      } if(completeExercise.workout_id !== undefined) {
-          axios.put(`/api/work_outs/${completeExercise.workout_id}`, completeExercise);
-            // .then(res => {
-            //   this.setState({workout: [...this.state.workout, res.data]})})
-            };
+      }
       return
     };
-    if(workoutIds.includes(completeExercise.id)){
+    if(workoutIds.includes(completeExercise.exercise_id)){
       if(window.confirm("This workout already has this exercise added, are you sure you want to add again?")){
       this.setState({workout: [...this.state.workout, completeExercise]})
       console.log('this got added to workout');
     }}else this.setState({workout: [...this.state.workout, completeExercise]});
   };
+
+  saveWorkout = () => {
+    axios.post(`/api/work_outs`, this.state.workout)
+      .then( res => alert("Your workout has been saved"))
+  };
+
+  handleDelete = (id) => {
+    let newWorkout = this.state.workout.filter( wo => wo.workoutid !== id)
+    this.setState({workout: [...newWorkout]})
+    axios.delete(`/api/work_outs/${id}`)
+  }; 
 
   render() { 
     return ( 
@@ -207,6 +203,7 @@ class NewWorkout extends React.Component {
             updatedWorkout={this.state.workout}
             reps={this.state.reps}
             getExerciseFromForm={this.getExerciseFromForm}
+            handleDelete={this.handleDelete}
           />
         </div>
       </Container>

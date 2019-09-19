@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import ExerciseDisplayCard from '../ExerciseDisplayCard';
+import {sortExercises} from '../../helpers/HelperFunctions';
 import axios from 'axios';
 import { Button, } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions'
 
-const PendingWorkout = ({ saveWorkout, updatedWorkout, date,reps, getExerciseFromForm, }) => {
+const PendingWorkout = ({ updatedWorkout, date,reps, getExerciseFromForm, handleDelete}) => {
   const [workout, setWorkout] = useState([]);
 
   useEffect( () => {
@@ -15,22 +16,18 @@ const PendingWorkout = ({ saveWorkout, updatedWorkout, date,reps, getExerciseFro
         })
       }else setWorkout([...updatedWorkout])
     },[date, updatedWorkout, workout.length]);
-    
-    saveWorkout = () => {
-      axios.post(`/api/work_outs`, workout)
-        .then( res => alert("Your workout has been saved"))
-    };
 
-    const handleDelete = (id) => {
-      let newWorkout = workout.filter( wo => wo.workoutid !== id)
-      setWorkout([...newWorkout])
-      axios.delete(`/api/work_outs/${id}`)
-    };
+    // const handleDelete = (id) => {
+    //   debugger
+    //   let newWorkout = workout.filter( wo => wo.workoutid !== id)
+    //   setWorkout([...newWorkout])
+    //   // axios.delete(`/api/work_outs/${id}`)
+    // };
 
     return (
       <div style={{marginBottom: "2rem"}}> 
         <h3>{date.getMonth() + 1}/{date.getDate()}/{date.getFullYear()} Workout</h3>
-        {workout.map( (wo, index) =>
+        {sortExercises(workout, "exercise_order").map( (wo, index) =>
             <ExerciseDisplayCard
               index={index}
               key={wo.id}
@@ -43,11 +40,6 @@ const PendingWorkout = ({ saveWorkout, updatedWorkout, date,reps, getExerciseFro
               // reps={reps}
             />
         )}
-        {workout.length > 0 &&
-          <Button onClick={saveWorkout}>
-            Save Workout
-          </Button>
-        }
       </div>
   );
 }
