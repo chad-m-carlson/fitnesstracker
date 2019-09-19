@@ -9,7 +9,12 @@ class Api::WorkOutsController < ApplicationController
   end
 
   def create
-    render json: WorkOut.create_work_out(params[:_json])
+    workout = WorkOut.new(workout_params)
+    if workout.save
+      render json: workout
+    else
+      render json: workout.errors, status:422
+    end
   end
 
   def update
@@ -31,7 +36,7 @@ class Api::WorkOutsController < ApplicationController
   end
 
   def workout_params
-    params.require(:work_out).permit(:date, :exercise_id, :rep_pace, :rep_amount, :notes, :exercise_order)
+    params.require(:work_out).permit(:date, :exercise_id, :rep_pace, :rep_amount, :notes, :exercise_order, :has_superset)
   end
 
 end

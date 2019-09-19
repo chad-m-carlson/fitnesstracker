@@ -44,10 +44,18 @@ class NewWorkOutForm extends React.Component {
     e.preventDefault();
     const {exercise, date,} = this.props
     const {repAmount, repPace, notes, exercise_order, includeSuperset} = this.state
-    const completeExercise = {id: exercise.id, date: getSimpleDate(date), name: exercise.name, rep_amount: repAmount, rep_pace: repPace, workout_id: exercise.workoutid, notes: notes, exercise_order: exercise_order, has_superset: includeSuperset}
+    const completeExercise = {exercise_id: exercise.id, date: getSimpleDate(date), name: exercise.name, rep_amount: repAmount, rep_pace: repPace, workout_id: exercise.workoutid, notes: notes, exercise_order: exercise_order, has_superset: includeSuperset}
     this.props.getExerciseFromForm(completeExercise, this.props.editing)
     this.setState({showReps: false});
-    if(this.props.editing) this.props.setEditing(false);
+    if(this.props.editing){
+      axios.put(`/api/work_outs/${completeExercise.workout_id}`, completeExercise)
+        .then(res => {
+          this.props.setEditing(false)
+        });
+    }else {
+      axios.post(`/api/work_outs`, completeExercise)
+        .then( res => alert("Your workout has been saved"))
+    }
   };
 
 
