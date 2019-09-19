@@ -57,10 +57,11 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
       }
       {/* <Card.Description></Card.Description> */}
       {showLogForm && 
-        <Form onSubmit={handleSubmit}>
-          <Form.Group widths='equal'>
+        <Form size="tiny" onSubmit={handleSubmit}>
+          <Form.Group style={{display: "flex", justifyContent: "space-between"}}>
             <Form.Input
               fluid
+              style={{width: "7rem"}}
               autoFocus
               type="number"
               pattern="[0-9]*"
@@ -72,6 +73,7 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
               />
             <Form.Input
               fluid
+              style={{width: "7rem"}}
               type="number"
               pattern="[0-9]*"
               label='Reps'
