@@ -8,7 +8,8 @@ const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFr
 
   return ( 
     <>
-      <Card > 
+      <Card
+      style={{backgroundColor: "rgb(230, 16, 16, 0.02)"}} > 
       <Card.Content>
         <Card.Header style={{textAlign: "center", marginBottom: "1rem"}}>{wo.name}</Card.Header>
         <div style={{display: "flex", justifyContent: "space-around"}}>
