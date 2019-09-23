@@ -16,15 +16,15 @@ const AdminTools = (props) => {
   return ( 
     <PageContainer>
       <CardContainer>
-        <h1>Admin Tools</h1>
-        <Segment onClick={() => props.history.push(`/newworkout`)} style={{cursor: 'pointer'}}>
+      <h1>Admin Tools</h1>
+        <Segment onClick={() => props.history.push(`/newworkout`)} style={{cursor: 'pointer', width: "75%"}}>
           <h3>
             Add/Edit Workout
           </h3>
         </Segment>
-        <Segment onClick={() => setShowExerciseIndex(!showExerciseIndex)} style={{cursor: 'pointer'}}>
+        <Segment onClick={() => setShowExerciseIndex(!showExerciseIndex)} style={{cursor: 'pointer', width: "75%"}}>
           <h3 
-            >Show All Exercises</h3>
+            >{showExerciseIndex ? "Hide All Exercises" : "Show All Exercises"}</h3>
         </Segment>
         {showExerciseIndex &&
           <Segment>
@@ -34,7 +34,7 @@ const AdminTools = (props) => {
               />
           </Segment>
         }
-        <Segment style={{cursor: 'pointer'}}>
+        {/* <Segment style={{cursor: 'pointer', width: "80%"}}>
           <h3
             onClick={() => setShowExerciseCategories(!showExerciseCategories)}
             >Exercises By Category</h3>
@@ -46,14 +46,14 @@ const AdminTools = (props) => {
               setExerciseChanged={setExerciseChanged}
             />  
           </Segment>
-        }
-        <Segment style={{cursor: 'pointer'}}>
+        } */}
+        <Segment style={{cursor: 'pointer', width: "75%"}}>
           <h3 
             onClick={() => setShowExerciseForm(!showExerciseForm)}
             >Add an exercise</h3>
         </Segment>
         {showExerciseForm &&
-          <Segment>
+          <Segment style={{width:"80%"}}>
             <ExerciseForm 
               setShowExerciseForm={setShowExerciseForm}
               showExerciseForm={showExerciseForm}
@@ -62,13 +62,13 @@ const AdminTools = (props) => {
               />
           </Segment>
         }
-        <Segment style={{cursor: 'pointer'}}>
+        <Segment style={{cursor: 'pointer', width: "75%"}}>
           <h3
             onClick={() => setShowRepsForm(!showRepsForm)}
-            >Add Reps/Rep Pace</h3>
+            >Add Reps/Tempo</h3>
         </Segment>
         {showRepsForm &&
-          <Segment>
+          <Segment style={{width: "80%"}}>
             <RepsForm/>
           </Segment>
         }

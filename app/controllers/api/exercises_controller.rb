@@ -24,7 +24,7 @@ class Api::ExercisesController < ApplicationController
     if exercise.save
       render json: exercise
     else
-      render errors: exercise.errors, status: 204
+      render json: exercise.errors, status: 422, message: exercise.errors.messages
     end
   end
 

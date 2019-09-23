@@ -1,6 +1,6 @@
 class Exercise < ApplicationRecord
   validates :name, presence: true
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, :case_sensitive => false
 
   has_many :work_outs
   has_and_belongs_to_many :exercise_category

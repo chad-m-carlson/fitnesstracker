@@ -3,6 +3,7 @@ import {Form, Select, Button, Input, Segment, Checkbox} from 'semantic-ui-react'
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import styled from 'styled-components';
 import axios from 'axios';
+import {ExerciseContainer, } from '../styles/styles';
 
 class NewWorkOutForm extends React.Component {
   state = {
@@ -102,8 +103,8 @@ class NewWorkOutForm extends React.Component {
               <Form.Field
                 control={Select}
                 options={repPace}
-                label={{ children: 'Rep Pace'}}
-                placeholder='Rep Pace'
+                label={{ children: 'Tempo'}}
+                placeholder='Tempo'
                 value={this.state.workout ? this.state.repPace : repPace.value}
                 onChange={this.handleRepPaceChange}
               />
@@ -194,17 +195,17 @@ const DropdownContainer = styled.div `
   padding: 1rem;
 `;
 
-const ExerciseContainer = styled.div `
-  cursor: pointer;
-  border: 1px solid rgba(34,36,38,.15);
-  border-radius: 3px;
-  padding: .5rem;
-  width: 75%;
-  margin: 0 auto .2rem auto;
+// const ExerciseContainer = styled.div `
+//   cursor: pointer;
+//   border: 1px solid rgba(34,36,38,.15);
+//   border-radius: 3px;
+//   padding: .5rem;
+//   width: 75%;
+//   margin: 0 auto .2rem auto;
 
-  &:first-child{
-    margin-top: 1rem;
-  }
-`;
+//   &:first-child{
+//     margin-top: 1rem;
+//   }
+// `;
  
 export default NewWorkOutForm;

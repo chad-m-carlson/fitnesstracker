@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Button, Form, Segment, Header, } from 'semantic-ui-react';
 import axios from 'axios';
 
-const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm, setExerciseChanged, exerciseChanged, }) => {
+const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm, setExerciseChanged, exerciseChanged,history}) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [video_url, setVideo_url] = useState('');
@@ -33,22 +33,29 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm, setExerc
       axios.post(`/api/exercises`, exerciseToSave)
       .then(res => {
         setShowExerciseForm(!showExerciseForm)
-      if (res.data === ''){
-        alert('Something Went Wrong')
-      }else {
-        // alert('Exercise Successfully Saved')
-        setExerciseChanged(!exerciseChanged)
-      }})
-      .catch(res => console.log(res));
-    } else {
-      const exerciseToSave = {id: exercise.id, name, description, video_url, selectedExerciseCategories}
-      axios.put(`/api/exercises/${exercise.id}`, exerciseToSave)
+        if (res.data === ''){
+          alert('Something Went Wrong')
+          history.push('/newworkout')
+        }else {
+          // alert('Exercise Successfully Saved')
+          setExerciseChanged(!exerciseChanged)
+        }})
+        .catch(res => {
+          console.log(res)
+        });
+      } else {
+        const exerciseToSave = {id: exercise.id, name, description, video_url, selectedExerciseCategories}
+        axios.put(`/api/exercises/${exercise.id}`, exerciseToSave)
         .then(res => {
           setShowExerciseForm(!showExerciseForm)
           setExerciseChanged(!exerciseChanged)
-          alert('Exercise Successfully Updated')
+          // alert('Exercise Successfully Updated')
         })
-    }
+      }
+      if(history) {
+        const {push} = history
+        push('/newworkout');
+      }
   };
 
   const handleCheckbox = (id) => {
@@ -86,18 +93,23 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm, setExerc
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+        <div style={{display: "flex", flexFlow: "wrap"}}>
         {exerciseCategories.map( c => 
           <Form.Checkbox
-            key={c.id}
-            checked={selectedExerciseCategories.includes(c.id)}
+          key={c.id}
+          checked={selectedExerciseCategories.includes(c.id)}
             style={{paddingRight: '2.1em'}} 
             label={c.category_name}
             value={c.id}
             onChange={(e) => handleCheckbox(c.id)}
-          />
-          )}
+            />
+            )}
+        </div>
         <br />
         <Button>{editing ? 'Save Changes' : 'Submit'}</Button>
+        {history &&
+          <Button onClick={history.goBack}> Go Back </Button> 
+        }
       </Form>
 
     </Segment>
