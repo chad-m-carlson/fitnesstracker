@@ -108,7 +108,7 @@ const ExerciseForm = ({exercise, setShowExerciseForm, showExerciseForm, setExerc
         <br />
         <Button>{editing ? 'Save Changes' : 'Submit'}</Button>
         {history &&
-          <Button onClick={history.goBack}> Go Back </Button> 
+          <Button onClick={history.push('/newworkout')}> Go Back </Button> 
         }
       </Form>
 
