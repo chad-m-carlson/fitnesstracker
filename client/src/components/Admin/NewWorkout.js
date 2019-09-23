@@ -9,6 +9,8 @@ import {Form, Button, Container, Checkbox } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import "react-datepicker/dist/react-datepicker.css";
 import styled from 'styled-components';
+import {ExerciseContainer, } from '../styles/styles';
+import {Link, } from 'react-router-dom';
 
 class NewWorkout extends React.Component {
   state = { 
@@ -148,7 +150,11 @@ class NewWorkout extends React.Component {
 
   saveWorkout = () => {
     axios.post(`/api/work_outs`, this.state.workout)
-      .then( res => alert("Your workout has been saved"))
+      // .then( res => alert("Your workout has been saved"))
+      .catch(res => {
+        console.log(res);
+        alert("Something went wrong");
+      })
   };
 
   handleDelete = (id) => {
@@ -198,6 +204,11 @@ class NewWorkout extends React.Component {
             width="75%"
           />
           {this.renderNewWorkoutForms()}
+          <br />
+          <ExerciseContainer>
+            <Link to='/newexercise' style={{color: "black"}}>Exercise not shown? Add new exercise</Link>
+          </ExerciseContainer>
+          <br />
           <PendingWorkout
             date={this.state.date}
             updatedWorkout={this.state.workout}

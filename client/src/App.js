@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import NewWorkout from './components/Admin/NewWorkout';
 import Profile from './components/User/Profile';
+import NewExercise from './components/Forms/ExerciseForm';
 import {Switch, Route, } from 'react-router-dom';
 
 const App = () => (
@@ -22,6 +23,7 @@ const App = () => (
           <ProtectedRoute exact path='/profile' component={Profile} />
           <AdminRoute exact path='/admin' component={AdminTools} />
           <AdminRoute exact path='/newworkout' component={NewWorkout} />
+          <AdminRoute exact path='/newexercise' component={NewExercise} />
           <Route exact path='/register' component={Register} />
           <Route exact path='/login' component={Login} />
           <Route component={NoMatch} />

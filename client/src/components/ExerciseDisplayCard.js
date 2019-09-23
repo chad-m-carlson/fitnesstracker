@@ -15,7 +15,7 @@ const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFr
         <div style={{display: "flex", justifyContent: "space-around"}}>
           <Card.Meta>Reps</Card.Meta>
           <Card.Description>{wo.rep_amount}</Card.Description>
-          <Card.Meta>Pace</Card.Meta>
+          <Card.Meta>Tempo</Card.Meta>
           <Card.Description>{wo.rep_pace}</Card.Description>
         </div>
         {/* <br /> */}
