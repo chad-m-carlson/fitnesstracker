@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Form, Button, Card, Segment, Icon} from 'semantic-ui-react';
 import axios from 'axios';
 
-const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
+const UserLogForm = ({round,openLogFormAutomatically, userLog, getNewUserLogFromForm}) => {
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
   const [notes, setNotes] = useState('');
@@ -23,14 +23,18 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog,}) => {
       weight, reps, notes,};
     if (logExists){
       axios.put(`/api/user_logs/${userLog.id}`, updatedUserLog)
-        .then(res => setShowLogForm(false));
-      return
-    };
-    axios.post(`/api/user_logs`, updatedUserLog)
+        .then(res => {
+          setShowLogForm(false)
+          getNewUserLogFromForm();
+        });
+        return
+      };
+      axios.post(`/api/user_logs`, updatedUserLog)
       .then( res => {
         setWeight(res.data.weight);
         setReps(res.data.reps);
         setShowLogForm(false);
+        getNewUserLogFromForm();
       })
       .catch( res => console.log(res.errors));
     setLogExists(true);

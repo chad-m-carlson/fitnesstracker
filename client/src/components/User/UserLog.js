@@ -8,6 +8,7 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
   // const [reps, setReps] = useState('');
   const [userLog, setUserLog] = useState([]);
   const [showLogForm, setShowLogForm] = useState(false);
+  const [refreshUserLog, setRefreshUserLog] = useState(false);
 
   useEffect( () => {
     axios.get(`/api/user_logs/${workoutDate}`, {params: {work_out_id: workoutId}})
@@ -15,11 +16,16 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
           setUserLog([...res.data])
       })
       .catch( res => console.log(res.errors));
-  },[workoutDate, workoutId]);
+      setShowLogForm(false);
+  },[workoutDate, workoutId, refreshUserLog]);
 
   const generateBlankUserLog = (e) => {
     setUserLog([...userLog, {reps: null, weight: null, work_out_id: workoutId, work_out_date: workoutDate}]);
     setShowLogForm(true);
+  };
+
+  const getNewUserLogFromForm = () => {
+    setRefreshUserLog(!refreshUserLog)
   };
 
   const duplicateLastRound = () => {
@@ -30,6 +36,7 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
       setUserLog([...userLog, res.data])
     })
     .catch( res => console.log(res.errors));
+    setShowLogForm(false);
   };
 
   return ( 
@@ -52,6 +59,7 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
         userLog={u}
         exerciseId={exerciseId}
         openLogFormAutomatically={showLogForm}
+        getNewUserLogFromForm={getNewUserLogFromForm}
         />
       )}
       {userLog.length >= 1 &&
