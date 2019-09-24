@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {Button, Form, Segment, Header, } from 'semantic-ui-react';
 import {AuthContext} from '../../providers/AuthProvider';
+import {Link, } from 'react-router-dom';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
@@ -34,6 +35,9 @@ const Login = (props) => {
           placeholder='Password'
           onChange={(e) => setPassword(e.target.value)}
         />
+        <Link to='/register'>Not registered? Click here</Link>
+        <br />
+        <br />
         <Button>Log In</Button>
       </Form>
     </Segment>

@@ -55,7 +55,7 @@ class NewWorkOutForm extends React.Component {
         });
     }else {
       axios.post(`/api/work_outs`, completeExercise)
-        .then( res => alert("Your workout has been saved"))
+        .then( res => alert("Exercise has been saved to workout"))
     }
   };
 

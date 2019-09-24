@@ -24,7 +24,7 @@ class NewWorkout extends React.Component {
     },
     workout: [],
     date: new Date(),
-    hideDatePicker: false,
+    hideDatePicker: true,
     searchActive: false,
    }
 
@@ -166,7 +166,7 @@ class NewWorkout extends React.Component {
   render() { 
     return ( 
       <Container style={{marginBottom: "1rem"}}>
-      <h1>Create a new workout</h1>
+      <h1 style={{textAlign: "center"}}>Create a new workout</h1>
         <Form>
           {!this.state.hideDatePicker &&
           <div style={{display: "flex", justifyContent: "space-around", padding: "1rem"}}>
@@ -183,6 +183,7 @@ class NewWorkout extends React.Component {
               {this.state.hideDatePicker ? "Show Calendar" : "Hide Calendar"}
             </Button>
           </div>
+          <h3 style={{textAlign: "center"}}>{this.state.date.getMonth() + 1}/{this.state.date.getDate()}/{this.state.date.getFullYear()} Workout</h3>
           <CheckboxHolder>
             {this.state.exerciseCategories.map( c => 
               <Checkbox

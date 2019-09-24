@@ -26,7 +26,6 @@ const PendingWorkout = ({ updatedWorkout, date,reps, getExerciseFromForm, handle
 
     return (
       <div style={{marginBottom: "2rem"}}> 
-        <h3>{date.getMonth() + 1}/{date.getDate()}/{date.getFullYear()} Workout</h3>
         {sortExercises(workout, "exercise_order").map( (wo, index) =>
             <ExerciseDisplayCard
               index={index}

@@ -16,6 +16,7 @@ export class AuthProvider extends React.Component {
         history.push("/");
       })
       .catch( res => {
+        alert("This email is already in use")
         console.log(res);
     })
   }

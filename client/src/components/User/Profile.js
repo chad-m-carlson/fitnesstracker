@@ -36,6 +36,12 @@ const Profile = () => {
 
   return ( 
     <>
+    <h1>This page is under construction</h1>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <div style={{display: "flex", justifyContent: "space-evenly"}}>
       <MenuContainer>
         <MenuButton onClick={() => handleMenuButtonClicks("personal")}>

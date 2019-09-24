@@ -22,6 +22,16 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
     setShowLogForm(true);
   };
 
+  const duplicateLastRound = () => {
+    const last = userLog.length - 1
+    const updatedUserLog = {work_out_date: userLog[last].work_out_date, work_out_id: userLog[last].work_out_id, weight: userLog[last].weight, reps: userLog[last].reps, notes: userLog[last].notes}
+    axios.post(`/api/user_logs`, updatedUserLog)
+    .then( res => {
+      setUserLog([...userLog, res.data])
+    })
+    .catch( res => console.log(res.errors));
+  };
+
   return ( 
     <>
       {userLog.length < 1 &&
@@ -54,6 +64,15 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
             onClick={() => generateBlankUserLog()}>
             Add Round
           </Button>
+          <Button
+            style={{margin: "0 aut0"}}
+            size='mini'
+            inverted 
+            color='green'
+            onClick={() => duplicateLastRound()}>
+            Duplicate Last Round
+          </Button>
+
         </div>
       }
     </>
