@@ -14,6 +14,8 @@ Rails.application.routes.draw do
         resources :work_outs, only: [:index, :create, :update, :show]
       end
       get 'exercises_by_category/:id', to: 'exercises#exercises_by_category'
+      get 'user_logs_history/:id', to: 'user_logs#user_logs_history'
+      get 'user_logs_max/:id', to: 'user_logs#user_logs_max'
     end
 
     get '*other', to: 'static#index'

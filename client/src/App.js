@@ -11,6 +11,7 @@ import AdminRoute from './components/AdminRoute';
 import NewWorkout from './components/Admin/NewWorkout';
 import Profile from './components/User/Profile';
 import NewExercise from './components/Forms/ExerciseForm';
+import ExerciseDetails from './components/User/ExerciseDetails.js';
 import {Switch, Route, } from 'react-router-dom';
 
 const App = () => (
@@ -21,6 +22,7 @@ const App = () => (
         <Switch>
           <ProtectedRoute exact path='/' component={Home} />
           <ProtectedRoute exact path='/profile' component={Profile} />
+          <ProtectedRoute exact path='/exercisedetails' component={ExerciseDetails} />
           <AdminRoute exact path='/admin' component={AdminTools} />
           <AdminRoute exact path='/newworkout' component={NewWorkout} />
           <AdminRoute exact path='/newexercise' component={NewExercise} />

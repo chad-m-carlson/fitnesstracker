@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Select, Button, Input, Segment, Checkbox} from 'semantic-ui-react';
+import {Form, Select, Button, Input, Segment, } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import styled from 'styled-components';
 import axios from 'axios';

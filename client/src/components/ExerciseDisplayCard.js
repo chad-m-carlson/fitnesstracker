@@ -2,6 +2,7 @@ import React, {useState, } from 'react';
 import NewWorkoutForm from './Forms/NewWorkoutForm';
 import UserLog from './User/UserLog';
 import {Card, Button} from 'semantic-ui-react';
+import {Link, } from 'react-router-dom';
 
 const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFromForm, index}) => {
   const [editing, setEditing] = useState(false)
@@ -11,7 +12,12 @@ const ExerciseDisplayCard = ({wo, admin, handleDelete, date, reps, getExerciseFr
       <Card
       style={{backgroundColor: "rgb(230, 16, 16, 0.02)"}} > 
       <Card.Content>
-        <Card.Header style={{textAlign: "center", marginBottom: "1rem"}}>{wo.name}</Card.Header>
+        <Card.Header style={{textAlign: "center"}}>{wo.name}</Card.Header>
+        <Link 
+          to={{pathname: '/exercisedetails', state: {wo: wo}}}
+          style={{marginBottom: "1rem"}}
+          >Details
+        </Link>
         <div style={{display: "flex", justifyContent: "space-around"}}>
           <Card.Meta>Reps</Card.Meta>
           <Card.Description>{wo.rep_amount}</Card.Description>
