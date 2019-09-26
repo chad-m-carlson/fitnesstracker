@@ -72,7 +72,7 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog, getNewUserLogFrom
               label='Weight'
               placeholder='Weight'
               name='weight'
-              value={weight ? weight : ''}
+              value={weight}
               onChange={(e) => setWeight(e.target.value)}
               />
             <Form.Input
@@ -83,7 +83,7 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog, getNewUserLogFrom
               label='Reps'
               placeholder='Reps'
               name='reps'
-              value={reps ? reps : ''}
+              value={reps}
               onChange={(e) => setReps(e.target.value)}
               />
           </Form.Group>

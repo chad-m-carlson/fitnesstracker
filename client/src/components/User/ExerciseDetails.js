@@ -26,6 +26,7 @@ const ExerciseDetails = (props) => {
           <li><b>Weight:</b> {h.weight}</li>
           <li><b>Reps:</b> {h.reps}</li>
           <li><b>Tempo:</b> {h.rep_pace}</li>
+          <li><b>Notes:</b> {h.notes}</li>
         </ul>
       ))}
     </div>
@@ -36,6 +37,7 @@ const ExerciseDetails = (props) => {
           <li><b>Weight:</b> {maxWeight.weight}</li>
           <li><b>Reps:</b> {maxWeight.reps}</li>
           <li><b>Tempo:</b> {maxWeight.rep_pace}</li>
+          <li><b>Notes:</b> {maxWeight.notes}</li>
         </ul>
     </div>
     </>
