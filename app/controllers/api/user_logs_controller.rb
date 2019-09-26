@@ -20,8 +20,16 @@ class Api::UserLogsController < ApplicationController
       render json: @user_log
     else
       render json: @user_log.errors
+    end
   end
-end
+
+  def user_logs_history
+    render json: UserLog.find_user_logs_history(params[:id], params[:rep_pace], user_id: current_user.id)
+  end
+
+  def user_logs_max
+    render json: UserLog.user_logs_max(params[:id], user_id: current_user.id)
+  end
 
   private
 

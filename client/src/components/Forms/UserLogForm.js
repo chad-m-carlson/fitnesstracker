@@ -15,7 +15,7 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog, getNewUserLogFrom
     setNotes(userLog.notes);
     if(userLog.id)setLogExists(true);
     if((openLogFormAutomatically && (!weight && !reps)))setShowLogForm(true);
-  }, [openLogFormAutomatically, userLog.id, userLog.notes, userLog.reps, userLog.weight]);
+  }, [openLogFormAutomatically, userLog.id, userLog.notes, userLog.reps, userLog.weight, reps, weight]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -72,7 +72,7 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog, getNewUserLogFrom
               label='Weight'
               placeholder='Weight'
               name='weight'
-              value={weight}
+              value={weight ? weight : ''}
               onChange={(e) => setWeight(e.target.value)}
               />
             <Form.Input
@@ -83,7 +83,7 @@ const UserLogForm = ({round,openLogFormAutomatically, userLog, getNewUserLogFrom
               label='Reps'
               placeholder='Reps'
               name='reps'
-              value={reps}
+              value={reps ? reps : ''}
               onChange={(e) => setReps(e.target.value)}
               />
           </Form.Group>

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import ExerciseDisplayCard from '../ExerciseDisplayCard';
 import {sortExercises} from '../../helpers/HelperFunctions';
 import axios from 'axios';
-import { Button, } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions'
 
 const PendingWorkout = ({ updatedWorkout, date,reps, getExerciseFromForm, handleDelete}) => {
