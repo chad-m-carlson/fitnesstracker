@@ -2,7 +2,7 @@ export const getSimpleDate = (date) => {
   let month = date.getMonth() + 1;
   let day = date.getDate();
   let year = date.getFullYear();
-  let simpleDate = `${month}${day}${year}`
+  let simpleDate = `${('0' + month).slice(-2)}/${('0' + day).slice(-2)}/${year}`
   return simpleDate
 }
 

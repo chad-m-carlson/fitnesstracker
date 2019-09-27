@@ -47,7 +47,7 @@ class NewWorkout extends React.Component {
   };
 
   getWorkout = (date) => {
-    return axios.get(`/api/work_outs/${getSimpleDate(date)}`)
+    return axios.get(`/api/work_outs/${encodeURIComponent(getSimpleDate(date))}`)
   };
 
   getExerciseCategories = () => {
@@ -127,7 +127,7 @@ class NewWorkout extends React.Component {
   
   handleDateChange = (date) => {
     this.setState({date})
-    axios.get(`/api/work_outs/${getSimpleDate(date)}`)
+    axios.get(`/api/work_outs/${encodeURIComponent(getSimpleDate(date))}`)
       .then( res => this.setState({ workout: [...res.data]}));
   };
 

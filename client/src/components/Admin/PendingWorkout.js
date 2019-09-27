@@ -9,12 +9,12 @@ const PendingWorkout = ({ updatedWorkout, date,reps, getExerciseFromForm, handle
 
   useEffect( () => {
     if(workout.length === 0 && updatedWorkout.length === 0){
-      axios.get(`/api/work_outs/${getSimpleDate(date)}`)
+      axios.get(`/api/work_outs/${encodeURIComponent(getSimpleDate(date))}`)
       .then(res => {
         setWorkout([...res.data,])
         })
       }else setWorkout([...updatedWorkout])
-    },[date, updatedWorkout, workout.length]);
+    },[date, updatedWorkout,]);
 
     // const handleDelete = (id) => {
     //   debugger

@@ -6,8 +6,8 @@ const ExerciseDetails = (props) => {
   const [maxWeight, setMaxWeight] = useState({})
 
   useEffect( () => {
-    const {id, rep_pace} = props.location.state.wo
-    axios.get(`/api/user_logs_history/${id}`, {params: {rep_pace: rep_pace}})
+    const {id, rep_pace, rep_amount, date} = props.location.state.wo
+    axios.get(`/api/user_logs_history/${id}`, {params: {rep_pace: rep_pace, rep_amount: rep_amount, date: date}})
       .then(res => setExerciseHistory(res.data))
       .catch(res => console.log(res))
     axios.get(`/api/user_logs_max/${id}`)
@@ -26,6 +26,7 @@ const ExerciseDetails = (props) => {
           <li><b>Weight:</b> {h.weight}</li>
           <li><b>Reps:</b> {h.reps}</li>
           <li><b>Tempo:</b> {h.rep_pace}</li>
+          <li><b>Target Reps:</b> {h.rep_amount}</li>
           <li><b>Notes:</b> {h.notes}</li>
         </ul>
       ))}
@@ -37,6 +38,7 @@ const ExerciseDetails = (props) => {
           <li><b>Weight:</b> {maxWeight.weight}</li>
           <li><b>Reps:</b> {maxWeight.reps}</li>
           <li><b>Tempo:</b> {maxWeight.rep_pace}</li>
+          <li><b>Target Reps:</b> {maxWeight.rep_amount}</li>
           <li><b>Notes:</b> {maxWeight.notes}</li>
         </ul>
     </div>

@@ -7,7 +7,7 @@ const TodaysWorkout = ({date,}) => {
   const [workout, setWorkout] = useState([]);
 
   useEffect( () => {
-    axios.get(`/api/work_outs/${getSimpleDate(date)}`)
+    axios.get(`/api/work_outs/${encodeURIComponent(getSimpleDate(date))}`)
       .then(res => setWorkout([...res.data]))
     },[date]);
     
