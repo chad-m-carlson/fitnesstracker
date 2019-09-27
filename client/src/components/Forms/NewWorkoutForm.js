@@ -24,7 +24,7 @@ class NewWorkOutForm extends React.Component {
     }else if(this.props.new_exercise){
       this.setState({showReps: false, repAmount: this.props.repAmount, repPace: this.props.repPace, notes: this.props.exercise.notes, exercise_order: this.props.index});
     }else{
-    axios.get(`/api/work_outs/${getSimpleDate(this.props.date)}/exercises/${this.props.exercise.id}`)
+    axios.get(`/api/work_outs/${encodeURIComponent(getSimpleDate(this.props.date))}/exercises/${this.props.exercise.id}`)
       .then(res => {
         this.setState({workout: [...res.data]})
         res.data.map( w => {

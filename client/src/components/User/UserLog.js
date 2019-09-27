@@ -11,7 +11,7 @@ const UserLog = ({workoutDate, exerciseId, workoutId,}) => {
   const [refreshUserLog, setRefreshUserLog] = useState(false);
 
   useEffect( () => {
-    axios.get(`/api/user_logs/${workoutDate}`, {params: {work_out_id: workoutId}})
+    axios.get(`/api/user_logs/${encodeURIComponent(workoutDate)}`, {params: {work_out_id: workoutId}})
       .then( res => {
           setUserLog([...res.data])
       })
