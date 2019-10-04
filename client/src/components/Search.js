@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Input, } from 'semantic-ui-react';
+import {Input, Icon} from 'semantic-ui-react';
 
 const Search = ({data, name, returnResults, searchActive, width}) => {
   const [active, setActive] = useState(false);
@@ -10,18 +10,30 @@ const Search = ({data, name, returnResults, searchActive, width}) => {
   },[searchActive])
   
   const handleChange = (e) => {
+    if(e.target.value){
     setQuery(e.target.value.toLowerCase())
     const filteredData = data.filter( d => {
       return d.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1;
     });
     if(e.target.value.length > 0)returnResults(filteredData, true)
     else returnResults(filteredData, false);
+  }else{
+    setQuery('');
+    returnResults(data, true)
+  }
   };
 
 
   return ( 
     <div style={{marginBottom: "1rem"}}>
       <Input
+        icon={
+          <Icon
+            name='close'
+            link
+            onClick={(e) => handleChange(e)}
+          />
+        }
         value={active ? query : ''}
         placeholder={name}
         onChange={(e) => handleChange(e)}
