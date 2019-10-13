@@ -4,8 +4,9 @@ import NewWorkoutForm from '../Forms/NewWorkoutForm';
 import Datepicker from 'react-datepicker';
 import PendingWorkout from './PendingWorkout';
 import Search from '../Search';
+import {PageContainer, } from '../styles/styles'
 import {sortExercises} from '../../helpers/HelperFunctions';
-import {Form, Button, Container, Checkbox } from 'semantic-ui-react';
+import {Form, Input, Container, Checkbox } from 'semantic-ui-react';
 import {getSimpleDate, } from '../../helpers/HelperFunctions';
 import "react-datepicker/dist/react-datepicker.css";
 import styled from 'styled-components';
@@ -24,7 +25,6 @@ class NewWorkout extends React.Component {
     },
     workout: [],
     date: new Date(),
-    hideDatePicker: true,
     searchActive: false,
    }
 
@@ -165,31 +165,23 @@ class NewWorkout extends React.Component {
 
   render() { 
     return ( 
-      <Container style={{marginBottom: "1rem"}}>
+      <PageContainer>
       <h1 style={{textAlign: "center"}}>Create a new workout</h1>
-        <Form>
-          {!this.state.hideDatePicker &&
-          <div style={{display: "flex", justifyContent: "space-around", padding: "1rem"}}>
+          <div style={{textAlign: "center"}}>
             <Datepicker 
-              inline
               selected={this.state.date}
               onChange={this.handleDateChange}
-              />
+              todayButton="Today"
+              customInput={<Input></Input>}
+            />
           </div>
-          }
-          <div style={{display: "flex", justifyContent: "space-around", paddingBottom: "1rem"}}>
-            <Button 
-              onClick={() => this.setState({hideDatePicker: !this.state.hideDatePicker})}>
-              {this.state.hideDatePicker ? "Show Calendar" : "Hide Calendar"}
-            </Button>
-          </div>
-          <h3 style={{textAlign: "center"}}>{this.state.date.getMonth() + 1}/{this.state.date.getDate()}/{this.state.date.getFullYear()} Workout</h3>
+      <Form style={{zIndex: "-1"}}>
           <CheckboxHolder>
             {this.state.exerciseCategories.map( c => 
               <Checkbox
                 key={c.id}
                 toggle
-                style={{margin: "1rem"}}
+                style={{margin: "1rem", zIndex: "-100 !important"}}
                 label={c.text}
                 onChange={() => this.handleCategoryChange(c.value)}
               />
@@ -218,7 +210,7 @@ class NewWorkout extends React.Component {
             handleDelete={this.handleDelete}
           />
         </div>
-      </Container>
+      </PageContainer>
      );
   }
 }
