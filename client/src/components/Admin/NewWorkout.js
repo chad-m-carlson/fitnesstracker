@@ -175,7 +175,7 @@ class NewWorkout extends React.Component {
               customInput={<Input></Input>}
             />
           </div>
-      <Form style={{zIndex: "-1"}}>
+      <Form style={{zIndex: "0"}}>
           <CheckboxHolder>
             {this.state.exerciseCategories.map( c => 
               <Checkbox
