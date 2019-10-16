@@ -2,7 +2,7 @@ class Api::RepPacesController < ApplicationController
   
 
   def index
-    render json: RepPace.all
+    render json: RepPace.all.order(:pace)
   end
 
   def create

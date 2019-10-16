@@ -1,6 +1,6 @@
 class Api::RepAmountsController < ApplicationController
   def index
-    render json: RepAmount.all
+    render json: RepAmount.all.order(:amount)
   end
 
   def create
