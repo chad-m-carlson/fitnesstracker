@@ -28,6 +28,7 @@ const SimilarExerciseSearch = (props) => {
   return ( 
     <div style={{margin: "1rem"}}>
     <Form 
+      autoFocus
       size="mini" 
       onSubmit={handleKeywordSearch}
       style={{display: "flex", justifyContent: "space-between", flexDirection: "column"}}>
