@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       get 'exercises_by_category/:id', to: 'exercises#exercises_by_category'
       get 'user_logs_history/:id', to: 'user_logs#user_logs_history'
       get 'user_logs_max/:id', to: 'user_logs#user_logs_max'
+      get 'exercise_search/:keyword', to: 'exercises#exercise_search'
+      get 'user_logs_by_exercise', to: 'user_logs#user_logs_by_exercise'
     end
 
     get '*other', to: 'static#index'

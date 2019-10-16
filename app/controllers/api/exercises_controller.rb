@@ -37,6 +37,11 @@ class Api::ExercisesController < ApplicationController
     end
   end
 
+  def exercise_search
+    exercises = Exercise.exercise_search(params[:keyword])
+    render json: exercises
+  end
+
   private
     def exercise_params
       params.require(:exercise).permit(:id, 

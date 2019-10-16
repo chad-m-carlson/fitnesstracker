@@ -30,6 +30,15 @@ class Exercise < ApplicationRecord
       end
     end
   end
+
+  def self.exercise_search(keyword)
+    find_by_sql(["
+      SELECT name, id 
+      FROM exercises
+      WHERE LOWER(name) LIKE LOWER(?)
+      ORDER BY name
+    ", "%#{keyword}%" ])
+  end
   
   # def self.exercise_by_category(category)
   #   Exercise.find_by_sql(["

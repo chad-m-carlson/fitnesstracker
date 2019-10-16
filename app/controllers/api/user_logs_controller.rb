@@ -31,6 +31,10 @@ class Api::UserLogsController < ApplicationController
     render json: UserLog.user_logs_max(params[:id], user_id: current_user.id)
   end
 
+  def user_logs_by_exercise
+    render json: UserLog.user_logs_by_exercise(params[:ids], user_id: current_user.id)
+  end
+
   private
 
     def user_log_params

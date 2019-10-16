@@ -49,6 +49,16 @@ const NavBar = (props) => {
             Profile
           </NavLink>
         </Menu.Item>
+        <Menu.Item>
+          <NavLink
+            to='/exercise_search'
+            exact
+            activeStyle={{textDecoration: "underline"}}
+            align='center'
+            style={{color: "black"}}>
+            Exercise Search
+          </NavLink>
+        </Menu.Item>
         {!authenticated &&
         <>
           <Menu.Item>
@@ -114,6 +124,16 @@ const NavBar = (props) => {
                   align='center'
                   style={{color: "black"}}>
                   Profile
+                </NavLink>
+              </Dropdown.Item>
+              <Dropdown.Item style={{textAlign: "center"}}>
+                <NavLink 
+                  to='/exercise_search'
+                  exact
+                  activeStyle={{textDecoration: "underline"}}
+                  align='center'
+                  style={{color: "black"}}>
+                  Exercise Search
                 </NavLink>
               </Dropdown.Item>
               {!authenticated &&

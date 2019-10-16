@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-
+import {Link, } from 'react-router-dom';
 const ExerciseDetails = (props) => {
   const [exerciseHistory, setExerciseHistory] = useState([]);
-  const [maxWeight, setMaxWeight] = useState({})
+  const [maxWeight, setMaxWeight] = useState({});
+  
 
   useEffect( () => {
     const {id, rep_pace, rep_amount, date} = props.location.state.wo
@@ -14,6 +15,8 @@ const ExerciseDetails = (props) => {
       .then(res => setMaxWeight(res.data[0]))
       .catch(res => console.log(res))
   },[props.location.state.wo]);
+
+
 
   return ( 
     <div style={{margin: "1rem"}}>
@@ -44,6 +47,12 @@ const ExerciseDetails = (props) => {
           <li><b>Personal Notes:</b> {maxWeight.notes}</li>
         </ul>
     </div>
+    <br />
+    <div style={{display: "flex", justifyContent: "space-between"}}>
+    <Link to='/'>Back</Link>
+    <Link to='/exercise_search'>Find similar exercises</Link>
+    </div>
+    
     </div>
    );
 }

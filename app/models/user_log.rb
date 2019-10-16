@@ -53,4 +53,27 @@ class UserLog < ApplicationRecord
         LIMIT 1
     ", exercise_id, user_id[:user_id]])
   end
+
+  def self.user_logs_by_exercise(exercise_id, user_id)
+      find_by_sql(["
+        WITH a AS (
+          SELECT 
+            w.exercise_id, 
+            w.rep_amount, 
+            w.rep_pace, 
+            u.notes,
+            u.weight, 
+            u.reps, 
+            w.date,
+            u.id AS user_log_id
+          FROM work_outs AS w
+          LEFT JOIN user_logs AS u ON u.work_out_id = w.id
+          WHERE w.exercise_id = ? AND u.user_id = ?)
+        SELECT e.name, a.date, a.rep_amount, a.rep_pace, a.weight, a.reps, a.user_log_id AS id, a.notes
+        FROM exercises AS e
+        LEFT JOIN a ON e.id = a.exercise_id
+        WHERE e.id = a.exercise_id
+        ", exercise_id, user_id[:user_id]
+    ])
+  end
 end
