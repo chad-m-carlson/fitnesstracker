@@ -20,7 +20,7 @@ const ExerciseDetails = (props) => {
 
   return (
     <div style={{margin: "1rem"}}>
-    {(exerciseHistory.length > 0 && maxWeight) 
+    {( maxWeight) 
       ?
       <>
         <h1>{props.location.state.wo.name} Details</h1>
