@@ -1,4 +1,4 @@
-import React, {useState, } from 'react';
+import React, {useState, useEffect} from 'react';
 import SimilarExerciseDisplay from '../SimilarExerciseDisplay';
 import {Form, Button,} from 'semantic-ui-react';
 import axios from 'axios';
@@ -9,6 +9,9 @@ const SimilarExerciseSearch = (props) => {
   const [similarExerciseList, setSimilarExerciseList] = useState([]);
   const [similarExerciseSelection, setSimilarExerciseSelection] = useState([]);
 
+  useEffect( () => {
+    window.scrollTo(0, 0)
+  },[])
   const handleKeywordSearch = () => {
     axios.get(`/api/exercise_search/${keywordSearch}`)
       .then(res=> {
