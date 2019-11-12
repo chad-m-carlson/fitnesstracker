@@ -9,6 +9,9 @@ const SimilarExerciseSearch = props => {
   const [similarExerciseList, setSimilarExerciseList] = useState([]);
   const [similarExerciseSelection, setSimilarExerciseSelection] = useState([]);
 
+  useEffect( () => {
+    window.scrollTo(0, 0)
+  },[])
   const handleKeywordSearch = () => {
     axios
       .get(`/api/exercise_search/${keywordSearch}`)
@@ -56,6 +59,7 @@ const SimilarExerciseSearch = props => {
       <br />
       <SimilarExerciseDisplay exerciseIds={similarExerciseSelection} />
       <Link onClick={props.history.goBack}>Go Back</Link>
+
     </div>
   );
 };

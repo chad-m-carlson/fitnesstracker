@@ -73,6 +73,7 @@ class UserLog < ApplicationRecord
         FROM exercises AS e
         LEFT JOIN a ON e.id = a.exercise_id
         WHERE e.id = a.exercise_id
+        ORDER BY date desc
         ", exercise_id, user_id[:user_id]
     ])
   end
