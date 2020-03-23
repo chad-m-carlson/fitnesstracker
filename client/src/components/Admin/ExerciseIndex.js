@@ -1,43 +1,33 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import Search from '../Search';
-import Exercise from './Exercise';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Search from "../Search";
+import Exercise from "./Exercise";
 
-const ExerciseIndex = ({exerciseChanged, setExerciseChanged}) => {
+const ExerciseIndex = ({ exerciseChanged, setExerciseChanged }) => {
   const [exercises, setExercises] = useState([]);
   const [filteredExercises, setFilteredExercises] = useState([]);
   const [searchActive, setSearchActive] = useState(false);
   //ADD A FUNCTION TO UPDATE THIS EXERCISE ARRAY IF IT IS EDITED IN THE FORM????
 
-  useEffect( () => {
-    axios.get(`/api/exercises`)
+  useEffect(() => {
+    axios
+      .get(`/api/exercises`)
       .then(res => {
-        setExercises(res.data)})
-      .catch(res => console.log(res))
-  }, [exerciseChanged])
+        setExercises(res.data);
+      })
+      .catch(res => console.log(res));
+  }, [exerciseChanged]);
 
   const returnResults = (results, active) => {
-    if(active){
-      setFilteredExercises(results)
-      setSearchActive(true)
-    }else setSearchActive(false)
+    if (active) {
+      setFilteredExercises(results);
+      setSearchActive(true);
+    } else setSearchActive(false);
   };
 
   const renderExerciseList = () => {
-    if(searchActive === true){
-      return(
-        filteredExercises.map( e => 
-          <li key={e.id}>
-            <Exercise
-              exercise={e}
-              exerciseChanged={exerciseChanged}
-              setExerciseChanged={setExerciseChanged}
-            />
-          </li>
-        )
-      )
-    }else return(
-      exercises.map( e => 
+    if (searchActive === true) {
+      return filteredExercises.map(e => (
         <li key={e.id}>
           <Exercise
             exercise={e}
@@ -45,8 +35,17 @@ const ExerciseIndex = ({exerciseChanged, setExerciseChanged}) => {
             setExerciseChanged={setExerciseChanged}
           />
         </li>
-      )
-    )
+      ));
+    } else
+      return exercises.map(e => (
+        <li key={e.id}>
+          <Exercise
+            exercise={e}
+            exerciseChanged={exerciseChanged}
+            setExerciseChanged={setExerciseChanged}
+          />
+        </li>
+      ));
   };
 
   return (
@@ -58,11 +57,9 @@ const ExerciseIndex = ({exerciseChanged, setExerciseChanged}) => {
         returnResults={returnResults}
         searchActive={searchActive}
       />
-      <ul>
-      {renderExerciseList()}
-      </ul>
+      <ul>{renderExerciseList()}</ul>
     </>
-    );
-}
- 
+  );
+};
+
 export default ExerciseIndex;

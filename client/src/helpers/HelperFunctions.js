@@ -1,17 +1,19 @@
-export const getSimpleDate = (date) => {
+export const getSimpleDate = date => {
   let month = date.getMonth() + 1;
   let day = date.getDate();
   let year = date.getFullYear();
-  let simpleDate = `${('0' + month).slice(-2)}/${('0' + day).slice(-2)}/${year}`
-  return simpleDate
-}
+  let simpleDate = `${("0" + month).slice(-2)}/${("0" + day).slice(
+    -2
+  )}/${year}`;
+  return simpleDate;
+};
 
 export const sortExercises = (exerciseArray, sortBy) => {
   let x = exerciseArray.sort(function(a, b) {
-    if (typeof(a[sortBy]) == 'number' || typeof(b[sortBy]) == 'number'){
+    if (typeof a[sortBy] == "number" || typeof b[sortBy] == "number") {
       var nameA = a[sortBy];
       var nameB = b[sortBy];
-    }else {
+    } else {
       var nameA = a[sortBy].toUpperCase(); // ignore upper and lowercase
       var nameB = b[sortBy].toUpperCase(); // ignore upper and lowercase
     }
@@ -23,5 +25,5 @@ export const sortExercises = (exerciseArray, sortBy) => {
     }
     return 0;
   });
-  return x
-}
+  return x;
+};

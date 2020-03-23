@@ -1,37 +1,38 @@
-import React, {useState, useEffect } from 'react';
-import axios from 'axios';
-import Exercise from './Exercise';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Exercise from "./Exercise";
 
-
-const ExerciseByCategory = ({exerciseChanged, setExerciseChanged}) => {
+const ExerciseByCategory = ({ exerciseChanged, setExerciseChanged }) => {
   const [exercises, setExercises] = useState([]);
   const [exerciseCategories, setExerciseCategories] = useState([]);
   const [showExercises, setShowExercises] = useState(false);
 
-  useEffect( () => {
-    axios.get(`/api/exercise_categories`)
-      .then(res => setExerciseCategories(res.data))
-  },[]);
+  useEffect(() => {
+    axios
+      .get(`/api/exercise_categories`)
+      .then(res => setExerciseCategories(res.data));
+  }, []);
 
-  const setCategory = (category) => {
-    setShowExercises(false)
-    axios.get(`/api/exercise_categories/${category}`)
-      .then( res => {
-        setExercises(res.data)
-        setShowExercises(true)
-      })
+  const setCategory = category => {
+    setShowExercises(false);
+    axios.get(`/api/exercise_categories/${category}`).then(res => {
+      setExercises(res.data);
+      setShowExercises(true);
+    });
   };
 
-  return ( 
+  return (
     <>
       <ul>
-        {exerciseCategories.map( c => 
-          <li 
+        {exerciseCategories.map(c => (
+          <li
             key={c.id}
-            onClick={ () => setCategory(c.id)} 
-            style={{cursor: 'pointer'}}  
-          >{c.category_name}</li>  
-          )}
+            onClick={() => setCategory(c.id)}
+            style={{ cursor: "pointer" }}
+          >
+            {c.category_name}
+          </li>
+        ))}
         {/* <li 
           onClick={ () => setCategory('arms')} 
           style={{cursor: 'pointer'}}  
@@ -66,20 +67,19 @@ const ExerciseByCategory = ({exerciseChanged, setExerciseChanged}) => {
         >Super Sets</li> */}
       </ul>
       <ul>
-      {showExercises &&
-        exercises.map( e => 
-          <li key={e.id}>
-            <Exercise
-              exercise={e}
-              exerciseChanged={exerciseChanged}
-              setExerciseChanged={setExerciseChanged}
-            />
-          </li>
-        )
-      }
+        {showExercises &&
+          exercises.map(e => (
+            <li key={e.id}>
+              <Exercise
+                exercise={e}
+                exerciseChanged={exerciseChanged}
+                setExerciseChanged={setExerciseChanged}
+              />
+            </li>
+          ))}
       </ul>
     </>
-   );
-}
- 
+  );
+};
+
 export default ExerciseByCategory;

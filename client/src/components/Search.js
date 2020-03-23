@@ -1,56 +1,50 @@
-import React, {useState, useEffect} from 'react';
-import {Input, Icon} from 'semantic-ui-react';
+import React, { useState, useEffect } from "react";
+import { Input, Icon } from "semantic-ui-react";
 
-const Search = ({data, name, returnResults, searchActive, width}) => {
+const Search = ({ data, name, returnResults, searchActive, width }) => {
   const [active, setActive] = useState(false);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
-  useEffect( () => {
-    setActive(searchActive)
-  },[searchActive])
-  
-  const handleChange = (e) => {
-    if(e.target.value){
-    setQuery(e.target.value.toLowerCase())
-    const filteredData = data.filter( d => {
-      return d.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1;
-    });
-    if(e.target.value.length > 0)returnResults(filteredData, true)
-    else returnResults(filteredData, false);
-  }else{
-    setQuery('');
-    returnResults(data, true)
-  }
+  useEffect(() => {
+    setActive(searchActive);
+  }, [searchActive]);
+
+  const handleChange = e => {
+    if (e.target.value) {
+      setQuery(e.target.value.toLowerCase());
+      const filteredData = data.filter(d => {
+        return (
+          d.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1
+        );
+      });
+      if (e.target.value.length > 0) returnResults(filteredData, true);
+      else returnResults(filteredData, false);
+    } else {
+      setQuery("");
+      returnResults(data, true);
+    }
   };
 
-
-  return ( 
-    <div style={{marginBottom: "1rem"}}>
+  return (
+    <div style={{ marginBottom: "1rem" }}>
       <Input
-        icon={
-          <Icon
-            name='close'
-            link
-            onClick={(e) => handleChange(e)}
-          />
-        }
-        value={active ? query : ''}
+        icon={<Icon name="close" link onClick={e => handleChange(e)} />}
+        value={active ? query : ""}
         placeholder={name}
-        onChange={(e) => handleChange(e)}
-        style={{width: `${width}`}}
+        onChange={e => handleChange(e)}
+        style={{ width: `${width}` }}
       />
     </div>
-   );
-}
- 
+  );
+};
+
 export default Search;
 
-// ? This search component is reusable, it will need a return results function to supply filtered results to the parent component. 
+// ? This search component is reusable, it will need a return results function to supply filtered results to the parent component.
 
 // ? it will take in DATA to filter, NAME to set the placeholder, RETURNRESULTS to send filtered data back to parent, SEARCHACTIVE boolean to reset input value and WIDTH to set input width.
 
 // ? in parent component: have a state value for filtered data and a boolean to setsearch active. the return results take in the filtered data, and the active boolean.
-
 
 // const returnResults = (results, active) => {
 //   if(active){
@@ -62,7 +56,7 @@ export default Search;
 // const renderExerciseList = () => {
 //   if(searchActive === true){
 //     return(
-//       filteredExercises.map( e => 
+//       filteredExercises.map( e =>
 //         <li key={e.id}>
 //           <Exercise
 //             exercise={e}
@@ -73,7 +67,7 @@ export default Search;
 //       )
 //     )
 //   }else return(
-//     exercises.map( e => 
+//     exercises.map( e =>
 //       <li key={e.id}>
 //         <Exercise
 //           exercise={e}
