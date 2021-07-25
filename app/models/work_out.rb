@@ -13,6 +13,16 @@ class WorkOut < ApplicationRecord
     "])
   end
 
+  def self.copy_work_out(date, copy_date)
+    WorkOut.find_by_sql(["
+      INSERT INTO work_outs (date, notes, exercise_id, created_at, updated_at, rep_pace, rep_amount, exercise_order)
+      SELECT '#{copy_date}', notes, exercise_id, NOW(), NOW(), rep_pace, rep_amount, exercise_order
+      FROM work_outs
+      WHERE date = '#{date}'
+      
+      "])
+  end
+
 
   # def self.create_work_out(workout)
   #   existing_workout = WorkOut.find_work_out(workout[:date])

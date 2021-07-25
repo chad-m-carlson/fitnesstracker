@@ -23,3 +23,4 @@
 /config/master.key
 rubytests.rb
 latest.dump
+node_modules

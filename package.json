@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/chad-m-carlson/fitnesstracker/issues"
   },
-  "homepage": "https://github.com/chad-m-carlson/fitnesstracker#readme"
+  "homepage": "https://github.com/chad-m-carlson/fitnesstracker#readme",
+  "dependencies": {
+    "react-datepicker": "^3.4.1"
+  }
 }

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get 'user_logs_max/:id', to: 'user_logs#user_logs_max'
       get 'exercise_search/:keyword', to: 'exercises#exercise_search'
       get 'user_logs_by_exercise', to: 'user_logs#user_logs_by_exercise'
+      get 'copy_work_out/:date', to: 'work_outs#copy_work_out'
     end
 
     get '*other', to: 'static#index'

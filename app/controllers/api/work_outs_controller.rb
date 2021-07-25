@@ -1,6 +1,6 @@
 class Api::WorkOutsController < ApplicationController
   before_action :set_workout, only: [:update, :destroy]
-  
+
   def index
   end
 
@@ -27,6 +27,10 @@ class Api::WorkOutsController < ApplicationController
 
   def destroy
     @workout.delete
+  end
+
+  def copy_work_out
+    WorkOut.copy_work_out(params[:date], params[:copy_date])
   end
 
   private
