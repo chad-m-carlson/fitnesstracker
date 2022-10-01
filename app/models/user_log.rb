@@ -40,7 +40,7 @@ class UserLog < ApplicationRecord
           w.date,
           w.notes AS workout_notes,
           u.notes,
-          u.weight, 
+          COALESCE(u.weight,0) weight,
           u.reps, 
           u.id AS user_log_id
         FROM work_outs AS w
@@ -84,7 +84,7 @@ class UserLog < ApplicationRecord
         FROM exercises AS e
         LEFT JOIN a ON e.id = a.exercise_id
         WHERE e.id = a.exercise_id
-        ORDER BY a.rep_pace, `a.created_at desc
+        ORDER BY a.rep_pace, a.created_at desc
         ", exercise_id, user_id[:user_id]
     ])
   end
