@@ -11,7 +11,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.12'
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.2', require: false
+gem 'bootsnap', '>= 1.1.2'
 # authentication
 gem 'devise_token_auth', '>= 1.2.0', git: "https://github.com/lynndylanhurley/devise_token_auth"
 
