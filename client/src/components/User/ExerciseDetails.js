@@ -73,6 +73,10 @@ const ExerciseDetails = (props) => {
               <li>
                 <b>Personal Notes:</b> {maxWeight.notes}
               </li>
+              <li>
+                <b>70/80/90%:</b> {maxWeight.seventy_max}/{maxWeight.eighty_max}
+                /{maxWeight.ninety_max}
+              </li>
             </ul>
           </div>
         </>
@@ -88,5 +92,4 @@ const ExerciseDetails = (props) => {
     </div>
   );
 };
-// make a fake commit
 export default ExerciseDetails;
