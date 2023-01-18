@@ -5,8 +5,8 @@
   "main": "index.js",
   "engines": {
     "node": "18.13.0",
-    "npm":"8.19.2",
-    "yarn":"1.22.19"
+    "npm": "8.19.2",
+    "yarn": "1.22.19"
   },
   "directories": {
     "lib": "lib",
@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/chad-m-carlson/fitnesstracker#readme",
   "dependencies": {
-    "react-datepicker": "^3.4.1"
+    "react-datepicker": "^3.4.1",
+    "react-scripts": "^5.0.1"
   }
 }
