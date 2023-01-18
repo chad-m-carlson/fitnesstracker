@@ -4,7 +4,7 @@
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
   "main": "index.js",
   "engines": {
-    "node": "18.10.0",
+    "node": "18.13.0",
     "npm":"8.19.2",
     "yarn":"1.22.19"
   },
