@@ -52,6 +52,7 @@ class UserLog < ApplicationRecord
               , a.rep_amount
               , a.rep_pace
               , a.weight              
+              , a.weight * 0.6 AS sixety_max
               , a.weight * 0.7 AS seventy_max
               , a.weight * 0.8 AS eighty_max
               , a.weight * 0.9 AS ninety_max
