@@ -45,13 +45,17 @@ class UserLog < ApplicationRecord
           u.id AS user_log_id
         FROM work_outs AS w
         LEFT JOIN user_logs AS u ON u.work_out_id = w.id
-        WHERE w.exercise_id = ? AND u.user_id = ?)
+        WHERE w.exercise_id = ? AND u.user_id = ? AND CAST(w.date AS date) > current_date - INTERVAL '2 year')
         SELECT e.name
               , a.id AS workout_id
               , a.date
               , a.rep_amount
               , a.rep_pace
-              , a.weight
+              , a.weight              
+              , a.weight * 0.6 AS sixety_max
+              , a.weight * 0.7 AS seventy_max
+              , a.weight * 0.8 AS eighty_max
+              , a.weight * 0.9 AS ninety_max
               , a.reps
               , a.user_log_id AS id
               , a.notes
