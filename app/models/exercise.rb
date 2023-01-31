@@ -15,7 +15,7 @@ class Exercise < ApplicationRecord
     exercise = Exercise.find(incoming_exercise[:id])
     existing_categories = exercise.exercise_category.ids
     new_categories = incoming_exercise[:selectedExerciseCategories]
-    if existing_categories.sort != new_categories.sort
+    if ((!existing_categories.nil? && !new_categories.nil?) ? existing_categories.sort != new_categories.sort : false)
       existing_categories.each do |c|
         find_by_sql(["
           DELETE FROM exercise_categories_exercises
