@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Icon } from "semantic-ui-react";
 const ExerciseDetails = (props) => {
   const [exerciseHistory, setExerciseHistory] = useState([]);
   const [maxWeight, setMaxWeight] = useState({});
@@ -24,7 +25,24 @@ const ExerciseDetails = (props) => {
     <div style={{ margin: "1rem" }}>
       {maxWeight ? (
         <>
-          <h1>{props.location.state.wo.name} Details</h1>
+          <h1>
+            {props.location.state.wo.name} Details
+            {exerciseHistory.length > 0 &&
+              exerciseHistory[0].video_url != "" && (
+                <a
+                  href={
+                    exerciseHistory.length > 0
+                      ? exerciseHistory[0].video_url
+                      : ""
+                  }
+                  style={{ color: "black" }}
+                  target="_blank"
+                >
+                  <Icon name="file video" />
+                </a>
+              )}
+          </h1>
+
           <div style={{ border: "1px solid black" }}>
             <h3>Last 2 at current tempo</h3>
             {exerciseHistory.map((h) => (

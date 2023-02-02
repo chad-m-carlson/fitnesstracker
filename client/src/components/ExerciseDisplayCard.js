@@ -19,9 +19,7 @@ const ExerciseDisplayCard = ({
     <>
       <Card style={{ backgroundColor: "rgb(230, 16, 16, 0.02)" }}>
         <Card.Content>
-          <a href={wo.video_url} style={{ color: "black" }}>
-            <Card.Header style={{ textAlign: "center" }}>{wo.name}</Card.Header>
-          </a>
+          <Card.Header style={{ textAlign: "center" }}>{wo.name}</Card.Header>
           <Card.Header style={{ textAlign: "center" }}></Card.Header>
           <Link
             to={{ pathname: "/exercisedetails", state: { wo: wo } }}
