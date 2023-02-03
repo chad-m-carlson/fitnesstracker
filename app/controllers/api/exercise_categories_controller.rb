@@ -5,7 +5,7 @@ class Api::ExerciseCategoriesController < ApplicationController
   end
 
   def show
-    exercises = ExerciseCategory.find(params[:id]).exercises.order(:name).as_json
+    exercises = ExerciseCategory.find(params[:id]).exercises.where(is_active:true).order(:name).as_json
     exercises.each do |e|
       e["exercise_category"] = params[:id].to_i
     end
