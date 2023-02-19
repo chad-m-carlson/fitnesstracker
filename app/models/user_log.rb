@@ -83,13 +83,29 @@ class UserLog < ApplicationRecord
             u.created_at
           FROM work_outs AS w
           LEFT JOIN user_logs AS u ON u.work_out_id = w.id
-          WHERE w.exercise_id = ? AND u.user_id = ?)
-        SELECT e.name, a.date, a.rep_amount, a.rep_pace, a.weight, a.reps, a.user_log_id AS id, a.notes
+          WHERE w.exercise_id = :exercise_id AND u.user_id = :user_id)
+          ,max_weight AS (SELECT max(u.weight) as max_weight
+          							,w.exercise_id
+          			FROM work_outs AS w
+          			LEFT JOIN user_logs AS u ON u.work_out_id = w.id
+          			WHERE w.exercise_id = :exercise_id AND u.user_id = :user_id
+          			GROUP BY w.exercise_id
+          )
+        SELECT e.name
+        		, a.date
+        		, a.rep_amount
+        		, a.rep_pace
+        		, a.weight
+        		, a.reps
+        		, a.user_log_id AS id
+        		, a.notes
+        		,CASE WHEN  max_weight.max_weight = a.weight THEN 1 END is_max
         FROM exercises AS e
         LEFT JOIN a ON e.id = a.exercise_id
+        LEFT JOIN max_weight ON max_weight.exercise_id = a.exercise_id
         WHERE e.id = a.exercise_id
         ORDER BY a.rep_pace, a.created_at desc
-        ", exercise_id, user_id[:user_id]
+        ", :exercise_id => exercise_id, :user_id => user_id[:user_id]
     ])
   end
 end
