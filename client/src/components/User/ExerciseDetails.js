@@ -92,9 +92,10 @@ const ExerciseDetails = (props) => {
                 <b>Personal Notes:</b> {maxWeight.notes}
               </li>
               <li>
-                <b>60/70/80/90%:</b> {maxWeight.sixety_max}/
-                {maxWeight.seventy_max}/{maxWeight.eighty_max}/
-                {maxWeight.ninety_max}
+                <b>60/70/80/90%:</b> {Math.round(maxWeight.sixety_max)}/
+                {Math.round(maxWeight.seventy_max)}/
+                {Math.round(maxWeight.eighty_max)}/
+                {Math.round(maxWeight.ninety_max)}
               </li>
             </ul>
           </div>

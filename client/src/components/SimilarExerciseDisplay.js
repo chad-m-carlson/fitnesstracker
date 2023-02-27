@@ -28,8 +28,9 @@ const SimilarExerciseDisplay = ({ exerciseIds }, props) => {
               <li>Tempo: {e.rep_pace}</li>
               {e.is_max == 1 && (
                 <li>
-                  60/70/80/90: {e.weight * 0.6}/{e.weight * 0.7}/
-                  {e.weight * 0.8}/{e.weight * 0.9}
+                  60/70/80/90: {Math.round(e.weight * 0.6)}/
+                  {Math.round(e.weight * 0.7)}/{Math.round(e.weight * 0.8)}/
+                  {Math.round(e.weight * 0.9)}
                 </li>
               )}
               <br />
