@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NewWorkoutForm from "./Forms/NewWorkoutForm";
 import UserLog from "./User/UserLog";
 import { Card, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const ExerciseDisplayCard = ({
   wo,
@@ -14,6 +15,17 @@ const ExerciseDisplayCard = ({
   index,
 }) => {
   const [editing, setEditing] = useState(false);
+  const [lastWorkoutStat, setLastWorkStats] = useState({});
+
+  useEffect(() => {
+    const { id, rep_pace, rep_amount, date } = wo;
+    axios
+      .get(`/api/last_exercise_stat/${id}`, {
+        params: { rep_pace: rep_pace, rep_amount: rep_amount, date: date },
+      })
+      .then((res) => setLastWorkStats(res.data[0]))
+      .catch((res) => console.log(res));
+  }, [wo]);
 
   return (
     <>
@@ -33,12 +45,37 @@ const ExerciseDisplayCard = ({
             <Card.Meta>Tempo</Card.Meta>
             <Card.Description>{wo.rep_pace}</Card.Description>
           </div>
-          {/* <br /> */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <Card.Description style={{ fontStyle: "italic" }}>
-              {wo.notes}
-            </Card.Description>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              paddingTop: "10px",
+            }}
+          >
+            {lastWorkoutStat && (
+              <>
+                <Card.Meta>Last time: </Card.Meta>
+                <Card.Description>
+                  {lastWorkoutStat.weight && <>{lastWorkoutStat.weight} for </>}
+                  {lastWorkoutStat.reps} reps on {lastWorkoutStat.date}
+                </Card.Description>
+              </>
+            )}
           </div>
+          {wo.notes != "" && (
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Card.Description style={{ fontStyle: "italic" }}>
+                  {wo.notes}
+                </Card.Description>
+              </div>
+            </>
+          )}
           <br />
           {!admin && (
             <UserLog
