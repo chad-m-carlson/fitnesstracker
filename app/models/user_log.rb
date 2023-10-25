@@ -29,6 +29,30 @@ class UserLog < ApplicationRecord
     ", exercise_id, user_id[:user_id], rep_pace, date, rep_amount])
   end
 
+  def self.find_last_exercise_stat(exercise_id, rep_pace, rep_amount, date, user_id)
+    find_by_sql(["
+      WITH a AS (
+        SELECT 
+          w.id, 
+          w.exercise_id, 
+          u.reps, 
+          w.date,
+          u.weight,
+          w.rep_amount,
+          w.rep_pace
+        FROM work_outs AS w
+        LEFT JOIN user_logs AS u ON u.work_out_id = w.id
+        WHERE w.exercise_id = ? AND u.user_id = ?)
+      SELECT a.id AS workout_id, a.date, a.weight, a.reps
+      FROM exercises AS e
+      LEFT JOIN a ON e.id = a.exercise_id
+      WHERE e.id = a.exercise_id AND rep_pace = ? AND date != ? and rep_amount = ?
+      order by date desc
+      LIMIT 1
+    ", exercise_id, user_id[:user_id], rep_pace, date, rep_amount])
+  end
+
+
   def self.user_logs_max(exercise_id, user_id)
     find_by_sql(["
       WITH a AS (

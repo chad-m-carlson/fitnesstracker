@@ -26,7 +26,11 @@ class Api::UserLogsController < ApplicationController
   def user_logs_history
     render json: UserLog.find_user_logs_history(params[:id], params[:rep_pace], params[:rep_amount], params[:date], user_id: current_user.id)
   end
-
+  
+  def last_exercise_stat
+    render json: UserLog.find_last_exercise_stat(params[:id], params[:rep_pace], params[:rep_amount], params[:date], user_id: current_user.id)
+  end
+  
   def user_logs_max
     render json: UserLog.user_logs_max(params[:id], user_id: current_user.id)
   end
