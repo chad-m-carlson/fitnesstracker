@@ -24,7 +24,7 @@ class UserLog < ApplicationRecord
     FROM exercises AS e
     LEFT JOIN a ON e.id = a.exercise_id
     WHERE e.id = a.exercise_id AND rep_pace = ? AND date != ? and rep_amount = ?
-    ORDER BY  a.created_at desc
+    ORDER BY to_date(a.date,'MM/DD/YYYY') desc
     LIMIT 2
     ", exercise_id, user_id[:user_id], rep_pace, date, rep_amount])
   end
@@ -47,7 +47,7 @@ class UserLog < ApplicationRecord
       FROM exercises AS e
       LEFT JOIN a ON e.id = a.exercise_id
       WHERE e.id = a.exercise_id AND rep_pace = ? AND date != ? and rep_amount = ?
-      order by date desc
+      ORDER BY to_date(a.date,'MM/DD/YYYY') desc
       LIMIT 1
     ", exercise_id, user_id[:user_id], rep_pace, date, rep_amount])
   end
